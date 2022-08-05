@@ -1,0 +1,3246 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    USIZE
+    VEC
+    VECN
+
+Grammar
+
+Rule 0     S' -> inicio
+Rule 1     inicio -> instrucciones
+Rule 2     instrucciones -> instrucciones instruccion
+Rule 3     instrucciones -> instruccion
+Rule 4     instruccion -> declaracion PYC
+Rule 5     instruccion -> asignacion PYC
+Rule 6     instruccion -> funcion
+Rule 7     declaracion -> LET MUT ID DOSP tipo IGUAL expresion
+Rule 8     declaracion -> LET MUT ID IGUAL expresion
+Rule 9     declaracion -> LET ID DOSP tipo IGUAL expresion
+Rule 10    declaracion -> LET ID IGUAL expresion
+Rule 11    asignacion -> ID IGUAL expresion
+Rule 12    asignacion -> ID dimensiones_arreglo IGUAL expresion
+Rule 13    tipo -> I64
+Rule 14    tipo -> F64
+Rule 15    tipo -> BOOL
+Rule 16    tipo -> CHAR
+Rule 17    tipo -> STRING
+Rule 18    tipo -> STR
+Rule 19    funcion -> FN ID PARA lista_parametros PARC LLAVEA instrucciones LLAVEC
+Rule 20    funcion -> FN ID PARA lista_parametros PARC MENOS MAYORQUE tipo LLAVEA instrucciones LLAVEC
+Rule 21    lista_parametros -> lista_parametros COMA parametro
+Rule 22    lista_parametros -> parametro
+Rule 23    parametro -> ID
+Rule 24    dimensiones_arreglo -> CORA expresion CORC dimensiones_arreglo
+Rule 25    dimensiones_arreglo -> CORA expresion CORC
+Rule 26    expresion -> I64 DOSP DOSP POW PARA expresion COMA expresion PARC
+Rule 27    expresion -> F64 DOSP DOSP POW PARA expresion COMA expresion PARC
+Rule 28    expresion -> expresion MAS expresion
+Rule 29    expresion -> expresion MENOS expresion
+Rule 30    expresion -> expresion POR expresion
+Rule 31    expresion -> expresion DIV expresion
+Rule 32    expresion -> expresion MOD expresion
+Rule 33    expresion -> expresion IGUALIGUAL expresion
+Rule 34    expresion -> expresion DIFERENTE expresion
+Rule 35    expresion -> expresion MENORIGUAL expresion
+Rule 36    expresion -> expresion MENORQUE expresion
+Rule 37    expresion -> expresion MAYORIGUAL expresion
+Rule 38    expresion -> expresion MAYORQUE expresion
+Rule 39    expresion -> NOT expresion
+Rule 40    expresion -> MENOS expresion
+Rule 41    expresion -> expresion AND expresion
+Rule 42    expresion -> expresion OR expresion
+Rule 43    expresion -> PARA expresion AS tipo PARC
+Rule 44    expresion -> PARA expresion PARC
+Rule 45    expresion -> ID CORA expresion CORC
+Rule 46    expresion -> ENTERO
+Rule 47    expresion -> DECIMAL
+Rule 48    expresion -> CADENA
+
+Terminals, with rules where they appear
+
+AND                  : 41
+AS                   : 43
+BOOL                 : 15
+CADENA               : 48
+CHAR                 : 16
+COMA                 : 21 26 27
+CORA                 : 24 25 45
+CORC                 : 24 25 45
+DECIMAL              : 47
+DIFERENTE            : 34
+DIV                  : 31
+DOSP                 : 7 9 26 26 27 27
+ENTERO               : 46
+F64                  : 14 27
+FN                   : 19 20
+I64                  : 13 26
+ID                   : 7 8 9 10 11 12 19 20 23 45
+IGUAL                : 7 8 9 10 11 12
+IGUALIGUAL           : 33
+LET                  : 7 8 9 10
+LLAVEA               : 19 20
+LLAVEC               : 19 20
+MAS                  : 28
+MAYORIGUAL           : 37
+MAYORQUE             : 20 38
+MENORIGUAL           : 35
+MENORQUE             : 36
+MENOS                : 20 29 40
+MOD                  : 32
+MUT                  : 7 8
+NOT                  : 39
+OR                   : 42
+PARA                 : 19 20 26 27 43 44
+PARC                 : 19 20 26 27 43 44
+POR                  : 30
+POW                  : 26 27
+PYC                  : 4 5
+STR                  : 18
+STRING               : 17
+USIZE                : 
+VEC                  : 
+VECN                 : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+asignacion           : 5
+declaracion          : 4
+dimensiones_arreglo  : 12 24
+expresion            : 7 8 9 10 11 12 24 25 26 26 27 27 28 28 29 29 30 30 31 31 32 32 33 33 34 34 35 35 36 36 37 37 38 38 39 40 41 41 42 42 43 44 45
+funcion              : 6
+inicio               : 0
+instruccion          : 2 3
+instrucciones        : 1 2 19 20
+lista_parametros     : 19 20 21
+parametro            : 21 22
+tipo                 : 7 9 20 43
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . inicio
+    (1) inicio -> . instrucciones
+    (2) instrucciones -> . instrucciones instruccion
+    (3) instrucciones -> . instruccion
+    (4) instruccion -> . declaracion PYC
+    (5) instruccion -> . asignacion PYC
+    (6) instruccion -> . funcion
+    (7) declaracion -> . LET MUT ID DOSP tipo IGUAL expresion
+    (8) declaracion -> . LET MUT ID IGUAL expresion
+    (9) declaracion -> . LET ID DOSP tipo IGUAL expresion
+    (10) declaracion -> . LET ID IGUAL expresion
+    (11) asignacion -> . ID IGUAL expresion
+    (12) asignacion -> . ID dimensiones_arreglo IGUAL expresion
+    (19) funcion -> . FN ID PARA lista_parametros PARC LLAVEA instrucciones LLAVEC
+    (20) funcion -> . FN ID PARA lista_parametros PARC MENOS MAYORQUE tipo LLAVEA instrucciones LLAVEC
+
+    LET             shift and go to state 7
+    ID              shift and go to state 8
+    FN              shift and go to state 9
+
+    inicio                         shift and go to state 1
+    instrucciones                  shift and go to state 2
+    instruccion                    shift and go to state 3
+    declaracion                    shift and go to state 4
+    asignacion                     shift and go to state 5
+    funcion                        shift and go to state 6
+
+state 1
+
+    (0) S' -> inicio .
+
+
+
+state 2
+
+    (1) inicio -> instrucciones .
+    (2) instrucciones -> instrucciones . instruccion
+    (4) instruccion -> . declaracion PYC
+    (5) instruccion -> . asignacion PYC
+    (6) instruccion -> . funcion
+    (7) declaracion -> . LET MUT ID DOSP tipo IGUAL expresion
+    (8) declaracion -> . LET MUT ID IGUAL expresion
+    (9) declaracion -> . LET ID DOSP tipo IGUAL expresion
+    (10) declaracion -> . LET ID IGUAL expresion
+    (11) asignacion -> . ID IGUAL expresion
+    (12) asignacion -> . ID dimensiones_arreglo IGUAL expresion
+    (19) funcion -> . FN ID PARA lista_parametros PARC LLAVEA instrucciones LLAVEC
+    (20) funcion -> . FN ID PARA lista_parametros PARC MENOS MAYORQUE tipo LLAVEA instrucciones LLAVEC
+
+    $end            reduce using rule 1 (inicio -> instrucciones .)
+    LET             shift and go to state 7
+    ID              shift and go to state 8
+    FN              shift and go to state 9
+
+    instruccion                    shift and go to state 10
+    declaracion                    shift and go to state 4
+    asignacion                     shift and go to state 5
+    funcion                        shift and go to state 6
+
+state 3
+
+    (3) instrucciones -> instruccion .
+
+    LET             reduce using rule 3 (instrucciones -> instruccion .)
+    ID              reduce using rule 3 (instrucciones -> instruccion .)
+    FN              reduce using rule 3 (instrucciones -> instruccion .)
+    $end            reduce using rule 3 (instrucciones -> instruccion .)
+    LLAVEC          reduce using rule 3 (instrucciones -> instruccion .)
+
+
+state 4
+
+    (4) instruccion -> declaracion . PYC
+
+    PYC             shift and go to state 11
+
+
+state 5
+
+    (5) instruccion -> asignacion . PYC
+
+    PYC             shift and go to state 12
+
+
+state 6
+
+    (6) instruccion -> funcion .
+
+    LET             reduce using rule 6 (instruccion -> funcion .)
+    ID              reduce using rule 6 (instruccion -> funcion .)
+    FN              reduce using rule 6 (instruccion -> funcion .)
+    $end            reduce using rule 6 (instruccion -> funcion .)
+    LLAVEC          reduce using rule 6 (instruccion -> funcion .)
+
+
+state 7
+
+    (7) declaracion -> LET . MUT ID DOSP tipo IGUAL expresion
+    (8) declaracion -> LET . MUT ID IGUAL expresion
+    (9) declaracion -> LET . ID DOSP tipo IGUAL expresion
+    (10) declaracion -> LET . ID IGUAL expresion
+
+    MUT             shift and go to state 13
+    ID              shift and go to state 14
+
+
+state 8
+
+    (11) asignacion -> ID . IGUAL expresion
+    (12) asignacion -> ID . dimensiones_arreglo IGUAL expresion
+    (24) dimensiones_arreglo -> . CORA expresion CORC dimensiones_arreglo
+    (25) dimensiones_arreglo -> . CORA expresion CORC
+
+    IGUAL           shift and go to state 15
+    CORA            shift and go to state 17
+
+    dimensiones_arreglo            shift and go to state 16
+
+state 9
+
+    (19) funcion -> FN . ID PARA lista_parametros PARC LLAVEA instrucciones LLAVEC
+    (20) funcion -> FN . ID PARA lista_parametros PARC MENOS MAYORQUE tipo LLAVEA instrucciones LLAVEC
+
+    ID              shift and go to state 18
+
+
+state 10
+
+    (2) instrucciones -> instrucciones instruccion .
+
+    LET             reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+    ID              reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+    FN              reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+    $end            reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+    LLAVEC          reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+
+
+state 11
+
+    (4) instruccion -> declaracion PYC .
+
+    LET             reduce using rule 4 (instruccion -> declaracion PYC .)
+    ID              reduce using rule 4 (instruccion -> declaracion PYC .)
+    FN              reduce using rule 4 (instruccion -> declaracion PYC .)
+    $end            reduce using rule 4 (instruccion -> declaracion PYC .)
+    LLAVEC          reduce using rule 4 (instruccion -> declaracion PYC .)
+
+
+state 12
+
+    (5) instruccion -> asignacion PYC .
+
+    LET             reduce using rule 5 (instruccion -> asignacion PYC .)
+    ID              reduce using rule 5 (instruccion -> asignacion PYC .)
+    FN              reduce using rule 5 (instruccion -> asignacion PYC .)
+    $end            reduce using rule 5 (instruccion -> asignacion PYC .)
+    LLAVEC          reduce using rule 5 (instruccion -> asignacion PYC .)
+
+
+state 13
+
+    (7) declaracion -> LET MUT . ID DOSP tipo IGUAL expresion
+    (8) declaracion -> LET MUT . ID IGUAL expresion
+
+    ID              shift and go to state 19
+
+
+state 14
+
+    (9) declaracion -> LET ID . DOSP tipo IGUAL expresion
+    (10) declaracion -> LET ID . IGUAL expresion
+
+    DOSP            shift and go to state 20
+    IGUAL           shift and go to state 21
+
+
+state 15
+
+    (11) asignacion -> ID IGUAL . expresion
+    (26) expresion -> . I64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (27) expresion -> . F64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (28) expresion -> . expresion MAS expresion
+    (29) expresion -> . expresion MENOS expresion
+    (30) expresion -> . expresion POR expresion
+    (31) expresion -> . expresion DIV expresion
+    (32) expresion -> . expresion MOD expresion
+    (33) expresion -> . expresion IGUALIGUAL expresion
+    (34) expresion -> . expresion DIFERENTE expresion
+    (35) expresion -> . expresion MENORIGUAL expresion
+    (36) expresion -> . expresion MENORQUE expresion
+    (37) expresion -> . expresion MAYORIGUAL expresion
+    (38) expresion -> . expresion MAYORQUE expresion
+    (39) expresion -> . NOT expresion
+    (40) expresion -> . MENOS expresion
+    (41) expresion -> . expresion AND expresion
+    (42) expresion -> . expresion OR expresion
+    (43) expresion -> . PARA expresion AS tipo PARC
+    (44) expresion -> . PARA expresion PARC
+    (45) expresion -> . ID CORA expresion CORC
+    (46) expresion -> . ENTERO
+    (47) expresion -> . DECIMAL
+    (48) expresion -> . CADENA
+
+    I64             shift and go to state 24
+    F64             shift and go to state 26
+    NOT             shift and go to state 28
+    MENOS           shift and go to state 27
+    PARA            shift and go to state 25
+    ID              shift and go to state 22
+    ENTERO          shift and go to state 29
+    DECIMAL         shift and go to state 30
+    CADENA          shift and go to state 31
+
+    expresion                      shift and go to state 23
+
+state 16
+
+    (12) asignacion -> ID dimensiones_arreglo . IGUAL expresion
+
+    IGUAL           shift and go to state 32
+
+
+state 17
+
+    (24) dimensiones_arreglo -> CORA . expresion CORC dimensiones_arreglo
+    (25) dimensiones_arreglo -> CORA . expresion CORC
+    (26) expresion -> . I64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (27) expresion -> . F64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (28) expresion -> . expresion MAS expresion
+    (29) expresion -> . expresion MENOS expresion
+    (30) expresion -> . expresion POR expresion
+    (31) expresion -> . expresion DIV expresion
+    (32) expresion -> . expresion MOD expresion
+    (33) expresion -> . expresion IGUALIGUAL expresion
+    (34) expresion -> . expresion DIFERENTE expresion
+    (35) expresion -> . expresion MENORIGUAL expresion
+    (36) expresion -> . expresion MENORQUE expresion
+    (37) expresion -> . expresion MAYORIGUAL expresion
+    (38) expresion -> . expresion MAYORQUE expresion
+    (39) expresion -> . NOT expresion
+    (40) expresion -> . MENOS expresion
+    (41) expresion -> . expresion AND expresion
+    (42) expresion -> . expresion OR expresion
+    (43) expresion -> . PARA expresion AS tipo PARC
+    (44) expresion -> . PARA expresion PARC
+    (45) expresion -> . ID CORA expresion CORC
+    (46) expresion -> . ENTERO
+    (47) expresion -> . DECIMAL
+    (48) expresion -> . CADENA
+
+    I64             shift and go to state 24
+    F64             shift and go to state 26
+    NOT             shift and go to state 28
+    MENOS           shift and go to state 27
+    PARA            shift and go to state 25
+    ID              shift and go to state 22
+    ENTERO          shift and go to state 29
+    DECIMAL         shift and go to state 30
+    CADENA          shift and go to state 31
+
+    expresion                      shift and go to state 33
+
+state 18
+
+    (19) funcion -> FN ID . PARA lista_parametros PARC LLAVEA instrucciones LLAVEC
+    (20) funcion -> FN ID . PARA lista_parametros PARC MENOS MAYORQUE tipo LLAVEA instrucciones LLAVEC
+
+    PARA            shift and go to state 34
+
+
+state 19
+
+    (7) declaracion -> LET MUT ID . DOSP tipo IGUAL expresion
+    (8) declaracion -> LET MUT ID . IGUAL expresion
+
+    DOSP            shift and go to state 35
+    IGUAL           shift and go to state 36
+
+
+state 20
+
+    (9) declaracion -> LET ID DOSP . tipo IGUAL expresion
+    (13) tipo -> . I64
+    (14) tipo -> . F64
+    (15) tipo -> . BOOL
+    (16) tipo -> . CHAR
+    (17) tipo -> . STRING
+    (18) tipo -> . STR
+
+    I64             shift and go to state 38
+    F64             shift and go to state 39
+    BOOL            shift and go to state 40
+    CHAR            shift and go to state 41
+    STRING          shift and go to state 42
+    STR             shift and go to state 43
+
+    tipo                           shift and go to state 37
+
+state 21
+
+    (10) declaracion -> LET ID IGUAL . expresion
+    (26) expresion -> . I64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (27) expresion -> . F64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (28) expresion -> . expresion MAS expresion
+    (29) expresion -> . expresion MENOS expresion
+    (30) expresion -> . expresion POR expresion
+    (31) expresion -> . expresion DIV expresion
+    (32) expresion -> . expresion MOD expresion
+    (33) expresion -> . expresion IGUALIGUAL expresion
+    (34) expresion -> . expresion DIFERENTE expresion
+    (35) expresion -> . expresion MENORIGUAL expresion
+    (36) expresion -> . expresion MENORQUE expresion
+    (37) expresion -> . expresion MAYORIGUAL expresion
+    (38) expresion -> . expresion MAYORQUE expresion
+    (39) expresion -> . NOT expresion
+    (40) expresion -> . MENOS expresion
+    (41) expresion -> . expresion AND expresion
+    (42) expresion -> . expresion OR expresion
+    (43) expresion -> . PARA expresion AS tipo PARC
+    (44) expresion -> . PARA expresion PARC
+    (45) expresion -> . ID CORA expresion CORC
+    (46) expresion -> . ENTERO
+    (47) expresion -> . DECIMAL
+    (48) expresion -> . CADENA
+
+    I64             shift and go to state 24
+    F64             shift and go to state 26
+    NOT             shift and go to state 28
+    MENOS           shift and go to state 27
+    PARA            shift and go to state 25
+    ID              shift and go to state 22
+    ENTERO          shift and go to state 29
+    DECIMAL         shift and go to state 30
+    CADENA          shift and go to state 31
+
+    expresion                      shift and go to state 44
+
+state 22
+
+    (45) expresion -> ID . CORA expresion CORC
+
+    CORA            shift and go to state 45
+
+
+state 23
+
+    (11) asignacion -> ID IGUAL expresion .
+    (28) expresion -> expresion . MAS expresion
+    (29) expresion -> expresion . MENOS expresion
+    (30) expresion -> expresion . POR expresion
+    (31) expresion -> expresion . DIV expresion
+    (32) expresion -> expresion . MOD expresion
+    (33) expresion -> expresion . IGUALIGUAL expresion
+    (34) expresion -> expresion . DIFERENTE expresion
+    (35) expresion -> expresion . MENORIGUAL expresion
+    (36) expresion -> expresion . MENORQUE expresion
+    (37) expresion -> expresion . MAYORIGUAL expresion
+    (38) expresion -> expresion . MAYORQUE expresion
+    (41) expresion -> expresion . AND expresion
+    (42) expresion -> expresion . OR expresion
+
+    PYC             reduce using rule 11 (asignacion -> ID IGUAL expresion .)
+    MAS             shift and go to state 46
+    MENOS           shift and go to state 47
+    POR             shift and go to state 48
+    DIV             shift and go to state 49
+    MOD             shift and go to state 50
+    IGUALIGUAL      shift and go to state 51
+    DIFERENTE       shift and go to state 52
+    MENORIGUAL      shift and go to state 53
+    MENORQUE        shift and go to state 54
+    MAYORIGUAL      shift and go to state 55
+    MAYORQUE        shift and go to state 56
+    AND             shift and go to state 57
+    OR              shift and go to state 58
+
+
+state 24
+
+    (26) expresion -> I64 . DOSP DOSP POW PARA expresion COMA expresion PARC
+
+    DOSP            shift and go to state 59
+
+
+state 25
+
+    (43) expresion -> PARA . expresion AS tipo PARC
+    (44) expresion -> PARA . expresion PARC
+    (26) expresion -> . I64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (27) expresion -> . F64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (28) expresion -> . expresion MAS expresion
+    (29) expresion -> . expresion MENOS expresion
+    (30) expresion -> . expresion POR expresion
+    (31) expresion -> . expresion DIV expresion
+    (32) expresion -> . expresion MOD expresion
+    (33) expresion -> . expresion IGUALIGUAL expresion
+    (34) expresion -> . expresion DIFERENTE expresion
+    (35) expresion -> . expresion MENORIGUAL expresion
+    (36) expresion -> . expresion MENORQUE expresion
+    (37) expresion -> . expresion MAYORIGUAL expresion
+    (38) expresion -> . expresion MAYORQUE expresion
+    (39) expresion -> . NOT expresion
+    (40) expresion -> . MENOS expresion
+    (41) expresion -> . expresion AND expresion
+    (42) expresion -> . expresion OR expresion
+    (43) expresion -> . PARA expresion AS tipo PARC
+    (44) expresion -> . PARA expresion PARC
+    (45) expresion -> . ID CORA expresion CORC
+    (46) expresion -> . ENTERO
+    (47) expresion -> . DECIMAL
+    (48) expresion -> . CADENA
+
+    I64             shift and go to state 24
+    F64             shift and go to state 26
+    NOT             shift and go to state 28
+    MENOS           shift and go to state 27
+    PARA            shift and go to state 25
+    ID              shift and go to state 22
+    ENTERO          shift and go to state 29
+    DECIMAL         shift and go to state 30
+    CADENA          shift and go to state 31
+
+    expresion                      shift and go to state 60
+
+state 26
+
+    (27) expresion -> F64 . DOSP DOSP POW PARA expresion COMA expresion PARC
+
+    DOSP            shift and go to state 61
+
+
+state 27
+
+    (40) expresion -> MENOS . expresion
+    (26) expresion -> . I64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (27) expresion -> . F64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (28) expresion -> . expresion MAS expresion
+    (29) expresion -> . expresion MENOS expresion
+    (30) expresion -> . expresion POR expresion
+    (31) expresion -> . expresion DIV expresion
+    (32) expresion -> . expresion MOD expresion
+    (33) expresion -> . expresion IGUALIGUAL expresion
+    (34) expresion -> . expresion DIFERENTE expresion
+    (35) expresion -> . expresion MENORIGUAL expresion
+    (36) expresion -> . expresion MENORQUE expresion
+    (37) expresion -> . expresion MAYORIGUAL expresion
+    (38) expresion -> . expresion MAYORQUE expresion
+    (39) expresion -> . NOT expresion
+    (40) expresion -> . MENOS expresion
+    (41) expresion -> . expresion AND expresion
+    (42) expresion -> . expresion OR expresion
+    (43) expresion -> . PARA expresion AS tipo PARC
+    (44) expresion -> . PARA expresion PARC
+    (45) expresion -> . ID CORA expresion CORC
+    (46) expresion -> . ENTERO
+    (47) expresion -> . DECIMAL
+    (48) expresion -> . CADENA
+
+    I64             shift and go to state 24
+    F64             shift and go to state 26
+    NOT             shift and go to state 28
+    MENOS           shift and go to state 27
+    PARA            shift and go to state 25
+    ID              shift and go to state 22
+    ENTERO          shift and go to state 29
+    DECIMAL         shift and go to state 30
+    CADENA          shift and go to state 31
+
+    expresion                      shift and go to state 62
+
+state 28
+
+    (39) expresion -> NOT . expresion
+    (26) expresion -> . I64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (27) expresion -> . F64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (28) expresion -> . expresion MAS expresion
+    (29) expresion -> . expresion MENOS expresion
+    (30) expresion -> . expresion POR expresion
+    (31) expresion -> . expresion DIV expresion
+    (32) expresion -> . expresion MOD expresion
+    (33) expresion -> . expresion IGUALIGUAL expresion
+    (34) expresion -> . expresion DIFERENTE expresion
+    (35) expresion -> . expresion MENORIGUAL expresion
+    (36) expresion -> . expresion MENORQUE expresion
+    (37) expresion -> . expresion MAYORIGUAL expresion
+    (38) expresion -> . expresion MAYORQUE expresion
+    (39) expresion -> . NOT expresion
+    (40) expresion -> . MENOS expresion
+    (41) expresion -> . expresion AND expresion
+    (42) expresion -> . expresion OR expresion
+    (43) expresion -> . PARA expresion AS tipo PARC
+    (44) expresion -> . PARA expresion PARC
+    (45) expresion -> . ID CORA expresion CORC
+    (46) expresion -> . ENTERO
+    (47) expresion -> . DECIMAL
+    (48) expresion -> . CADENA
+
+    I64             shift and go to state 24
+    F64             shift and go to state 26
+    NOT             shift and go to state 28
+    MENOS           shift and go to state 27
+    PARA            shift and go to state 25
+    ID              shift and go to state 22
+    ENTERO          shift and go to state 29
+    DECIMAL         shift and go to state 30
+    CADENA          shift and go to state 31
+
+    expresion                      shift and go to state 63
+
+state 29
+
+    (46) expresion -> ENTERO .
+
+    MAS             reduce using rule 46 (expresion -> ENTERO .)
+    MENOS           reduce using rule 46 (expresion -> ENTERO .)
+    POR             reduce using rule 46 (expresion -> ENTERO .)
+    DIV             reduce using rule 46 (expresion -> ENTERO .)
+    MOD             reduce using rule 46 (expresion -> ENTERO .)
+    IGUALIGUAL      reduce using rule 46 (expresion -> ENTERO .)
+    DIFERENTE       reduce using rule 46 (expresion -> ENTERO .)
+    MENORIGUAL      reduce using rule 46 (expresion -> ENTERO .)
+    MENORQUE        reduce using rule 46 (expresion -> ENTERO .)
+    MAYORIGUAL      reduce using rule 46 (expresion -> ENTERO .)
+    MAYORQUE        reduce using rule 46 (expresion -> ENTERO .)
+    AND             reduce using rule 46 (expresion -> ENTERO .)
+    OR              reduce using rule 46 (expresion -> ENTERO .)
+    PYC             reduce using rule 46 (expresion -> ENTERO .)
+    CORC            reduce using rule 46 (expresion -> ENTERO .)
+    AS              reduce using rule 46 (expresion -> ENTERO .)
+    PARC            reduce using rule 46 (expresion -> ENTERO .)
+    COMA            reduce using rule 46 (expresion -> ENTERO .)
+
+
+state 30
+
+    (47) expresion -> DECIMAL .
+
+    MAS             reduce using rule 47 (expresion -> DECIMAL .)
+    MENOS           reduce using rule 47 (expresion -> DECIMAL .)
+    POR             reduce using rule 47 (expresion -> DECIMAL .)
+    DIV             reduce using rule 47 (expresion -> DECIMAL .)
+    MOD             reduce using rule 47 (expresion -> DECIMAL .)
+    IGUALIGUAL      reduce using rule 47 (expresion -> DECIMAL .)
+    DIFERENTE       reduce using rule 47 (expresion -> DECIMAL .)
+    MENORIGUAL      reduce using rule 47 (expresion -> DECIMAL .)
+    MENORQUE        reduce using rule 47 (expresion -> DECIMAL .)
+    MAYORIGUAL      reduce using rule 47 (expresion -> DECIMAL .)
+    MAYORQUE        reduce using rule 47 (expresion -> DECIMAL .)
+    AND             reduce using rule 47 (expresion -> DECIMAL .)
+    OR              reduce using rule 47 (expresion -> DECIMAL .)
+    PYC             reduce using rule 47 (expresion -> DECIMAL .)
+    CORC            reduce using rule 47 (expresion -> DECIMAL .)
+    AS              reduce using rule 47 (expresion -> DECIMAL .)
+    PARC            reduce using rule 47 (expresion -> DECIMAL .)
+    COMA            reduce using rule 47 (expresion -> DECIMAL .)
+
+
+state 31
+
+    (48) expresion -> CADENA .
+
+    MAS             reduce using rule 48 (expresion -> CADENA .)
+    MENOS           reduce using rule 48 (expresion -> CADENA .)
+    POR             reduce using rule 48 (expresion -> CADENA .)
+    DIV             reduce using rule 48 (expresion -> CADENA .)
+    MOD             reduce using rule 48 (expresion -> CADENA .)
+    IGUALIGUAL      reduce using rule 48 (expresion -> CADENA .)
+    DIFERENTE       reduce using rule 48 (expresion -> CADENA .)
+    MENORIGUAL      reduce using rule 48 (expresion -> CADENA .)
+    MENORQUE        reduce using rule 48 (expresion -> CADENA .)
+    MAYORIGUAL      reduce using rule 48 (expresion -> CADENA .)
+    MAYORQUE        reduce using rule 48 (expresion -> CADENA .)
+    AND             reduce using rule 48 (expresion -> CADENA .)
+    OR              reduce using rule 48 (expresion -> CADENA .)
+    PYC             reduce using rule 48 (expresion -> CADENA .)
+    CORC            reduce using rule 48 (expresion -> CADENA .)
+    AS              reduce using rule 48 (expresion -> CADENA .)
+    PARC            reduce using rule 48 (expresion -> CADENA .)
+    COMA            reduce using rule 48 (expresion -> CADENA .)
+
+
+state 32
+
+    (12) asignacion -> ID dimensiones_arreglo IGUAL . expresion
+    (26) expresion -> . I64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (27) expresion -> . F64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (28) expresion -> . expresion MAS expresion
+    (29) expresion -> . expresion MENOS expresion
+    (30) expresion -> . expresion POR expresion
+    (31) expresion -> . expresion DIV expresion
+    (32) expresion -> . expresion MOD expresion
+    (33) expresion -> . expresion IGUALIGUAL expresion
+    (34) expresion -> . expresion DIFERENTE expresion
+    (35) expresion -> . expresion MENORIGUAL expresion
+    (36) expresion -> . expresion MENORQUE expresion
+    (37) expresion -> . expresion MAYORIGUAL expresion
+    (38) expresion -> . expresion MAYORQUE expresion
+    (39) expresion -> . NOT expresion
+    (40) expresion -> . MENOS expresion
+    (41) expresion -> . expresion AND expresion
+    (42) expresion -> . expresion OR expresion
+    (43) expresion -> . PARA expresion AS tipo PARC
+    (44) expresion -> . PARA expresion PARC
+    (45) expresion -> . ID CORA expresion CORC
+    (46) expresion -> . ENTERO
+    (47) expresion -> . DECIMAL
+    (48) expresion -> . CADENA
+
+    I64             shift and go to state 24
+    F64             shift and go to state 26
+    NOT             shift and go to state 28
+    MENOS           shift and go to state 27
+    PARA            shift and go to state 25
+    ID              shift and go to state 22
+    ENTERO          shift and go to state 29
+    DECIMAL         shift and go to state 30
+    CADENA          shift and go to state 31
+
+    expresion                      shift and go to state 64
+
+state 33
+
+    (24) dimensiones_arreglo -> CORA expresion . CORC dimensiones_arreglo
+    (25) dimensiones_arreglo -> CORA expresion . CORC
+    (28) expresion -> expresion . MAS expresion
+    (29) expresion -> expresion . MENOS expresion
+    (30) expresion -> expresion . POR expresion
+    (31) expresion -> expresion . DIV expresion
+    (32) expresion -> expresion . MOD expresion
+    (33) expresion -> expresion . IGUALIGUAL expresion
+    (34) expresion -> expresion . DIFERENTE expresion
+    (35) expresion -> expresion . MENORIGUAL expresion
+    (36) expresion -> expresion . MENORQUE expresion
+    (37) expresion -> expresion . MAYORIGUAL expresion
+    (38) expresion -> expresion . MAYORQUE expresion
+    (41) expresion -> expresion . AND expresion
+    (42) expresion -> expresion . OR expresion
+
+    CORC            shift and go to state 65
+    MAS             shift and go to state 46
+    MENOS           shift and go to state 47
+    POR             shift and go to state 48
+    DIV             shift and go to state 49
+    MOD             shift and go to state 50
+    IGUALIGUAL      shift and go to state 51
+    DIFERENTE       shift and go to state 52
+    MENORIGUAL      shift and go to state 53
+    MENORQUE        shift and go to state 54
+    MAYORIGUAL      shift and go to state 55
+    MAYORQUE        shift and go to state 56
+    AND             shift and go to state 57
+    OR              shift and go to state 58
+
+
+state 34
+
+    (19) funcion -> FN ID PARA . lista_parametros PARC LLAVEA instrucciones LLAVEC
+    (20) funcion -> FN ID PARA . lista_parametros PARC MENOS MAYORQUE tipo LLAVEA instrucciones LLAVEC
+    (21) lista_parametros -> . lista_parametros COMA parametro
+    (22) lista_parametros -> . parametro
+    (23) parametro -> . ID
+
+    ID              shift and go to state 66
+
+    lista_parametros               shift and go to state 67
+    parametro                      shift and go to state 68
+
+state 35
+
+    (7) declaracion -> LET MUT ID DOSP . tipo IGUAL expresion
+    (13) tipo -> . I64
+    (14) tipo -> . F64
+    (15) tipo -> . BOOL
+    (16) tipo -> . CHAR
+    (17) tipo -> . STRING
+    (18) tipo -> . STR
+
+    I64             shift and go to state 38
+    F64             shift and go to state 39
+    BOOL            shift and go to state 40
+    CHAR            shift and go to state 41
+    STRING          shift and go to state 42
+    STR             shift and go to state 43
+
+    tipo                           shift and go to state 69
+
+state 36
+
+    (8) declaracion -> LET MUT ID IGUAL . expresion
+    (26) expresion -> . I64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (27) expresion -> . F64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (28) expresion -> . expresion MAS expresion
+    (29) expresion -> . expresion MENOS expresion
+    (30) expresion -> . expresion POR expresion
+    (31) expresion -> . expresion DIV expresion
+    (32) expresion -> . expresion MOD expresion
+    (33) expresion -> . expresion IGUALIGUAL expresion
+    (34) expresion -> . expresion DIFERENTE expresion
+    (35) expresion -> . expresion MENORIGUAL expresion
+    (36) expresion -> . expresion MENORQUE expresion
+    (37) expresion -> . expresion MAYORIGUAL expresion
+    (38) expresion -> . expresion MAYORQUE expresion
+    (39) expresion -> . NOT expresion
+    (40) expresion -> . MENOS expresion
+    (41) expresion -> . expresion AND expresion
+    (42) expresion -> . expresion OR expresion
+    (43) expresion -> . PARA expresion AS tipo PARC
+    (44) expresion -> . PARA expresion PARC
+    (45) expresion -> . ID CORA expresion CORC
+    (46) expresion -> . ENTERO
+    (47) expresion -> . DECIMAL
+    (48) expresion -> . CADENA
+
+    I64             shift and go to state 24
+    F64             shift and go to state 26
+    NOT             shift and go to state 28
+    MENOS           shift and go to state 27
+    PARA            shift and go to state 25
+    ID              shift and go to state 22
+    ENTERO          shift and go to state 29
+    DECIMAL         shift and go to state 30
+    CADENA          shift and go to state 31
+
+    expresion                      shift and go to state 70
+
+state 37
+
+    (9) declaracion -> LET ID DOSP tipo . IGUAL expresion
+
+    IGUAL           shift and go to state 71
+
+
+state 38
+
+    (13) tipo -> I64 .
+
+    IGUAL           reduce using rule 13 (tipo -> I64 .)
+    PARC            reduce using rule 13 (tipo -> I64 .)
+    LLAVEA          reduce using rule 13 (tipo -> I64 .)
+
+
+state 39
+
+    (14) tipo -> F64 .
+
+    IGUAL           reduce using rule 14 (tipo -> F64 .)
+    PARC            reduce using rule 14 (tipo -> F64 .)
+    LLAVEA          reduce using rule 14 (tipo -> F64 .)
+
+
+state 40
+
+    (15) tipo -> BOOL .
+
+    IGUAL           reduce using rule 15 (tipo -> BOOL .)
+    PARC            reduce using rule 15 (tipo -> BOOL .)
+    LLAVEA          reduce using rule 15 (tipo -> BOOL .)
+
+
+state 41
+
+    (16) tipo -> CHAR .
+
+    IGUAL           reduce using rule 16 (tipo -> CHAR .)
+    PARC            reduce using rule 16 (tipo -> CHAR .)
+    LLAVEA          reduce using rule 16 (tipo -> CHAR .)
+
+
+state 42
+
+    (17) tipo -> STRING .
+
+    IGUAL           reduce using rule 17 (tipo -> STRING .)
+    PARC            reduce using rule 17 (tipo -> STRING .)
+    LLAVEA          reduce using rule 17 (tipo -> STRING .)
+
+
+state 43
+
+    (18) tipo -> STR .
+
+    IGUAL           reduce using rule 18 (tipo -> STR .)
+    PARC            reduce using rule 18 (tipo -> STR .)
+    LLAVEA          reduce using rule 18 (tipo -> STR .)
+
+
+state 44
+
+    (10) declaracion -> LET ID IGUAL expresion .
+    (28) expresion -> expresion . MAS expresion
+    (29) expresion -> expresion . MENOS expresion
+    (30) expresion -> expresion . POR expresion
+    (31) expresion -> expresion . DIV expresion
+    (32) expresion -> expresion . MOD expresion
+    (33) expresion -> expresion . IGUALIGUAL expresion
+    (34) expresion -> expresion . DIFERENTE expresion
+    (35) expresion -> expresion . MENORIGUAL expresion
+    (36) expresion -> expresion . MENORQUE expresion
+    (37) expresion -> expresion . MAYORIGUAL expresion
+    (38) expresion -> expresion . MAYORQUE expresion
+    (41) expresion -> expresion . AND expresion
+    (42) expresion -> expresion . OR expresion
+
+    PYC             reduce using rule 10 (declaracion -> LET ID IGUAL expresion .)
+    MAS             shift and go to state 46
+    MENOS           shift and go to state 47
+    POR             shift and go to state 48
+    DIV             shift and go to state 49
+    MOD             shift and go to state 50
+    IGUALIGUAL      shift and go to state 51
+    DIFERENTE       shift and go to state 52
+    MENORIGUAL      shift and go to state 53
+    MENORQUE        shift and go to state 54
+    MAYORIGUAL      shift and go to state 55
+    MAYORQUE        shift and go to state 56
+    AND             shift and go to state 57
+    OR              shift and go to state 58
+
+
+state 45
+
+    (45) expresion -> ID CORA . expresion CORC
+    (26) expresion -> . I64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (27) expresion -> . F64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (28) expresion -> . expresion MAS expresion
+    (29) expresion -> . expresion MENOS expresion
+    (30) expresion -> . expresion POR expresion
+    (31) expresion -> . expresion DIV expresion
+    (32) expresion -> . expresion MOD expresion
+    (33) expresion -> . expresion IGUALIGUAL expresion
+    (34) expresion -> . expresion DIFERENTE expresion
+    (35) expresion -> . expresion MENORIGUAL expresion
+    (36) expresion -> . expresion MENORQUE expresion
+    (37) expresion -> . expresion MAYORIGUAL expresion
+    (38) expresion -> . expresion MAYORQUE expresion
+    (39) expresion -> . NOT expresion
+    (40) expresion -> . MENOS expresion
+    (41) expresion -> . expresion AND expresion
+    (42) expresion -> . expresion OR expresion
+    (43) expresion -> . PARA expresion AS tipo PARC
+    (44) expresion -> . PARA expresion PARC
+    (45) expresion -> . ID CORA expresion CORC
+    (46) expresion -> . ENTERO
+    (47) expresion -> . DECIMAL
+    (48) expresion -> . CADENA
+
+    I64             shift and go to state 24
+    F64             shift and go to state 26
+    NOT             shift and go to state 28
+    MENOS           shift and go to state 27
+    PARA            shift and go to state 25
+    ID              shift and go to state 22
+    ENTERO          shift and go to state 29
+    DECIMAL         shift and go to state 30
+    CADENA          shift and go to state 31
+
+    expresion                      shift and go to state 72
+
+state 46
+
+    (28) expresion -> expresion MAS . expresion
+    (26) expresion -> . I64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (27) expresion -> . F64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (28) expresion -> . expresion MAS expresion
+    (29) expresion -> . expresion MENOS expresion
+    (30) expresion -> . expresion POR expresion
+    (31) expresion -> . expresion DIV expresion
+    (32) expresion -> . expresion MOD expresion
+    (33) expresion -> . expresion IGUALIGUAL expresion
+    (34) expresion -> . expresion DIFERENTE expresion
+    (35) expresion -> . expresion MENORIGUAL expresion
+    (36) expresion -> . expresion MENORQUE expresion
+    (37) expresion -> . expresion MAYORIGUAL expresion
+    (38) expresion -> . expresion MAYORQUE expresion
+    (39) expresion -> . NOT expresion
+    (40) expresion -> . MENOS expresion
+    (41) expresion -> . expresion AND expresion
+    (42) expresion -> . expresion OR expresion
+    (43) expresion -> . PARA expresion AS tipo PARC
+    (44) expresion -> . PARA expresion PARC
+    (45) expresion -> . ID CORA expresion CORC
+    (46) expresion -> . ENTERO
+    (47) expresion -> . DECIMAL
+    (48) expresion -> . CADENA
+
+    I64             shift and go to state 24
+    F64             shift and go to state 26
+    NOT             shift and go to state 28
+    MENOS           shift and go to state 27
+    PARA            shift and go to state 25
+    ID              shift and go to state 22
+    ENTERO          shift and go to state 29
+    DECIMAL         shift and go to state 30
+    CADENA          shift and go to state 31
+
+    expresion                      shift and go to state 73
+
+state 47
+
+    (29) expresion -> expresion MENOS . expresion
+    (26) expresion -> . I64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (27) expresion -> . F64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (28) expresion -> . expresion MAS expresion
+    (29) expresion -> . expresion MENOS expresion
+    (30) expresion -> . expresion POR expresion
+    (31) expresion -> . expresion DIV expresion
+    (32) expresion -> . expresion MOD expresion
+    (33) expresion -> . expresion IGUALIGUAL expresion
+    (34) expresion -> . expresion DIFERENTE expresion
+    (35) expresion -> . expresion MENORIGUAL expresion
+    (36) expresion -> . expresion MENORQUE expresion
+    (37) expresion -> . expresion MAYORIGUAL expresion
+    (38) expresion -> . expresion MAYORQUE expresion
+    (39) expresion -> . NOT expresion
+    (40) expresion -> . MENOS expresion
+    (41) expresion -> . expresion AND expresion
+    (42) expresion -> . expresion OR expresion
+    (43) expresion -> . PARA expresion AS tipo PARC
+    (44) expresion -> . PARA expresion PARC
+    (45) expresion -> . ID CORA expresion CORC
+    (46) expresion -> . ENTERO
+    (47) expresion -> . DECIMAL
+    (48) expresion -> . CADENA
+
+    I64             shift and go to state 24
+    F64             shift and go to state 26
+    NOT             shift and go to state 28
+    MENOS           shift and go to state 27
+    PARA            shift and go to state 25
+    ID              shift and go to state 22
+    ENTERO          shift and go to state 29
+    DECIMAL         shift and go to state 30
+    CADENA          shift and go to state 31
+
+    expresion                      shift and go to state 74
+
+state 48
+
+    (30) expresion -> expresion POR . expresion
+    (26) expresion -> . I64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (27) expresion -> . F64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (28) expresion -> . expresion MAS expresion
+    (29) expresion -> . expresion MENOS expresion
+    (30) expresion -> . expresion POR expresion
+    (31) expresion -> . expresion DIV expresion
+    (32) expresion -> . expresion MOD expresion
+    (33) expresion -> . expresion IGUALIGUAL expresion
+    (34) expresion -> . expresion DIFERENTE expresion
+    (35) expresion -> . expresion MENORIGUAL expresion
+    (36) expresion -> . expresion MENORQUE expresion
+    (37) expresion -> . expresion MAYORIGUAL expresion
+    (38) expresion -> . expresion MAYORQUE expresion
+    (39) expresion -> . NOT expresion
+    (40) expresion -> . MENOS expresion
+    (41) expresion -> . expresion AND expresion
+    (42) expresion -> . expresion OR expresion
+    (43) expresion -> . PARA expresion AS tipo PARC
+    (44) expresion -> . PARA expresion PARC
+    (45) expresion -> . ID CORA expresion CORC
+    (46) expresion -> . ENTERO
+    (47) expresion -> . DECIMAL
+    (48) expresion -> . CADENA
+
+    I64             shift and go to state 24
+    F64             shift and go to state 26
+    NOT             shift and go to state 28
+    MENOS           shift and go to state 27
+    PARA            shift and go to state 25
+    ID              shift and go to state 22
+    ENTERO          shift and go to state 29
+    DECIMAL         shift and go to state 30
+    CADENA          shift and go to state 31
+
+    expresion                      shift and go to state 75
+
+state 49
+
+    (31) expresion -> expresion DIV . expresion
+    (26) expresion -> . I64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (27) expresion -> . F64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (28) expresion -> . expresion MAS expresion
+    (29) expresion -> . expresion MENOS expresion
+    (30) expresion -> . expresion POR expresion
+    (31) expresion -> . expresion DIV expresion
+    (32) expresion -> . expresion MOD expresion
+    (33) expresion -> . expresion IGUALIGUAL expresion
+    (34) expresion -> . expresion DIFERENTE expresion
+    (35) expresion -> . expresion MENORIGUAL expresion
+    (36) expresion -> . expresion MENORQUE expresion
+    (37) expresion -> . expresion MAYORIGUAL expresion
+    (38) expresion -> . expresion MAYORQUE expresion
+    (39) expresion -> . NOT expresion
+    (40) expresion -> . MENOS expresion
+    (41) expresion -> . expresion AND expresion
+    (42) expresion -> . expresion OR expresion
+    (43) expresion -> . PARA expresion AS tipo PARC
+    (44) expresion -> . PARA expresion PARC
+    (45) expresion -> . ID CORA expresion CORC
+    (46) expresion -> . ENTERO
+    (47) expresion -> . DECIMAL
+    (48) expresion -> . CADENA
+
+    I64             shift and go to state 24
+    F64             shift and go to state 26
+    NOT             shift and go to state 28
+    MENOS           shift and go to state 27
+    PARA            shift and go to state 25
+    ID              shift and go to state 22
+    ENTERO          shift and go to state 29
+    DECIMAL         shift and go to state 30
+    CADENA          shift and go to state 31
+
+    expresion                      shift and go to state 76
+
+state 50
+
+    (32) expresion -> expresion MOD . expresion
+    (26) expresion -> . I64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (27) expresion -> . F64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (28) expresion -> . expresion MAS expresion
+    (29) expresion -> . expresion MENOS expresion
+    (30) expresion -> . expresion POR expresion
+    (31) expresion -> . expresion DIV expresion
+    (32) expresion -> . expresion MOD expresion
+    (33) expresion -> . expresion IGUALIGUAL expresion
+    (34) expresion -> . expresion DIFERENTE expresion
+    (35) expresion -> . expresion MENORIGUAL expresion
+    (36) expresion -> . expresion MENORQUE expresion
+    (37) expresion -> . expresion MAYORIGUAL expresion
+    (38) expresion -> . expresion MAYORQUE expresion
+    (39) expresion -> . NOT expresion
+    (40) expresion -> . MENOS expresion
+    (41) expresion -> . expresion AND expresion
+    (42) expresion -> . expresion OR expresion
+    (43) expresion -> . PARA expresion AS tipo PARC
+    (44) expresion -> . PARA expresion PARC
+    (45) expresion -> . ID CORA expresion CORC
+    (46) expresion -> . ENTERO
+    (47) expresion -> . DECIMAL
+    (48) expresion -> . CADENA
+
+    I64             shift and go to state 24
+    F64             shift and go to state 26
+    NOT             shift and go to state 28
+    MENOS           shift and go to state 27
+    PARA            shift and go to state 25
+    ID              shift and go to state 22
+    ENTERO          shift and go to state 29
+    DECIMAL         shift and go to state 30
+    CADENA          shift and go to state 31
+
+    expresion                      shift and go to state 77
+
+state 51
+
+    (33) expresion -> expresion IGUALIGUAL . expresion
+    (26) expresion -> . I64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (27) expresion -> . F64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (28) expresion -> . expresion MAS expresion
+    (29) expresion -> . expresion MENOS expresion
+    (30) expresion -> . expresion POR expresion
+    (31) expresion -> . expresion DIV expresion
+    (32) expresion -> . expresion MOD expresion
+    (33) expresion -> . expresion IGUALIGUAL expresion
+    (34) expresion -> . expresion DIFERENTE expresion
+    (35) expresion -> . expresion MENORIGUAL expresion
+    (36) expresion -> . expresion MENORQUE expresion
+    (37) expresion -> . expresion MAYORIGUAL expresion
+    (38) expresion -> . expresion MAYORQUE expresion
+    (39) expresion -> . NOT expresion
+    (40) expresion -> . MENOS expresion
+    (41) expresion -> . expresion AND expresion
+    (42) expresion -> . expresion OR expresion
+    (43) expresion -> . PARA expresion AS tipo PARC
+    (44) expresion -> . PARA expresion PARC
+    (45) expresion -> . ID CORA expresion CORC
+    (46) expresion -> . ENTERO
+    (47) expresion -> . DECIMAL
+    (48) expresion -> . CADENA
+
+    I64             shift and go to state 24
+    F64             shift and go to state 26
+    NOT             shift and go to state 28
+    MENOS           shift and go to state 27
+    PARA            shift and go to state 25
+    ID              shift and go to state 22
+    ENTERO          shift and go to state 29
+    DECIMAL         shift and go to state 30
+    CADENA          shift and go to state 31
+
+    expresion                      shift and go to state 78
+
+state 52
+
+    (34) expresion -> expresion DIFERENTE . expresion
+    (26) expresion -> . I64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (27) expresion -> . F64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (28) expresion -> . expresion MAS expresion
+    (29) expresion -> . expresion MENOS expresion
+    (30) expresion -> . expresion POR expresion
+    (31) expresion -> . expresion DIV expresion
+    (32) expresion -> . expresion MOD expresion
+    (33) expresion -> . expresion IGUALIGUAL expresion
+    (34) expresion -> . expresion DIFERENTE expresion
+    (35) expresion -> . expresion MENORIGUAL expresion
+    (36) expresion -> . expresion MENORQUE expresion
+    (37) expresion -> . expresion MAYORIGUAL expresion
+    (38) expresion -> . expresion MAYORQUE expresion
+    (39) expresion -> . NOT expresion
+    (40) expresion -> . MENOS expresion
+    (41) expresion -> . expresion AND expresion
+    (42) expresion -> . expresion OR expresion
+    (43) expresion -> . PARA expresion AS tipo PARC
+    (44) expresion -> . PARA expresion PARC
+    (45) expresion -> . ID CORA expresion CORC
+    (46) expresion -> . ENTERO
+    (47) expresion -> . DECIMAL
+    (48) expresion -> . CADENA
+
+    I64             shift and go to state 24
+    F64             shift and go to state 26
+    NOT             shift and go to state 28
+    MENOS           shift and go to state 27
+    PARA            shift and go to state 25
+    ID              shift and go to state 22
+    ENTERO          shift and go to state 29
+    DECIMAL         shift and go to state 30
+    CADENA          shift and go to state 31
+
+    expresion                      shift and go to state 79
+
+state 53
+
+    (35) expresion -> expresion MENORIGUAL . expresion
+    (26) expresion -> . I64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (27) expresion -> . F64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (28) expresion -> . expresion MAS expresion
+    (29) expresion -> . expresion MENOS expresion
+    (30) expresion -> . expresion POR expresion
+    (31) expresion -> . expresion DIV expresion
+    (32) expresion -> . expresion MOD expresion
+    (33) expresion -> . expresion IGUALIGUAL expresion
+    (34) expresion -> . expresion DIFERENTE expresion
+    (35) expresion -> . expresion MENORIGUAL expresion
+    (36) expresion -> . expresion MENORQUE expresion
+    (37) expresion -> . expresion MAYORIGUAL expresion
+    (38) expresion -> . expresion MAYORQUE expresion
+    (39) expresion -> . NOT expresion
+    (40) expresion -> . MENOS expresion
+    (41) expresion -> . expresion AND expresion
+    (42) expresion -> . expresion OR expresion
+    (43) expresion -> . PARA expresion AS tipo PARC
+    (44) expresion -> . PARA expresion PARC
+    (45) expresion -> . ID CORA expresion CORC
+    (46) expresion -> . ENTERO
+    (47) expresion -> . DECIMAL
+    (48) expresion -> . CADENA
+
+    I64             shift and go to state 24
+    F64             shift and go to state 26
+    NOT             shift and go to state 28
+    MENOS           shift and go to state 27
+    PARA            shift and go to state 25
+    ID              shift and go to state 22
+    ENTERO          shift and go to state 29
+    DECIMAL         shift and go to state 30
+    CADENA          shift and go to state 31
+
+    expresion                      shift and go to state 80
+
+state 54
+
+    (36) expresion -> expresion MENORQUE . expresion
+    (26) expresion -> . I64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (27) expresion -> . F64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (28) expresion -> . expresion MAS expresion
+    (29) expresion -> . expresion MENOS expresion
+    (30) expresion -> . expresion POR expresion
+    (31) expresion -> . expresion DIV expresion
+    (32) expresion -> . expresion MOD expresion
+    (33) expresion -> . expresion IGUALIGUAL expresion
+    (34) expresion -> . expresion DIFERENTE expresion
+    (35) expresion -> . expresion MENORIGUAL expresion
+    (36) expresion -> . expresion MENORQUE expresion
+    (37) expresion -> . expresion MAYORIGUAL expresion
+    (38) expresion -> . expresion MAYORQUE expresion
+    (39) expresion -> . NOT expresion
+    (40) expresion -> . MENOS expresion
+    (41) expresion -> . expresion AND expresion
+    (42) expresion -> . expresion OR expresion
+    (43) expresion -> . PARA expresion AS tipo PARC
+    (44) expresion -> . PARA expresion PARC
+    (45) expresion -> . ID CORA expresion CORC
+    (46) expresion -> . ENTERO
+    (47) expresion -> . DECIMAL
+    (48) expresion -> . CADENA
+
+    I64             shift and go to state 24
+    F64             shift and go to state 26
+    NOT             shift and go to state 28
+    MENOS           shift and go to state 27
+    PARA            shift and go to state 25
+    ID              shift and go to state 22
+    ENTERO          shift and go to state 29
+    DECIMAL         shift and go to state 30
+    CADENA          shift and go to state 31
+
+    expresion                      shift and go to state 81
+
+state 55
+
+    (37) expresion -> expresion MAYORIGUAL . expresion
+    (26) expresion -> . I64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (27) expresion -> . F64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (28) expresion -> . expresion MAS expresion
+    (29) expresion -> . expresion MENOS expresion
+    (30) expresion -> . expresion POR expresion
+    (31) expresion -> . expresion DIV expresion
+    (32) expresion -> . expresion MOD expresion
+    (33) expresion -> . expresion IGUALIGUAL expresion
+    (34) expresion -> . expresion DIFERENTE expresion
+    (35) expresion -> . expresion MENORIGUAL expresion
+    (36) expresion -> . expresion MENORQUE expresion
+    (37) expresion -> . expresion MAYORIGUAL expresion
+    (38) expresion -> . expresion MAYORQUE expresion
+    (39) expresion -> . NOT expresion
+    (40) expresion -> . MENOS expresion
+    (41) expresion -> . expresion AND expresion
+    (42) expresion -> . expresion OR expresion
+    (43) expresion -> . PARA expresion AS tipo PARC
+    (44) expresion -> . PARA expresion PARC
+    (45) expresion -> . ID CORA expresion CORC
+    (46) expresion -> . ENTERO
+    (47) expresion -> . DECIMAL
+    (48) expresion -> . CADENA
+
+    I64             shift and go to state 24
+    F64             shift and go to state 26
+    NOT             shift and go to state 28
+    MENOS           shift and go to state 27
+    PARA            shift and go to state 25
+    ID              shift and go to state 22
+    ENTERO          shift and go to state 29
+    DECIMAL         shift and go to state 30
+    CADENA          shift and go to state 31
+
+    expresion                      shift and go to state 82
+
+state 56
+
+    (38) expresion -> expresion MAYORQUE . expresion
+    (26) expresion -> . I64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (27) expresion -> . F64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (28) expresion -> . expresion MAS expresion
+    (29) expresion -> . expresion MENOS expresion
+    (30) expresion -> . expresion POR expresion
+    (31) expresion -> . expresion DIV expresion
+    (32) expresion -> . expresion MOD expresion
+    (33) expresion -> . expresion IGUALIGUAL expresion
+    (34) expresion -> . expresion DIFERENTE expresion
+    (35) expresion -> . expresion MENORIGUAL expresion
+    (36) expresion -> . expresion MENORQUE expresion
+    (37) expresion -> . expresion MAYORIGUAL expresion
+    (38) expresion -> . expresion MAYORQUE expresion
+    (39) expresion -> . NOT expresion
+    (40) expresion -> . MENOS expresion
+    (41) expresion -> . expresion AND expresion
+    (42) expresion -> . expresion OR expresion
+    (43) expresion -> . PARA expresion AS tipo PARC
+    (44) expresion -> . PARA expresion PARC
+    (45) expresion -> . ID CORA expresion CORC
+    (46) expresion -> . ENTERO
+    (47) expresion -> . DECIMAL
+    (48) expresion -> . CADENA
+
+    I64             shift and go to state 24
+    F64             shift and go to state 26
+    NOT             shift and go to state 28
+    MENOS           shift and go to state 27
+    PARA            shift and go to state 25
+    ID              shift and go to state 22
+    ENTERO          shift and go to state 29
+    DECIMAL         shift and go to state 30
+    CADENA          shift and go to state 31
+
+    expresion                      shift and go to state 83
+
+state 57
+
+    (41) expresion -> expresion AND . expresion
+    (26) expresion -> . I64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (27) expresion -> . F64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (28) expresion -> . expresion MAS expresion
+    (29) expresion -> . expresion MENOS expresion
+    (30) expresion -> . expresion POR expresion
+    (31) expresion -> . expresion DIV expresion
+    (32) expresion -> . expresion MOD expresion
+    (33) expresion -> . expresion IGUALIGUAL expresion
+    (34) expresion -> . expresion DIFERENTE expresion
+    (35) expresion -> . expresion MENORIGUAL expresion
+    (36) expresion -> . expresion MENORQUE expresion
+    (37) expresion -> . expresion MAYORIGUAL expresion
+    (38) expresion -> . expresion MAYORQUE expresion
+    (39) expresion -> . NOT expresion
+    (40) expresion -> . MENOS expresion
+    (41) expresion -> . expresion AND expresion
+    (42) expresion -> . expresion OR expresion
+    (43) expresion -> . PARA expresion AS tipo PARC
+    (44) expresion -> . PARA expresion PARC
+    (45) expresion -> . ID CORA expresion CORC
+    (46) expresion -> . ENTERO
+    (47) expresion -> . DECIMAL
+    (48) expresion -> . CADENA
+
+    I64             shift and go to state 24
+    F64             shift and go to state 26
+    NOT             shift and go to state 28
+    MENOS           shift and go to state 27
+    PARA            shift and go to state 25
+    ID              shift and go to state 22
+    ENTERO          shift and go to state 29
+    DECIMAL         shift and go to state 30
+    CADENA          shift and go to state 31
+
+    expresion                      shift and go to state 84
+
+state 58
+
+    (42) expresion -> expresion OR . expresion
+    (26) expresion -> . I64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (27) expresion -> . F64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (28) expresion -> . expresion MAS expresion
+    (29) expresion -> . expresion MENOS expresion
+    (30) expresion -> . expresion POR expresion
+    (31) expresion -> . expresion DIV expresion
+    (32) expresion -> . expresion MOD expresion
+    (33) expresion -> . expresion IGUALIGUAL expresion
+    (34) expresion -> . expresion DIFERENTE expresion
+    (35) expresion -> . expresion MENORIGUAL expresion
+    (36) expresion -> . expresion MENORQUE expresion
+    (37) expresion -> . expresion MAYORIGUAL expresion
+    (38) expresion -> . expresion MAYORQUE expresion
+    (39) expresion -> . NOT expresion
+    (40) expresion -> . MENOS expresion
+    (41) expresion -> . expresion AND expresion
+    (42) expresion -> . expresion OR expresion
+    (43) expresion -> . PARA expresion AS tipo PARC
+    (44) expresion -> . PARA expresion PARC
+    (45) expresion -> . ID CORA expresion CORC
+    (46) expresion -> . ENTERO
+    (47) expresion -> . DECIMAL
+    (48) expresion -> . CADENA
+
+    I64             shift and go to state 24
+    F64             shift and go to state 26
+    NOT             shift and go to state 28
+    MENOS           shift and go to state 27
+    PARA            shift and go to state 25
+    ID              shift and go to state 22
+    ENTERO          shift and go to state 29
+    DECIMAL         shift and go to state 30
+    CADENA          shift and go to state 31
+
+    expresion                      shift and go to state 85
+
+state 59
+
+    (26) expresion -> I64 DOSP . DOSP POW PARA expresion COMA expresion PARC
+
+    DOSP            shift and go to state 86
+
+
+state 60
+
+    (43) expresion -> PARA expresion . AS tipo PARC
+    (44) expresion -> PARA expresion . PARC
+    (28) expresion -> expresion . MAS expresion
+    (29) expresion -> expresion . MENOS expresion
+    (30) expresion -> expresion . POR expresion
+    (31) expresion -> expresion . DIV expresion
+    (32) expresion -> expresion . MOD expresion
+    (33) expresion -> expresion . IGUALIGUAL expresion
+    (34) expresion -> expresion . DIFERENTE expresion
+    (35) expresion -> expresion . MENORIGUAL expresion
+    (36) expresion -> expresion . MENORQUE expresion
+    (37) expresion -> expresion . MAYORIGUAL expresion
+    (38) expresion -> expresion . MAYORQUE expresion
+    (41) expresion -> expresion . AND expresion
+    (42) expresion -> expresion . OR expresion
+
+    AS              shift and go to state 87
+    PARC            shift and go to state 88
+    MAS             shift and go to state 46
+    MENOS           shift and go to state 47
+    POR             shift and go to state 48
+    DIV             shift and go to state 49
+    MOD             shift and go to state 50
+    IGUALIGUAL      shift and go to state 51
+    DIFERENTE       shift and go to state 52
+    MENORIGUAL      shift and go to state 53
+    MENORQUE        shift and go to state 54
+    MAYORIGUAL      shift and go to state 55
+    MAYORQUE        shift and go to state 56
+    AND             shift and go to state 57
+    OR              shift and go to state 58
+
+
+state 61
+
+    (27) expresion -> F64 DOSP . DOSP POW PARA expresion COMA expresion PARC
+
+    DOSP            shift and go to state 89
+
+
+state 62
+
+    (40) expresion -> MENOS expresion .
+    (28) expresion -> expresion . MAS expresion
+    (29) expresion -> expresion . MENOS expresion
+    (30) expresion -> expresion . POR expresion
+    (31) expresion -> expresion . DIV expresion
+    (32) expresion -> expresion . MOD expresion
+    (33) expresion -> expresion . IGUALIGUAL expresion
+    (34) expresion -> expresion . DIFERENTE expresion
+    (35) expresion -> expresion . MENORIGUAL expresion
+    (36) expresion -> expresion . MENORQUE expresion
+    (37) expresion -> expresion . MAYORIGUAL expresion
+    (38) expresion -> expresion . MAYORQUE expresion
+    (41) expresion -> expresion . AND expresion
+    (42) expresion -> expresion . OR expresion
+
+    MAS             reduce using rule 40 (expresion -> MENOS expresion .)
+    MENOS           reduce using rule 40 (expresion -> MENOS expresion .)
+    POR             reduce using rule 40 (expresion -> MENOS expresion .)
+    DIV             reduce using rule 40 (expresion -> MENOS expresion .)
+    MOD             reduce using rule 40 (expresion -> MENOS expresion .)
+    IGUALIGUAL      reduce using rule 40 (expresion -> MENOS expresion .)
+    DIFERENTE       reduce using rule 40 (expresion -> MENOS expresion .)
+    MENORIGUAL      reduce using rule 40 (expresion -> MENOS expresion .)
+    MENORQUE        reduce using rule 40 (expresion -> MENOS expresion .)
+    MAYORIGUAL      reduce using rule 40 (expresion -> MENOS expresion .)
+    MAYORQUE        reduce using rule 40 (expresion -> MENOS expresion .)
+    AND             reduce using rule 40 (expresion -> MENOS expresion .)
+    OR              reduce using rule 40 (expresion -> MENOS expresion .)
+    PYC             reduce using rule 40 (expresion -> MENOS expresion .)
+    CORC            reduce using rule 40 (expresion -> MENOS expresion .)
+    AS              reduce using rule 40 (expresion -> MENOS expresion .)
+    PARC            reduce using rule 40 (expresion -> MENOS expresion .)
+    COMA            reduce using rule 40 (expresion -> MENOS expresion .)
+
+  ! MAS             [ shift and go to state 46 ]
+  ! MENOS           [ shift and go to state 47 ]
+  ! POR             [ shift and go to state 48 ]
+  ! DIV             [ shift and go to state 49 ]
+  ! MOD             [ shift and go to state 50 ]
+  ! IGUALIGUAL      [ shift and go to state 51 ]
+  ! DIFERENTE       [ shift and go to state 52 ]
+  ! MENORIGUAL      [ shift and go to state 53 ]
+  ! MENORQUE        [ shift and go to state 54 ]
+  ! MAYORIGUAL      [ shift and go to state 55 ]
+  ! MAYORQUE        [ shift and go to state 56 ]
+  ! AND             [ shift and go to state 57 ]
+  ! OR              [ shift and go to state 58 ]
+
+
+state 63
+
+    (39) expresion -> NOT expresion .
+    (28) expresion -> expresion . MAS expresion
+    (29) expresion -> expresion . MENOS expresion
+    (30) expresion -> expresion . POR expresion
+    (31) expresion -> expresion . DIV expresion
+    (32) expresion -> expresion . MOD expresion
+    (33) expresion -> expresion . IGUALIGUAL expresion
+    (34) expresion -> expresion . DIFERENTE expresion
+    (35) expresion -> expresion . MENORIGUAL expresion
+    (36) expresion -> expresion . MENORQUE expresion
+    (37) expresion -> expresion . MAYORIGUAL expresion
+    (38) expresion -> expresion . MAYORQUE expresion
+    (41) expresion -> expresion . AND expresion
+    (42) expresion -> expresion . OR expresion
+
+    AND             reduce using rule 39 (expresion -> NOT expresion .)
+    OR              reduce using rule 39 (expresion -> NOT expresion .)
+    PYC             reduce using rule 39 (expresion -> NOT expresion .)
+    CORC            reduce using rule 39 (expresion -> NOT expresion .)
+    AS              reduce using rule 39 (expresion -> NOT expresion .)
+    PARC            reduce using rule 39 (expresion -> NOT expresion .)
+    COMA            reduce using rule 39 (expresion -> NOT expresion .)
+    MAS             shift and go to state 46
+    MENOS           shift and go to state 47
+    POR             shift and go to state 48
+    DIV             shift and go to state 49
+    MOD             shift and go to state 50
+    IGUALIGUAL      shift and go to state 51
+    DIFERENTE       shift and go to state 52
+    MENORIGUAL      shift and go to state 53
+    MENORQUE        shift and go to state 54
+    MAYORIGUAL      shift and go to state 55
+    MAYORQUE        shift and go to state 56
+
+  ! MAS             [ reduce using rule 39 (expresion -> NOT expresion .) ]
+  ! MENOS           [ reduce using rule 39 (expresion -> NOT expresion .) ]
+  ! POR             [ reduce using rule 39 (expresion -> NOT expresion .) ]
+  ! DIV             [ reduce using rule 39 (expresion -> NOT expresion .) ]
+  ! MOD             [ reduce using rule 39 (expresion -> NOT expresion .) ]
+  ! IGUALIGUAL      [ reduce using rule 39 (expresion -> NOT expresion .) ]
+  ! DIFERENTE       [ reduce using rule 39 (expresion -> NOT expresion .) ]
+  ! MENORIGUAL      [ reduce using rule 39 (expresion -> NOT expresion .) ]
+  ! MENORQUE        [ reduce using rule 39 (expresion -> NOT expresion .) ]
+  ! MAYORIGUAL      [ reduce using rule 39 (expresion -> NOT expresion .) ]
+  ! MAYORQUE        [ reduce using rule 39 (expresion -> NOT expresion .) ]
+  ! AND             [ shift and go to state 57 ]
+  ! OR              [ shift and go to state 58 ]
+
+
+state 64
+
+    (12) asignacion -> ID dimensiones_arreglo IGUAL expresion .
+    (28) expresion -> expresion . MAS expresion
+    (29) expresion -> expresion . MENOS expresion
+    (30) expresion -> expresion . POR expresion
+    (31) expresion -> expresion . DIV expresion
+    (32) expresion -> expresion . MOD expresion
+    (33) expresion -> expresion . IGUALIGUAL expresion
+    (34) expresion -> expresion . DIFERENTE expresion
+    (35) expresion -> expresion . MENORIGUAL expresion
+    (36) expresion -> expresion . MENORQUE expresion
+    (37) expresion -> expresion . MAYORIGUAL expresion
+    (38) expresion -> expresion . MAYORQUE expresion
+    (41) expresion -> expresion . AND expresion
+    (42) expresion -> expresion . OR expresion
+
+    PYC             reduce using rule 12 (asignacion -> ID dimensiones_arreglo IGUAL expresion .)
+    MAS             shift and go to state 46
+    MENOS           shift and go to state 47
+    POR             shift and go to state 48
+    DIV             shift and go to state 49
+    MOD             shift and go to state 50
+    IGUALIGUAL      shift and go to state 51
+    DIFERENTE       shift and go to state 52
+    MENORIGUAL      shift and go to state 53
+    MENORQUE        shift and go to state 54
+    MAYORIGUAL      shift and go to state 55
+    MAYORQUE        shift and go to state 56
+    AND             shift and go to state 57
+    OR              shift and go to state 58
+
+
+state 65
+
+    (24) dimensiones_arreglo -> CORA expresion CORC . dimensiones_arreglo
+    (25) dimensiones_arreglo -> CORA expresion CORC .
+    (24) dimensiones_arreglo -> . CORA expresion CORC dimensiones_arreglo
+    (25) dimensiones_arreglo -> . CORA expresion CORC
+
+    IGUAL           reduce using rule 25 (dimensiones_arreglo -> CORA expresion CORC .)
+    CORA            shift and go to state 17
+
+    dimensiones_arreglo            shift and go to state 90
+
+state 66
+
+    (23) parametro -> ID .
+
+    PARC            reduce using rule 23 (parametro -> ID .)
+    COMA            reduce using rule 23 (parametro -> ID .)
+
+
+state 67
+
+    (19) funcion -> FN ID PARA lista_parametros . PARC LLAVEA instrucciones LLAVEC
+    (20) funcion -> FN ID PARA lista_parametros . PARC MENOS MAYORQUE tipo LLAVEA instrucciones LLAVEC
+    (21) lista_parametros -> lista_parametros . COMA parametro
+
+    PARC            shift and go to state 91
+    COMA            shift and go to state 92
+
+
+state 68
+
+    (22) lista_parametros -> parametro .
+
+    PARC            reduce using rule 22 (lista_parametros -> parametro .)
+    COMA            reduce using rule 22 (lista_parametros -> parametro .)
+
+
+state 69
+
+    (7) declaracion -> LET MUT ID DOSP tipo . IGUAL expresion
+
+    IGUAL           shift and go to state 93
+
+
+state 70
+
+    (8) declaracion -> LET MUT ID IGUAL expresion .
+    (28) expresion -> expresion . MAS expresion
+    (29) expresion -> expresion . MENOS expresion
+    (30) expresion -> expresion . POR expresion
+    (31) expresion -> expresion . DIV expresion
+    (32) expresion -> expresion . MOD expresion
+    (33) expresion -> expresion . IGUALIGUAL expresion
+    (34) expresion -> expresion . DIFERENTE expresion
+    (35) expresion -> expresion . MENORIGUAL expresion
+    (36) expresion -> expresion . MENORQUE expresion
+    (37) expresion -> expresion . MAYORIGUAL expresion
+    (38) expresion -> expresion . MAYORQUE expresion
+    (41) expresion -> expresion . AND expresion
+    (42) expresion -> expresion . OR expresion
+
+    PYC             reduce using rule 8 (declaracion -> LET MUT ID IGUAL expresion .)
+    MAS             shift and go to state 46
+    MENOS           shift and go to state 47
+    POR             shift and go to state 48
+    DIV             shift and go to state 49
+    MOD             shift and go to state 50
+    IGUALIGUAL      shift and go to state 51
+    DIFERENTE       shift and go to state 52
+    MENORIGUAL      shift and go to state 53
+    MENORQUE        shift and go to state 54
+    MAYORIGUAL      shift and go to state 55
+    MAYORQUE        shift and go to state 56
+    AND             shift and go to state 57
+    OR              shift and go to state 58
+
+
+state 71
+
+    (9) declaracion -> LET ID DOSP tipo IGUAL . expresion
+    (26) expresion -> . I64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (27) expresion -> . F64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (28) expresion -> . expresion MAS expresion
+    (29) expresion -> . expresion MENOS expresion
+    (30) expresion -> . expresion POR expresion
+    (31) expresion -> . expresion DIV expresion
+    (32) expresion -> . expresion MOD expresion
+    (33) expresion -> . expresion IGUALIGUAL expresion
+    (34) expresion -> . expresion DIFERENTE expresion
+    (35) expresion -> . expresion MENORIGUAL expresion
+    (36) expresion -> . expresion MENORQUE expresion
+    (37) expresion -> . expresion MAYORIGUAL expresion
+    (38) expresion -> . expresion MAYORQUE expresion
+    (39) expresion -> . NOT expresion
+    (40) expresion -> . MENOS expresion
+    (41) expresion -> . expresion AND expresion
+    (42) expresion -> . expresion OR expresion
+    (43) expresion -> . PARA expresion AS tipo PARC
+    (44) expresion -> . PARA expresion PARC
+    (45) expresion -> . ID CORA expresion CORC
+    (46) expresion -> . ENTERO
+    (47) expresion -> . DECIMAL
+    (48) expresion -> . CADENA
+
+    I64             shift and go to state 24
+    F64             shift and go to state 26
+    NOT             shift and go to state 28
+    MENOS           shift and go to state 27
+    PARA            shift and go to state 25
+    ID              shift and go to state 22
+    ENTERO          shift and go to state 29
+    DECIMAL         shift and go to state 30
+    CADENA          shift and go to state 31
+
+    expresion                      shift and go to state 94
+
+state 72
+
+    (45) expresion -> ID CORA expresion . CORC
+    (28) expresion -> expresion . MAS expresion
+    (29) expresion -> expresion . MENOS expresion
+    (30) expresion -> expresion . POR expresion
+    (31) expresion -> expresion . DIV expresion
+    (32) expresion -> expresion . MOD expresion
+    (33) expresion -> expresion . IGUALIGUAL expresion
+    (34) expresion -> expresion . DIFERENTE expresion
+    (35) expresion -> expresion . MENORIGUAL expresion
+    (36) expresion -> expresion . MENORQUE expresion
+    (37) expresion -> expresion . MAYORIGUAL expresion
+    (38) expresion -> expresion . MAYORQUE expresion
+    (41) expresion -> expresion . AND expresion
+    (42) expresion -> expresion . OR expresion
+
+    CORC            shift and go to state 95
+    MAS             shift and go to state 46
+    MENOS           shift and go to state 47
+    POR             shift and go to state 48
+    DIV             shift and go to state 49
+    MOD             shift and go to state 50
+    IGUALIGUAL      shift and go to state 51
+    DIFERENTE       shift and go to state 52
+    MENORIGUAL      shift and go to state 53
+    MENORQUE        shift and go to state 54
+    MAYORIGUAL      shift and go to state 55
+    MAYORQUE        shift and go to state 56
+    AND             shift and go to state 57
+    OR              shift and go to state 58
+
+
+state 73
+
+    (28) expresion -> expresion MAS expresion .
+    (28) expresion -> expresion . MAS expresion
+    (29) expresion -> expresion . MENOS expresion
+    (30) expresion -> expresion . POR expresion
+    (31) expresion -> expresion . DIV expresion
+    (32) expresion -> expresion . MOD expresion
+    (33) expresion -> expresion . IGUALIGUAL expresion
+    (34) expresion -> expresion . DIFERENTE expresion
+    (35) expresion -> expresion . MENORIGUAL expresion
+    (36) expresion -> expresion . MENORQUE expresion
+    (37) expresion -> expresion . MAYORIGUAL expresion
+    (38) expresion -> expresion . MAYORQUE expresion
+    (41) expresion -> expresion . AND expresion
+    (42) expresion -> expresion . OR expresion
+
+    MAS             reduce using rule 28 (expresion -> expresion MAS expresion .)
+    MENOS           reduce using rule 28 (expresion -> expresion MAS expresion .)
+    IGUALIGUAL      reduce using rule 28 (expresion -> expresion MAS expresion .)
+    DIFERENTE       reduce using rule 28 (expresion -> expresion MAS expresion .)
+    MENORIGUAL      reduce using rule 28 (expresion -> expresion MAS expresion .)
+    MENORQUE        reduce using rule 28 (expresion -> expresion MAS expresion .)
+    MAYORIGUAL      reduce using rule 28 (expresion -> expresion MAS expresion .)
+    MAYORQUE        reduce using rule 28 (expresion -> expresion MAS expresion .)
+    AND             reduce using rule 28 (expresion -> expresion MAS expresion .)
+    OR              reduce using rule 28 (expresion -> expresion MAS expresion .)
+    PYC             reduce using rule 28 (expresion -> expresion MAS expresion .)
+    CORC            reduce using rule 28 (expresion -> expresion MAS expresion .)
+    AS              reduce using rule 28 (expresion -> expresion MAS expresion .)
+    PARC            reduce using rule 28 (expresion -> expresion MAS expresion .)
+    COMA            reduce using rule 28 (expresion -> expresion MAS expresion .)
+    POR             shift and go to state 48
+    DIV             shift and go to state 49
+    MOD             shift and go to state 50
+
+  ! POR             [ reduce using rule 28 (expresion -> expresion MAS expresion .) ]
+  ! DIV             [ reduce using rule 28 (expresion -> expresion MAS expresion .) ]
+  ! MOD             [ reduce using rule 28 (expresion -> expresion MAS expresion .) ]
+  ! MAS             [ shift and go to state 46 ]
+  ! MENOS           [ shift and go to state 47 ]
+  ! IGUALIGUAL      [ shift and go to state 51 ]
+  ! DIFERENTE       [ shift and go to state 52 ]
+  ! MENORIGUAL      [ shift and go to state 53 ]
+  ! MENORQUE        [ shift and go to state 54 ]
+  ! MAYORIGUAL      [ shift and go to state 55 ]
+  ! MAYORQUE        [ shift and go to state 56 ]
+  ! AND             [ shift and go to state 57 ]
+  ! OR              [ shift and go to state 58 ]
+
+
+state 74
+
+    (29) expresion -> expresion MENOS expresion .
+    (28) expresion -> expresion . MAS expresion
+    (29) expresion -> expresion . MENOS expresion
+    (30) expresion -> expresion . POR expresion
+    (31) expresion -> expresion . DIV expresion
+    (32) expresion -> expresion . MOD expresion
+    (33) expresion -> expresion . IGUALIGUAL expresion
+    (34) expresion -> expresion . DIFERENTE expresion
+    (35) expresion -> expresion . MENORIGUAL expresion
+    (36) expresion -> expresion . MENORQUE expresion
+    (37) expresion -> expresion . MAYORIGUAL expresion
+    (38) expresion -> expresion . MAYORQUE expresion
+    (41) expresion -> expresion . AND expresion
+    (42) expresion -> expresion . OR expresion
+
+    MAS             reduce using rule 29 (expresion -> expresion MENOS expresion .)
+    MENOS           reduce using rule 29 (expresion -> expresion MENOS expresion .)
+    IGUALIGUAL      reduce using rule 29 (expresion -> expresion MENOS expresion .)
+    DIFERENTE       reduce using rule 29 (expresion -> expresion MENOS expresion .)
+    MENORIGUAL      reduce using rule 29 (expresion -> expresion MENOS expresion .)
+    MENORQUE        reduce using rule 29 (expresion -> expresion MENOS expresion .)
+    MAYORIGUAL      reduce using rule 29 (expresion -> expresion MENOS expresion .)
+    MAYORQUE        reduce using rule 29 (expresion -> expresion MENOS expresion .)
+    AND             reduce using rule 29 (expresion -> expresion MENOS expresion .)
+    OR              reduce using rule 29 (expresion -> expresion MENOS expresion .)
+    PYC             reduce using rule 29 (expresion -> expresion MENOS expresion .)
+    CORC            reduce using rule 29 (expresion -> expresion MENOS expresion .)
+    AS              reduce using rule 29 (expresion -> expresion MENOS expresion .)
+    PARC            reduce using rule 29 (expresion -> expresion MENOS expresion .)
+    COMA            reduce using rule 29 (expresion -> expresion MENOS expresion .)
+    POR             shift and go to state 48
+    DIV             shift and go to state 49
+    MOD             shift and go to state 50
+
+  ! POR             [ reduce using rule 29 (expresion -> expresion MENOS expresion .) ]
+  ! DIV             [ reduce using rule 29 (expresion -> expresion MENOS expresion .) ]
+  ! MOD             [ reduce using rule 29 (expresion -> expresion MENOS expresion .) ]
+  ! MAS             [ shift and go to state 46 ]
+  ! MENOS           [ shift and go to state 47 ]
+  ! IGUALIGUAL      [ shift and go to state 51 ]
+  ! DIFERENTE       [ shift and go to state 52 ]
+  ! MENORIGUAL      [ shift and go to state 53 ]
+  ! MENORQUE        [ shift and go to state 54 ]
+  ! MAYORIGUAL      [ shift and go to state 55 ]
+  ! MAYORQUE        [ shift and go to state 56 ]
+  ! AND             [ shift and go to state 57 ]
+  ! OR              [ shift and go to state 58 ]
+
+
+state 75
+
+    (30) expresion -> expresion POR expresion .
+    (28) expresion -> expresion . MAS expresion
+    (29) expresion -> expresion . MENOS expresion
+    (30) expresion -> expresion . POR expresion
+    (31) expresion -> expresion . DIV expresion
+    (32) expresion -> expresion . MOD expresion
+    (33) expresion -> expresion . IGUALIGUAL expresion
+    (34) expresion -> expresion . DIFERENTE expresion
+    (35) expresion -> expresion . MENORIGUAL expresion
+    (36) expresion -> expresion . MENORQUE expresion
+    (37) expresion -> expresion . MAYORIGUAL expresion
+    (38) expresion -> expresion . MAYORQUE expresion
+    (41) expresion -> expresion . AND expresion
+    (42) expresion -> expresion . OR expresion
+
+    MAS             reduce using rule 30 (expresion -> expresion POR expresion .)
+    MENOS           reduce using rule 30 (expresion -> expresion POR expresion .)
+    POR             reduce using rule 30 (expresion -> expresion POR expresion .)
+    DIV             reduce using rule 30 (expresion -> expresion POR expresion .)
+    IGUALIGUAL      reduce using rule 30 (expresion -> expresion POR expresion .)
+    DIFERENTE       reduce using rule 30 (expresion -> expresion POR expresion .)
+    MENORIGUAL      reduce using rule 30 (expresion -> expresion POR expresion .)
+    MENORQUE        reduce using rule 30 (expresion -> expresion POR expresion .)
+    MAYORIGUAL      reduce using rule 30 (expresion -> expresion POR expresion .)
+    MAYORQUE        reduce using rule 30 (expresion -> expresion POR expresion .)
+    AND             reduce using rule 30 (expresion -> expresion POR expresion .)
+    OR              reduce using rule 30 (expresion -> expresion POR expresion .)
+    PYC             reduce using rule 30 (expresion -> expresion POR expresion .)
+    CORC            reduce using rule 30 (expresion -> expresion POR expresion .)
+    AS              reduce using rule 30 (expresion -> expresion POR expresion .)
+    PARC            reduce using rule 30 (expresion -> expresion POR expresion .)
+    COMA            reduce using rule 30 (expresion -> expresion POR expresion .)
+    MOD             shift and go to state 50
+
+  ! MOD             [ reduce using rule 30 (expresion -> expresion POR expresion .) ]
+  ! MAS             [ shift and go to state 46 ]
+  ! MENOS           [ shift and go to state 47 ]
+  ! POR             [ shift and go to state 48 ]
+  ! DIV             [ shift and go to state 49 ]
+  ! IGUALIGUAL      [ shift and go to state 51 ]
+  ! DIFERENTE       [ shift and go to state 52 ]
+  ! MENORIGUAL      [ shift and go to state 53 ]
+  ! MENORQUE        [ shift and go to state 54 ]
+  ! MAYORIGUAL      [ shift and go to state 55 ]
+  ! MAYORQUE        [ shift and go to state 56 ]
+  ! AND             [ shift and go to state 57 ]
+  ! OR              [ shift and go to state 58 ]
+
+
+state 76
+
+    (31) expresion -> expresion DIV expresion .
+    (28) expresion -> expresion . MAS expresion
+    (29) expresion -> expresion . MENOS expresion
+    (30) expresion -> expresion . POR expresion
+    (31) expresion -> expresion . DIV expresion
+    (32) expresion -> expresion . MOD expresion
+    (33) expresion -> expresion . IGUALIGUAL expresion
+    (34) expresion -> expresion . DIFERENTE expresion
+    (35) expresion -> expresion . MENORIGUAL expresion
+    (36) expresion -> expresion . MENORQUE expresion
+    (37) expresion -> expresion . MAYORIGUAL expresion
+    (38) expresion -> expresion . MAYORQUE expresion
+    (41) expresion -> expresion . AND expresion
+    (42) expresion -> expresion . OR expresion
+
+    MAS             reduce using rule 31 (expresion -> expresion DIV expresion .)
+    MENOS           reduce using rule 31 (expresion -> expresion DIV expresion .)
+    POR             reduce using rule 31 (expresion -> expresion DIV expresion .)
+    DIV             reduce using rule 31 (expresion -> expresion DIV expresion .)
+    IGUALIGUAL      reduce using rule 31 (expresion -> expresion DIV expresion .)
+    DIFERENTE       reduce using rule 31 (expresion -> expresion DIV expresion .)
+    MENORIGUAL      reduce using rule 31 (expresion -> expresion DIV expresion .)
+    MENORQUE        reduce using rule 31 (expresion -> expresion DIV expresion .)
+    MAYORIGUAL      reduce using rule 31 (expresion -> expresion DIV expresion .)
+    MAYORQUE        reduce using rule 31 (expresion -> expresion DIV expresion .)
+    AND             reduce using rule 31 (expresion -> expresion DIV expresion .)
+    OR              reduce using rule 31 (expresion -> expresion DIV expresion .)
+    PYC             reduce using rule 31 (expresion -> expresion DIV expresion .)
+    CORC            reduce using rule 31 (expresion -> expresion DIV expresion .)
+    AS              reduce using rule 31 (expresion -> expresion DIV expresion .)
+    PARC            reduce using rule 31 (expresion -> expresion DIV expresion .)
+    COMA            reduce using rule 31 (expresion -> expresion DIV expresion .)
+    MOD             shift and go to state 50
+
+  ! MOD             [ reduce using rule 31 (expresion -> expresion DIV expresion .) ]
+  ! MAS             [ shift and go to state 46 ]
+  ! MENOS           [ shift and go to state 47 ]
+  ! POR             [ shift and go to state 48 ]
+  ! DIV             [ shift and go to state 49 ]
+  ! IGUALIGUAL      [ shift and go to state 51 ]
+  ! DIFERENTE       [ shift and go to state 52 ]
+  ! MENORIGUAL      [ shift and go to state 53 ]
+  ! MENORQUE        [ shift and go to state 54 ]
+  ! MAYORIGUAL      [ shift and go to state 55 ]
+  ! MAYORQUE        [ shift and go to state 56 ]
+  ! AND             [ shift and go to state 57 ]
+  ! OR              [ shift and go to state 58 ]
+
+
+state 77
+
+    (32) expresion -> expresion MOD expresion .
+    (28) expresion -> expresion . MAS expresion
+    (29) expresion -> expresion . MENOS expresion
+    (30) expresion -> expresion . POR expresion
+    (31) expresion -> expresion . DIV expresion
+    (32) expresion -> expresion . MOD expresion
+    (33) expresion -> expresion . IGUALIGUAL expresion
+    (34) expresion -> expresion . DIFERENTE expresion
+    (35) expresion -> expresion . MENORIGUAL expresion
+    (36) expresion -> expresion . MENORQUE expresion
+    (37) expresion -> expresion . MAYORIGUAL expresion
+    (38) expresion -> expresion . MAYORQUE expresion
+    (41) expresion -> expresion . AND expresion
+    (42) expresion -> expresion . OR expresion
+
+    MAS             reduce using rule 32 (expresion -> expresion MOD expresion .)
+    MENOS           reduce using rule 32 (expresion -> expresion MOD expresion .)
+    POR             reduce using rule 32 (expresion -> expresion MOD expresion .)
+    DIV             reduce using rule 32 (expresion -> expresion MOD expresion .)
+    IGUALIGUAL      reduce using rule 32 (expresion -> expresion MOD expresion .)
+    DIFERENTE       reduce using rule 32 (expresion -> expresion MOD expresion .)
+    MENORIGUAL      reduce using rule 32 (expresion -> expresion MOD expresion .)
+    MENORQUE        reduce using rule 32 (expresion -> expresion MOD expresion .)
+    MAYORIGUAL      reduce using rule 32 (expresion -> expresion MOD expresion .)
+    MAYORQUE        reduce using rule 32 (expresion -> expresion MOD expresion .)
+    AND             reduce using rule 32 (expresion -> expresion MOD expresion .)
+    OR              reduce using rule 32 (expresion -> expresion MOD expresion .)
+    PYC             reduce using rule 32 (expresion -> expresion MOD expresion .)
+    CORC            reduce using rule 32 (expresion -> expresion MOD expresion .)
+    AS              reduce using rule 32 (expresion -> expresion MOD expresion .)
+    PARC            reduce using rule 32 (expresion -> expresion MOD expresion .)
+    COMA            reduce using rule 32 (expresion -> expresion MOD expresion .)
+    MOD             shift and go to state 50
+
+  ! MOD             [ reduce using rule 32 (expresion -> expresion MOD expresion .) ]
+  ! MAS             [ shift and go to state 46 ]
+  ! MENOS           [ shift and go to state 47 ]
+  ! POR             [ shift and go to state 48 ]
+  ! DIV             [ shift and go to state 49 ]
+  ! IGUALIGUAL      [ shift and go to state 51 ]
+  ! DIFERENTE       [ shift and go to state 52 ]
+  ! MENORIGUAL      [ shift and go to state 53 ]
+  ! MENORQUE        [ shift and go to state 54 ]
+  ! MAYORIGUAL      [ shift and go to state 55 ]
+  ! MAYORQUE        [ shift and go to state 56 ]
+  ! AND             [ shift and go to state 57 ]
+  ! OR              [ shift and go to state 58 ]
+
+
+state 78
+
+    (33) expresion -> expresion IGUALIGUAL expresion .
+    (28) expresion -> expresion . MAS expresion
+    (29) expresion -> expresion . MENOS expresion
+    (30) expresion -> expresion . POR expresion
+    (31) expresion -> expresion . DIV expresion
+    (32) expresion -> expresion . MOD expresion
+    (33) expresion -> expresion . IGUALIGUAL expresion
+    (34) expresion -> expresion . DIFERENTE expresion
+    (35) expresion -> expresion . MENORIGUAL expresion
+    (36) expresion -> expresion . MENORQUE expresion
+    (37) expresion -> expresion . MAYORIGUAL expresion
+    (38) expresion -> expresion . MAYORQUE expresion
+    (41) expresion -> expresion . AND expresion
+    (42) expresion -> expresion . OR expresion
+
+    IGUALIGUAL      reduce using rule 33 (expresion -> expresion IGUALIGUAL expresion .)
+    DIFERENTE       reduce using rule 33 (expresion -> expresion IGUALIGUAL expresion .)
+    MENORIGUAL      reduce using rule 33 (expresion -> expresion IGUALIGUAL expresion .)
+    MENORQUE        reduce using rule 33 (expresion -> expresion IGUALIGUAL expresion .)
+    MAYORIGUAL      reduce using rule 33 (expresion -> expresion IGUALIGUAL expresion .)
+    MAYORQUE        reduce using rule 33 (expresion -> expresion IGUALIGUAL expresion .)
+    AND             reduce using rule 33 (expresion -> expresion IGUALIGUAL expresion .)
+    OR              reduce using rule 33 (expresion -> expresion IGUALIGUAL expresion .)
+    PYC             reduce using rule 33 (expresion -> expresion IGUALIGUAL expresion .)
+    CORC            reduce using rule 33 (expresion -> expresion IGUALIGUAL expresion .)
+    AS              reduce using rule 33 (expresion -> expresion IGUALIGUAL expresion .)
+    PARC            reduce using rule 33 (expresion -> expresion IGUALIGUAL expresion .)
+    COMA            reduce using rule 33 (expresion -> expresion IGUALIGUAL expresion .)
+    MAS             shift and go to state 46
+    MENOS           shift and go to state 47
+    POR             shift and go to state 48
+    DIV             shift and go to state 49
+    MOD             shift and go to state 50
+
+  ! MAS             [ reduce using rule 33 (expresion -> expresion IGUALIGUAL expresion .) ]
+  ! MENOS           [ reduce using rule 33 (expresion -> expresion IGUALIGUAL expresion .) ]
+  ! POR             [ reduce using rule 33 (expresion -> expresion IGUALIGUAL expresion .) ]
+  ! DIV             [ reduce using rule 33 (expresion -> expresion IGUALIGUAL expresion .) ]
+  ! MOD             [ reduce using rule 33 (expresion -> expresion IGUALIGUAL expresion .) ]
+  ! IGUALIGUAL      [ shift and go to state 51 ]
+  ! DIFERENTE       [ shift and go to state 52 ]
+  ! MENORIGUAL      [ shift and go to state 53 ]
+  ! MENORQUE        [ shift and go to state 54 ]
+  ! MAYORIGUAL      [ shift and go to state 55 ]
+  ! MAYORQUE        [ shift and go to state 56 ]
+  ! AND             [ shift and go to state 57 ]
+  ! OR              [ shift and go to state 58 ]
+
+
+state 79
+
+    (34) expresion -> expresion DIFERENTE expresion .
+    (28) expresion -> expresion . MAS expresion
+    (29) expresion -> expresion . MENOS expresion
+    (30) expresion -> expresion . POR expresion
+    (31) expresion -> expresion . DIV expresion
+    (32) expresion -> expresion . MOD expresion
+    (33) expresion -> expresion . IGUALIGUAL expresion
+    (34) expresion -> expresion . DIFERENTE expresion
+    (35) expresion -> expresion . MENORIGUAL expresion
+    (36) expresion -> expresion . MENORQUE expresion
+    (37) expresion -> expresion . MAYORIGUAL expresion
+    (38) expresion -> expresion . MAYORQUE expresion
+    (41) expresion -> expresion . AND expresion
+    (42) expresion -> expresion . OR expresion
+
+    IGUALIGUAL      reduce using rule 34 (expresion -> expresion DIFERENTE expresion .)
+    DIFERENTE       reduce using rule 34 (expresion -> expresion DIFERENTE expresion .)
+    MENORIGUAL      reduce using rule 34 (expresion -> expresion DIFERENTE expresion .)
+    MENORQUE        reduce using rule 34 (expresion -> expresion DIFERENTE expresion .)
+    MAYORIGUAL      reduce using rule 34 (expresion -> expresion DIFERENTE expresion .)
+    MAYORQUE        reduce using rule 34 (expresion -> expresion DIFERENTE expresion .)
+    AND             reduce using rule 34 (expresion -> expresion DIFERENTE expresion .)
+    OR              reduce using rule 34 (expresion -> expresion DIFERENTE expresion .)
+    PYC             reduce using rule 34 (expresion -> expresion DIFERENTE expresion .)
+    CORC            reduce using rule 34 (expresion -> expresion DIFERENTE expresion .)
+    AS              reduce using rule 34 (expresion -> expresion DIFERENTE expresion .)
+    PARC            reduce using rule 34 (expresion -> expresion DIFERENTE expresion .)
+    COMA            reduce using rule 34 (expresion -> expresion DIFERENTE expresion .)
+    MAS             shift and go to state 46
+    MENOS           shift and go to state 47
+    POR             shift and go to state 48
+    DIV             shift and go to state 49
+    MOD             shift and go to state 50
+
+  ! MAS             [ reduce using rule 34 (expresion -> expresion DIFERENTE expresion .) ]
+  ! MENOS           [ reduce using rule 34 (expresion -> expresion DIFERENTE expresion .) ]
+  ! POR             [ reduce using rule 34 (expresion -> expresion DIFERENTE expresion .) ]
+  ! DIV             [ reduce using rule 34 (expresion -> expresion DIFERENTE expresion .) ]
+  ! MOD             [ reduce using rule 34 (expresion -> expresion DIFERENTE expresion .) ]
+  ! IGUALIGUAL      [ shift and go to state 51 ]
+  ! DIFERENTE       [ shift and go to state 52 ]
+  ! MENORIGUAL      [ shift and go to state 53 ]
+  ! MENORQUE        [ shift and go to state 54 ]
+  ! MAYORIGUAL      [ shift and go to state 55 ]
+  ! MAYORQUE        [ shift and go to state 56 ]
+  ! AND             [ shift and go to state 57 ]
+  ! OR              [ shift and go to state 58 ]
+
+
+state 80
+
+    (35) expresion -> expresion MENORIGUAL expresion .
+    (28) expresion -> expresion . MAS expresion
+    (29) expresion -> expresion . MENOS expresion
+    (30) expresion -> expresion . POR expresion
+    (31) expresion -> expresion . DIV expresion
+    (32) expresion -> expresion . MOD expresion
+    (33) expresion -> expresion . IGUALIGUAL expresion
+    (34) expresion -> expresion . DIFERENTE expresion
+    (35) expresion -> expresion . MENORIGUAL expresion
+    (36) expresion -> expresion . MENORQUE expresion
+    (37) expresion -> expresion . MAYORIGUAL expresion
+    (38) expresion -> expresion . MAYORQUE expresion
+    (41) expresion -> expresion . AND expresion
+    (42) expresion -> expresion . OR expresion
+
+    IGUALIGUAL      reduce using rule 35 (expresion -> expresion MENORIGUAL expresion .)
+    DIFERENTE       reduce using rule 35 (expresion -> expresion MENORIGUAL expresion .)
+    MENORIGUAL      reduce using rule 35 (expresion -> expresion MENORIGUAL expresion .)
+    MENORQUE        reduce using rule 35 (expresion -> expresion MENORIGUAL expresion .)
+    MAYORIGUAL      reduce using rule 35 (expresion -> expresion MENORIGUAL expresion .)
+    MAYORQUE        reduce using rule 35 (expresion -> expresion MENORIGUAL expresion .)
+    AND             reduce using rule 35 (expresion -> expresion MENORIGUAL expresion .)
+    OR              reduce using rule 35 (expresion -> expresion MENORIGUAL expresion .)
+    PYC             reduce using rule 35 (expresion -> expresion MENORIGUAL expresion .)
+    CORC            reduce using rule 35 (expresion -> expresion MENORIGUAL expresion .)
+    AS              reduce using rule 35 (expresion -> expresion MENORIGUAL expresion .)
+    PARC            reduce using rule 35 (expresion -> expresion MENORIGUAL expresion .)
+    COMA            reduce using rule 35 (expresion -> expresion MENORIGUAL expresion .)
+    MAS             shift and go to state 46
+    MENOS           shift and go to state 47
+    POR             shift and go to state 48
+    DIV             shift and go to state 49
+    MOD             shift and go to state 50
+
+  ! MAS             [ reduce using rule 35 (expresion -> expresion MENORIGUAL expresion .) ]
+  ! MENOS           [ reduce using rule 35 (expresion -> expresion MENORIGUAL expresion .) ]
+  ! POR             [ reduce using rule 35 (expresion -> expresion MENORIGUAL expresion .) ]
+  ! DIV             [ reduce using rule 35 (expresion -> expresion MENORIGUAL expresion .) ]
+  ! MOD             [ reduce using rule 35 (expresion -> expresion MENORIGUAL expresion .) ]
+  ! IGUALIGUAL      [ shift and go to state 51 ]
+  ! DIFERENTE       [ shift and go to state 52 ]
+  ! MENORIGUAL      [ shift and go to state 53 ]
+  ! MENORQUE        [ shift and go to state 54 ]
+  ! MAYORIGUAL      [ shift and go to state 55 ]
+  ! MAYORQUE        [ shift and go to state 56 ]
+  ! AND             [ shift and go to state 57 ]
+  ! OR              [ shift and go to state 58 ]
+
+
+state 81
+
+    (36) expresion -> expresion MENORQUE expresion .
+    (28) expresion -> expresion . MAS expresion
+    (29) expresion -> expresion . MENOS expresion
+    (30) expresion -> expresion . POR expresion
+    (31) expresion -> expresion . DIV expresion
+    (32) expresion -> expresion . MOD expresion
+    (33) expresion -> expresion . IGUALIGUAL expresion
+    (34) expresion -> expresion . DIFERENTE expresion
+    (35) expresion -> expresion . MENORIGUAL expresion
+    (36) expresion -> expresion . MENORQUE expresion
+    (37) expresion -> expresion . MAYORIGUAL expresion
+    (38) expresion -> expresion . MAYORQUE expresion
+    (41) expresion -> expresion . AND expresion
+    (42) expresion -> expresion . OR expresion
+
+    IGUALIGUAL      reduce using rule 36 (expresion -> expresion MENORQUE expresion .)
+    DIFERENTE       reduce using rule 36 (expresion -> expresion MENORQUE expresion .)
+    MENORIGUAL      reduce using rule 36 (expresion -> expresion MENORQUE expresion .)
+    MENORQUE        reduce using rule 36 (expresion -> expresion MENORQUE expresion .)
+    MAYORIGUAL      reduce using rule 36 (expresion -> expresion MENORQUE expresion .)
+    MAYORQUE        reduce using rule 36 (expresion -> expresion MENORQUE expresion .)
+    AND             reduce using rule 36 (expresion -> expresion MENORQUE expresion .)
+    OR              reduce using rule 36 (expresion -> expresion MENORQUE expresion .)
+    PYC             reduce using rule 36 (expresion -> expresion MENORQUE expresion .)
+    CORC            reduce using rule 36 (expresion -> expresion MENORQUE expresion .)
+    AS              reduce using rule 36 (expresion -> expresion MENORQUE expresion .)
+    PARC            reduce using rule 36 (expresion -> expresion MENORQUE expresion .)
+    COMA            reduce using rule 36 (expresion -> expresion MENORQUE expresion .)
+    MAS             shift and go to state 46
+    MENOS           shift and go to state 47
+    POR             shift and go to state 48
+    DIV             shift and go to state 49
+    MOD             shift and go to state 50
+
+  ! MAS             [ reduce using rule 36 (expresion -> expresion MENORQUE expresion .) ]
+  ! MENOS           [ reduce using rule 36 (expresion -> expresion MENORQUE expresion .) ]
+  ! POR             [ reduce using rule 36 (expresion -> expresion MENORQUE expresion .) ]
+  ! DIV             [ reduce using rule 36 (expresion -> expresion MENORQUE expresion .) ]
+  ! MOD             [ reduce using rule 36 (expresion -> expresion MENORQUE expresion .) ]
+  ! IGUALIGUAL      [ shift and go to state 51 ]
+  ! DIFERENTE       [ shift and go to state 52 ]
+  ! MENORIGUAL      [ shift and go to state 53 ]
+  ! MENORQUE        [ shift and go to state 54 ]
+  ! MAYORIGUAL      [ shift and go to state 55 ]
+  ! MAYORQUE        [ shift and go to state 56 ]
+  ! AND             [ shift and go to state 57 ]
+  ! OR              [ shift and go to state 58 ]
+
+
+state 82
+
+    (37) expresion -> expresion MAYORIGUAL expresion .
+    (28) expresion -> expresion . MAS expresion
+    (29) expresion -> expresion . MENOS expresion
+    (30) expresion -> expresion . POR expresion
+    (31) expresion -> expresion . DIV expresion
+    (32) expresion -> expresion . MOD expresion
+    (33) expresion -> expresion . IGUALIGUAL expresion
+    (34) expresion -> expresion . DIFERENTE expresion
+    (35) expresion -> expresion . MENORIGUAL expresion
+    (36) expresion -> expresion . MENORQUE expresion
+    (37) expresion -> expresion . MAYORIGUAL expresion
+    (38) expresion -> expresion . MAYORQUE expresion
+    (41) expresion -> expresion . AND expresion
+    (42) expresion -> expresion . OR expresion
+
+    IGUALIGUAL      reduce using rule 37 (expresion -> expresion MAYORIGUAL expresion .)
+    DIFERENTE       reduce using rule 37 (expresion -> expresion MAYORIGUAL expresion .)
+    MENORIGUAL      reduce using rule 37 (expresion -> expresion MAYORIGUAL expresion .)
+    MENORQUE        reduce using rule 37 (expresion -> expresion MAYORIGUAL expresion .)
+    MAYORIGUAL      reduce using rule 37 (expresion -> expresion MAYORIGUAL expresion .)
+    MAYORQUE        reduce using rule 37 (expresion -> expresion MAYORIGUAL expresion .)
+    AND             reduce using rule 37 (expresion -> expresion MAYORIGUAL expresion .)
+    OR              reduce using rule 37 (expresion -> expresion MAYORIGUAL expresion .)
+    PYC             reduce using rule 37 (expresion -> expresion MAYORIGUAL expresion .)
+    CORC            reduce using rule 37 (expresion -> expresion MAYORIGUAL expresion .)
+    AS              reduce using rule 37 (expresion -> expresion MAYORIGUAL expresion .)
+    PARC            reduce using rule 37 (expresion -> expresion MAYORIGUAL expresion .)
+    COMA            reduce using rule 37 (expresion -> expresion MAYORIGUAL expresion .)
+    MAS             shift and go to state 46
+    MENOS           shift and go to state 47
+    POR             shift and go to state 48
+    DIV             shift and go to state 49
+    MOD             shift and go to state 50
+
+  ! MAS             [ reduce using rule 37 (expresion -> expresion MAYORIGUAL expresion .) ]
+  ! MENOS           [ reduce using rule 37 (expresion -> expresion MAYORIGUAL expresion .) ]
+  ! POR             [ reduce using rule 37 (expresion -> expresion MAYORIGUAL expresion .) ]
+  ! DIV             [ reduce using rule 37 (expresion -> expresion MAYORIGUAL expresion .) ]
+  ! MOD             [ reduce using rule 37 (expresion -> expresion MAYORIGUAL expresion .) ]
+  ! IGUALIGUAL      [ shift and go to state 51 ]
+  ! DIFERENTE       [ shift and go to state 52 ]
+  ! MENORIGUAL      [ shift and go to state 53 ]
+  ! MENORQUE        [ shift and go to state 54 ]
+  ! MAYORIGUAL      [ shift and go to state 55 ]
+  ! MAYORQUE        [ shift and go to state 56 ]
+  ! AND             [ shift and go to state 57 ]
+  ! OR              [ shift and go to state 58 ]
+
+
+state 83
+
+    (38) expresion -> expresion MAYORQUE expresion .
+    (28) expresion -> expresion . MAS expresion
+    (29) expresion -> expresion . MENOS expresion
+    (30) expresion -> expresion . POR expresion
+    (31) expresion -> expresion . DIV expresion
+    (32) expresion -> expresion . MOD expresion
+    (33) expresion -> expresion . IGUALIGUAL expresion
+    (34) expresion -> expresion . DIFERENTE expresion
+    (35) expresion -> expresion . MENORIGUAL expresion
+    (36) expresion -> expresion . MENORQUE expresion
+    (37) expresion -> expresion . MAYORIGUAL expresion
+    (38) expresion -> expresion . MAYORQUE expresion
+    (41) expresion -> expresion . AND expresion
+    (42) expresion -> expresion . OR expresion
+
+    IGUALIGUAL      reduce using rule 38 (expresion -> expresion MAYORQUE expresion .)
+    DIFERENTE       reduce using rule 38 (expresion -> expresion MAYORQUE expresion .)
+    MENORIGUAL      reduce using rule 38 (expresion -> expresion MAYORQUE expresion .)
+    MENORQUE        reduce using rule 38 (expresion -> expresion MAYORQUE expresion .)
+    MAYORIGUAL      reduce using rule 38 (expresion -> expresion MAYORQUE expresion .)
+    MAYORQUE        reduce using rule 38 (expresion -> expresion MAYORQUE expresion .)
+    AND             reduce using rule 38 (expresion -> expresion MAYORQUE expresion .)
+    OR              reduce using rule 38 (expresion -> expresion MAYORQUE expresion .)
+    PYC             reduce using rule 38 (expresion -> expresion MAYORQUE expresion .)
+    CORC            reduce using rule 38 (expresion -> expresion MAYORQUE expresion .)
+    AS              reduce using rule 38 (expresion -> expresion MAYORQUE expresion .)
+    PARC            reduce using rule 38 (expresion -> expresion MAYORQUE expresion .)
+    COMA            reduce using rule 38 (expresion -> expresion MAYORQUE expresion .)
+    MAS             shift and go to state 46
+    MENOS           shift and go to state 47
+    POR             shift and go to state 48
+    DIV             shift and go to state 49
+    MOD             shift and go to state 50
+
+  ! MAS             [ reduce using rule 38 (expresion -> expresion MAYORQUE expresion .) ]
+  ! MENOS           [ reduce using rule 38 (expresion -> expresion MAYORQUE expresion .) ]
+  ! POR             [ reduce using rule 38 (expresion -> expresion MAYORQUE expresion .) ]
+  ! DIV             [ reduce using rule 38 (expresion -> expresion MAYORQUE expresion .) ]
+  ! MOD             [ reduce using rule 38 (expresion -> expresion MAYORQUE expresion .) ]
+  ! IGUALIGUAL      [ shift and go to state 51 ]
+  ! DIFERENTE       [ shift and go to state 52 ]
+  ! MENORIGUAL      [ shift and go to state 53 ]
+  ! MENORQUE        [ shift and go to state 54 ]
+  ! MAYORIGUAL      [ shift and go to state 55 ]
+  ! MAYORQUE        [ shift and go to state 56 ]
+  ! AND             [ shift and go to state 57 ]
+  ! OR              [ shift and go to state 58 ]
+
+
+state 84
+
+    (41) expresion -> expresion AND expresion .
+    (28) expresion -> expresion . MAS expresion
+    (29) expresion -> expresion . MENOS expresion
+    (30) expresion -> expresion . POR expresion
+    (31) expresion -> expresion . DIV expresion
+    (32) expresion -> expresion . MOD expresion
+    (33) expresion -> expresion . IGUALIGUAL expresion
+    (34) expresion -> expresion . DIFERENTE expresion
+    (35) expresion -> expresion . MENORIGUAL expresion
+    (36) expresion -> expresion . MENORQUE expresion
+    (37) expresion -> expresion . MAYORIGUAL expresion
+    (38) expresion -> expresion . MAYORQUE expresion
+    (41) expresion -> expresion . AND expresion
+    (42) expresion -> expresion . OR expresion
+
+    AND             reduce using rule 41 (expresion -> expresion AND expresion .)
+    OR              reduce using rule 41 (expresion -> expresion AND expresion .)
+    PYC             reduce using rule 41 (expresion -> expresion AND expresion .)
+    CORC            reduce using rule 41 (expresion -> expresion AND expresion .)
+    AS              reduce using rule 41 (expresion -> expresion AND expresion .)
+    PARC            reduce using rule 41 (expresion -> expresion AND expresion .)
+    COMA            reduce using rule 41 (expresion -> expresion AND expresion .)
+    MAS             shift and go to state 46
+    MENOS           shift and go to state 47
+    POR             shift and go to state 48
+    DIV             shift and go to state 49
+    MOD             shift and go to state 50
+    IGUALIGUAL      shift and go to state 51
+    DIFERENTE       shift and go to state 52
+    MENORIGUAL      shift and go to state 53
+    MENORQUE        shift and go to state 54
+    MAYORIGUAL      shift and go to state 55
+    MAYORQUE        shift and go to state 56
+
+  ! MAS             [ reduce using rule 41 (expresion -> expresion AND expresion .) ]
+  ! MENOS           [ reduce using rule 41 (expresion -> expresion AND expresion .) ]
+  ! POR             [ reduce using rule 41 (expresion -> expresion AND expresion .) ]
+  ! DIV             [ reduce using rule 41 (expresion -> expresion AND expresion .) ]
+  ! MOD             [ reduce using rule 41 (expresion -> expresion AND expresion .) ]
+  ! IGUALIGUAL      [ reduce using rule 41 (expresion -> expresion AND expresion .) ]
+  ! DIFERENTE       [ reduce using rule 41 (expresion -> expresion AND expresion .) ]
+  ! MENORIGUAL      [ reduce using rule 41 (expresion -> expresion AND expresion .) ]
+  ! MENORQUE        [ reduce using rule 41 (expresion -> expresion AND expresion .) ]
+  ! MAYORIGUAL      [ reduce using rule 41 (expresion -> expresion AND expresion .) ]
+  ! MAYORQUE        [ reduce using rule 41 (expresion -> expresion AND expresion .) ]
+  ! AND             [ shift and go to state 57 ]
+  ! OR              [ shift and go to state 58 ]
+
+
+state 85
+
+    (42) expresion -> expresion OR expresion .
+    (28) expresion -> expresion . MAS expresion
+    (29) expresion -> expresion . MENOS expresion
+    (30) expresion -> expresion . POR expresion
+    (31) expresion -> expresion . DIV expresion
+    (32) expresion -> expresion . MOD expresion
+    (33) expresion -> expresion . IGUALIGUAL expresion
+    (34) expresion -> expresion . DIFERENTE expresion
+    (35) expresion -> expresion . MENORIGUAL expresion
+    (36) expresion -> expresion . MENORQUE expresion
+    (37) expresion -> expresion . MAYORIGUAL expresion
+    (38) expresion -> expresion . MAYORQUE expresion
+    (41) expresion -> expresion . AND expresion
+    (42) expresion -> expresion . OR expresion
+
+    OR              reduce using rule 42 (expresion -> expresion OR expresion .)
+    PYC             reduce using rule 42 (expresion -> expresion OR expresion .)
+    CORC            reduce using rule 42 (expresion -> expresion OR expresion .)
+    AS              reduce using rule 42 (expresion -> expresion OR expresion .)
+    PARC            reduce using rule 42 (expresion -> expresion OR expresion .)
+    COMA            reduce using rule 42 (expresion -> expresion OR expresion .)
+    MAS             shift and go to state 46
+    MENOS           shift and go to state 47
+    POR             shift and go to state 48
+    DIV             shift and go to state 49
+    MOD             shift and go to state 50
+    IGUALIGUAL      shift and go to state 51
+    DIFERENTE       shift and go to state 52
+    MENORIGUAL      shift and go to state 53
+    MENORQUE        shift and go to state 54
+    MAYORIGUAL      shift and go to state 55
+    MAYORQUE        shift and go to state 56
+    AND             shift and go to state 57
+
+  ! MAS             [ reduce using rule 42 (expresion -> expresion OR expresion .) ]
+  ! MENOS           [ reduce using rule 42 (expresion -> expresion OR expresion .) ]
+  ! POR             [ reduce using rule 42 (expresion -> expresion OR expresion .) ]
+  ! DIV             [ reduce using rule 42 (expresion -> expresion OR expresion .) ]
+  ! MOD             [ reduce using rule 42 (expresion -> expresion OR expresion .) ]
+  ! IGUALIGUAL      [ reduce using rule 42 (expresion -> expresion OR expresion .) ]
+  ! DIFERENTE       [ reduce using rule 42 (expresion -> expresion OR expresion .) ]
+  ! MENORIGUAL      [ reduce using rule 42 (expresion -> expresion OR expresion .) ]
+  ! MENORQUE        [ reduce using rule 42 (expresion -> expresion OR expresion .) ]
+  ! MAYORIGUAL      [ reduce using rule 42 (expresion -> expresion OR expresion .) ]
+  ! MAYORQUE        [ reduce using rule 42 (expresion -> expresion OR expresion .) ]
+  ! AND             [ reduce using rule 42 (expresion -> expresion OR expresion .) ]
+  ! OR              [ shift and go to state 58 ]
+
+
+state 86
+
+    (26) expresion -> I64 DOSP DOSP . POW PARA expresion COMA expresion PARC
+
+    POW             shift and go to state 96
+
+
+state 87
+
+    (43) expresion -> PARA expresion AS . tipo PARC
+    (13) tipo -> . I64
+    (14) tipo -> . F64
+    (15) tipo -> . BOOL
+    (16) tipo -> . CHAR
+    (17) tipo -> . STRING
+    (18) tipo -> . STR
+
+    I64             shift and go to state 38
+    F64             shift and go to state 39
+    BOOL            shift and go to state 40
+    CHAR            shift and go to state 41
+    STRING          shift and go to state 42
+    STR             shift and go to state 43
+
+    tipo                           shift and go to state 97
+
+state 88
+
+    (44) expresion -> PARA expresion PARC .
+
+    MAS             reduce using rule 44 (expresion -> PARA expresion PARC .)
+    MENOS           reduce using rule 44 (expresion -> PARA expresion PARC .)
+    POR             reduce using rule 44 (expresion -> PARA expresion PARC .)
+    DIV             reduce using rule 44 (expresion -> PARA expresion PARC .)
+    MOD             reduce using rule 44 (expresion -> PARA expresion PARC .)
+    IGUALIGUAL      reduce using rule 44 (expresion -> PARA expresion PARC .)
+    DIFERENTE       reduce using rule 44 (expresion -> PARA expresion PARC .)
+    MENORIGUAL      reduce using rule 44 (expresion -> PARA expresion PARC .)
+    MENORQUE        reduce using rule 44 (expresion -> PARA expresion PARC .)
+    MAYORIGUAL      reduce using rule 44 (expresion -> PARA expresion PARC .)
+    MAYORQUE        reduce using rule 44 (expresion -> PARA expresion PARC .)
+    AND             reduce using rule 44 (expresion -> PARA expresion PARC .)
+    OR              reduce using rule 44 (expresion -> PARA expresion PARC .)
+    PYC             reduce using rule 44 (expresion -> PARA expresion PARC .)
+    CORC            reduce using rule 44 (expresion -> PARA expresion PARC .)
+    AS              reduce using rule 44 (expresion -> PARA expresion PARC .)
+    PARC            reduce using rule 44 (expresion -> PARA expresion PARC .)
+    COMA            reduce using rule 44 (expresion -> PARA expresion PARC .)
+
+
+state 89
+
+    (27) expresion -> F64 DOSP DOSP . POW PARA expresion COMA expresion PARC
+
+    POW             shift and go to state 98
+
+
+state 90
+
+    (24) dimensiones_arreglo -> CORA expresion CORC dimensiones_arreglo .
+
+    IGUAL           reduce using rule 24 (dimensiones_arreglo -> CORA expresion CORC dimensiones_arreglo .)
+
+
+state 91
+
+    (19) funcion -> FN ID PARA lista_parametros PARC . LLAVEA instrucciones LLAVEC
+    (20) funcion -> FN ID PARA lista_parametros PARC . MENOS MAYORQUE tipo LLAVEA instrucciones LLAVEC
+
+    LLAVEA          shift and go to state 99
+    MENOS           shift and go to state 100
+
+
+state 92
+
+    (21) lista_parametros -> lista_parametros COMA . parametro
+    (23) parametro -> . ID
+
+    ID              shift and go to state 66
+
+    parametro                      shift and go to state 101
+
+state 93
+
+    (7) declaracion -> LET MUT ID DOSP tipo IGUAL . expresion
+    (26) expresion -> . I64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (27) expresion -> . F64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (28) expresion -> . expresion MAS expresion
+    (29) expresion -> . expresion MENOS expresion
+    (30) expresion -> . expresion POR expresion
+    (31) expresion -> . expresion DIV expresion
+    (32) expresion -> . expresion MOD expresion
+    (33) expresion -> . expresion IGUALIGUAL expresion
+    (34) expresion -> . expresion DIFERENTE expresion
+    (35) expresion -> . expresion MENORIGUAL expresion
+    (36) expresion -> . expresion MENORQUE expresion
+    (37) expresion -> . expresion MAYORIGUAL expresion
+    (38) expresion -> . expresion MAYORQUE expresion
+    (39) expresion -> . NOT expresion
+    (40) expresion -> . MENOS expresion
+    (41) expresion -> . expresion AND expresion
+    (42) expresion -> . expresion OR expresion
+    (43) expresion -> . PARA expresion AS tipo PARC
+    (44) expresion -> . PARA expresion PARC
+    (45) expresion -> . ID CORA expresion CORC
+    (46) expresion -> . ENTERO
+    (47) expresion -> . DECIMAL
+    (48) expresion -> . CADENA
+
+    I64             shift and go to state 24
+    F64             shift and go to state 26
+    NOT             shift and go to state 28
+    MENOS           shift and go to state 27
+    PARA            shift and go to state 25
+    ID              shift and go to state 22
+    ENTERO          shift and go to state 29
+    DECIMAL         shift and go to state 30
+    CADENA          shift and go to state 31
+
+    expresion                      shift and go to state 102
+
+state 94
+
+    (9) declaracion -> LET ID DOSP tipo IGUAL expresion .
+    (28) expresion -> expresion . MAS expresion
+    (29) expresion -> expresion . MENOS expresion
+    (30) expresion -> expresion . POR expresion
+    (31) expresion -> expresion . DIV expresion
+    (32) expresion -> expresion . MOD expresion
+    (33) expresion -> expresion . IGUALIGUAL expresion
+    (34) expresion -> expresion . DIFERENTE expresion
+    (35) expresion -> expresion . MENORIGUAL expresion
+    (36) expresion -> expresion . MENORQUE expresion
+    (37) expresion -> expresion . MAYORIGUAL expresion
+    (38) expresion -> expresion . MAYORQUE expresion
+    (41) expresion -> expresion . AND expresion
+    (42) expresion -> expresion . OR expresion
+
+    PYC             reduce using rule 9 (declaracion -> LET ID DOSP tipo IGUAL expresion .)
+    MAS             shift and go to state 46
+    MENOS           shift and go to state 47
+    POR             shift and go to state 48
+    DIV             shift and go to state 49
+    MOD             shift and go to state 50
+    IGUALIGUAL      shift and go to state 51
+    DIFERENTE       shift and go to state 52
+    MENORIGUAL      shift and go to state 53
+    MENORQUE        shift and go to state 54
+    MAYORIGUAL      shift and go to state 55
+    MAYORQUE        shift and go to state 56
+    AND             shift and go to state 57
+    OR              shift and go to state 58
+
+
+state 95
+
+    (45) expresion -> ID CORA expresion CORC .
+
+    MAS             reduce using rule 45 (expresion -> ID CORA expresion CORC .)
+    MENOS           reduce using rule 45 (expresion -> ID CORA expresion CORC .)
+    POR             reduce using rule 45 (expresion -> ID CORA expresion CORC .)
+    DIV             reduce using rule 45 (expresion -> ID CORA expresion CORC .)
+    MOD             reduce using rule 45 (expresion -> ID CORA expresion CORC .)
+    IGUALIGUAL      reduce using rule 45 (expresion -> ID CORA expresion CORC .)
+    DIFERENTE       reduce using rule 45 (expresion -> ID CORA expresion CORC .)
+    MENORIGUAL      reduce using rule 45 (expresion -> ID CORA expresion CORC .)
+    MENORQUE        reduce using rule 45 (expresion -> ID CORA expresion CORC .)
+    MAYORIGUAL      reduce using rule 45 (expresion -> ID CORA expresion CORC .)
+    MAYORQUE        reduce using rule 45 (expresion -> ID CORA expresion CORC .)
+    AND             reduce using rule 45 (expresion -> ID CORA expresion CORC .)
+    OR              reduce using rule 45 (expresion -> ID CORA expresion CORC .)
+    PYC             reduce using rule 45 (expresion -> ID CORA expresion CORC .)
+    CORC            reduce using rule 45 (expresion -> ID CORA expresion CORC .)
+    AS              reduce using rule 45 (expresion -> ID CORA expresion CORC .)
+    PARC            reduce using rule 45 (expresion -> ID CORA expresion CORC .)
+    COMA            reduce using rule 45 (expresion -> ID CORA expresion CORC .)
+
+
+state 96
+
+    (26) expresion -> I64 DOSP DOSP POW . PARA expresion COMA expresion PARC
+
+    PARA            shift and go to state 103
+
+
+state 97
+
+    (43) expresion -> PARA expresion AS tipo . PARC
+
+    PARC            shift and go to state 104
+
+
+state 98
+
+    (27) expresion -> F64 DOSP DOSP POW . PARA expresion COMA expresion PARC
+
+    PARA            shift and go to state 105
+
+
+state 99
+
+    (19) funcion -> FN ID PARA lista_parametros PARC LLAVEA . instrucciones LLAVEC
+    (2) instrucciones -> . instrucciones instruccion
+    (3) instrucciones -> . instruccion
+    (4) instruccion -> . declaracion PYC
+    (5) instruccion -> . asignacion PYC
+    (6) instruccion -> . funcion
+    (7) declaracion -> . LET MUT ID DOSP tipo IGUAL expresion
+    (8) declaracion -> . LET MUT ID IGUAL expresion
+    (9) declaracion -> . LET ID DOSP tipo IGUAL expresion
+    (10) declaracion -> . LET ID IGUAL expresion
+    (11) asignacion -> . ID IGUAL expresion
+    (12) asignacion -> . ID dimensiones_arreglo IGUAL expresion
+    (19) funcion -> . FN ID PARA lista_parametros PARC LLAVEA instrucciones LLAVEC
+    (20) funcion -> . FN ID PARA lista_parametros PARC MENOS MAYORQUE tipo LLAVEA instrucciones LLAVEC
+
+    LET             shift and go to state 7
+    ID              shift and go to state 8
+    FN              shift and go to state 9
+
+    instrucciones                  shift and go to state 106
+    instruccion                    shift and go to state 3
+    declaracion                    shift and go to state 4
+    asignacion                     shift and go to state 5
+    funcion                        shift and go to state 6
+
+state 100
+
+    (20) funcion -> FN ID PARA lista_parametros PARC MENOS . MAYORQUE tipo LLAVEA instrucciones LLAVEC
+
+    MAYORQUE        shift and go to state 107
+
+
+state 101
+
+    (21) lista_parametros -> lista_parametros COMA parametro .
+
+    PARC            reduce using rule 21 (lista_parametros -> lista_parametros COMA parametro .)
+    COMA            reduce using rule 21 (lista_parametros -> lista_parametros COMA parametro .)
+
+
+state 102
+
+    (7) declaracion -> LET MUT ID DOSP tipo IGUAL expresion .
+    (28) expresion -> expresion . MAS expresion
+    (29) expresion -> expresion . MENOS expresion
+    (30) expresion -> expresion . POR expresion
+    (31) expresion -> expresion . DIV expresion
+    (32) expresion -> expresion . MOD expresion
+    (33) expresion -> expresion . IGUALIGUAL expresion
+    (34) expresion -> expresion . DIFERENTE expresion
+    (35) expresion -> expresion . MENORIGUAL expresion
+    (36) expresion -> expresion . MENORQUE expresion
+    (37) expresion -> expresion . MAYORIGUAL expresion
+    (38) expresion -> expresion . MAYORQUE expresion
+    (41) expresion -> expresion . AND expresion
+    (42) expresion -> expresion . OR expresion
+
+    PYC             reduce using rule 7 (declaracion -> LET MUT ID DOSP tipo IGUAL expresion .)
+    MAS             shift and go to state 46
+    MENOS           shift and go to state 47
+    POR             shift and go to state 48
+    DIV             shift and go to state 49
+    MOD             shift and go to state 50
+    IGUALIGUAL      shift and go to state 51
+    DIFERENTE       shift and go to state 52
+    MENORIGUAL      shift and go to state 53
+    MENORQUE        shift and go to state 54
+    MAYORIGUAL      shift and go to state 55
+    MAYORQUE        shift and go to state 56
+    AND             shift and go to state 57
+    OR              shift and go to state 58
+
+
+state 103
+
+    (26) expresion -> I64 DOSP DOSP POW PARA . expresion COMA expresion PARC
+    (26) expresion -> . I64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (27) expresion -> . F64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (28) expresion -> . expresion MAS expresion
+    (29) expresion -> . expresion MENOS expresion
+    (30) expresion -> . expresion POR expresion
+    (31) expresion -> . expresion DIV expresion
+    (32) expresion -> . expresion MOD expresion
+    (33) expresion -> . expresion IGUALIGUAL expresion
+    (34) expresion -> . expresion DIFERENTE expresion
+    (35) expresion -> . expresion MENORIGUAL expresion
+    (36) expresion -> . expresion MENORQUE expresion
+    (37) expresion -> . expresion MAYORIGUAL expresion
+    (38) expresion -> . expresion MAYORQUE expresion
+    (39) expresion -> . NOT expresion
+    (40) expresion -> . MENOS expresion
+    (41) expresion -> . expresion AND expresion
+    (42) expresion -> . expresion OR expresion
+    (43) expresion -> . PARA expresion AS tipo PARC
+    (44) expresion -> . PARA expresion PARC
+    (45) expresion -> . ID CORA expresion CORC
+    (46) expresion -> . ENTERO
+    (47) expresion -> . DECIMAL
+    (48) expresion -> . CADENA
+
+    I64             shift and go to state 24
+    F64             shift and go to state 26
+    NOT             shift and go to state 28
+    MENOS           shift and go to state 27
+    PARA            shift and go to state 25
+    ID              shift and go to state 22
+    ENTERO          shift and go to state 29
+    DECIMAL         shift and go to state 30
+    CADENA          shift and go to state 31
+
+    expresion                      shift and go to state 108
+
+state 104
+
+    (43) expresion -> PARA expresion AS tipo PARC .
+
+    MAS             reduce using rule 43 (expresion -> PARA expresion AS tipo PARC .)
+    MENOS           reduce using rule 43 (expresion -> PARA expresion AS tipo PARC .)
+    POR             reduce using rule 43 (expresion -> PARA expresion AS tipo PARC .)
+    DIV             reduce using rule 43 (expresion -> PARA expresion AS tipo PARC .)
+    MOD             reduce using rule 43 (expresion -> PARA expresion AS tipo PARC .)
+    IGUALIGUAL      reduce using rule 43 (expresion -> PARA expresion AS tipo PARC .)
+    DIFERENTE       reduce using rule 43 (expresion -> PARA expresion AS tipo PARC .)
+    MENORIGUAL      reduce using rule 43 (expresion -> PARA expresion AS tipo PARC .)
+    MENORQUE        reduce using rule 43 (expresion -> PARA expresion AS tipo PARC .)
+    MAYORIGUAL      reduce using rule 43 (expresion -> PARA expresion AS tipo PARC .)
+    MAYORQUE        reduce using rule 43 (expresion -> PARA expresion AS tipo PARC .)
+    AND             reduce using rule 43 (expresion -> PARA expresion AS tipo PARC .)
+    OR              reduce using rule 43 (expresion -> PARA expresion AS tipo PARC .)
+    PYC             reduce using rule 43 (expresion -> PARA expresion AS tipo PARC .)
+    CORC            reduce using rule 43 (expresion -> PARA expresion AS tipo PARC .)
+    AS              reduce using rule 43 (expresion -> PARA expresion AS tipo PARC .)
+    PARC            reduce using rule 43 (expresion -> PARA expresion AS tipo PARC .)
+    COMA            reduce using rule 43 (expresion -> PARA expresion AS tipo PARC .)
+
+
+state 105
+
+    (27) expresion -> F64 DOSP DOSP POW PARA . expresion COMA expresion PARC
+    (26) expresion -> . I64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (27) expresion -> . F64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (28) expresion -> . expresion MAS expresion
+    (29) expresion -> . expresion MENOS expresion
+    (30) expresion -> . expresion POR expresion
+    (31) expresion -> . expresion DIV expresion
+    (32) expresion -> . expresion MOD expresion
+    (33) expresion -> . expresion IGUALIGUAL expresion
+    (34) expresion -> . expresion DIFERENTE expresion
+    (35) expresion -> . expresion MENORIGUAL expresion
+    (36) expresion -> . expresion MENORQUE expresion
+    (37) expresion -> . expresion MAYORIGUAL expresion
+    (38) expresion -> . expresion MAYORQUE expresion
+    (39) expresion -> . NOT expresion
+    (40) expresion -> . MENOS expresion
+    (41) expresion -> . expresion AND expresion
+    (42) expresion -> . expresion OR expresion
+    (43) expresion -> . PARA expresion AS tipo PARC
+    (44) expresion -> . PARA expresion PARC
+    (45) expresion -> . ID CORA expresion CORC
+    (46) expresion -> . ENTERO
+    (47) expresion -> . DECIMAL
+    (48) expresion -> . CADENA
+
+    I64             shift and go to state 24
+    F64             shift and go to state 26
+    NOT             shift and go to state 28
+    MENOS           shift and go to state 27
+    PARA            shift and go to state 25
+    ID              shift and go to state 22
+    ENTERO          shift and go to state 29
+    DECIMAL         shift and go to state 30
+    CADENA          shift and go to state 31
+
+    expresion                      shift and go to state 109
+
+state 106
+
+    (19) funcion -> FN ID PARA lista_parametros PARC LLAVEA instrucciones . LLAVEC
+    (2) instrucciones -> instrucciones . instruccion
+    (4) instruccion -> . declaracion PYC
+    (5) instruccion -> . asignacion PYC
+    (6) instruccion -> . funcion
+    (7) declaracion -> . LET MUT ID DOSP tipo IGUAL expresion
+    (8) declaracion -> . LET MUT ID IGUAL expresion
+    (9) declaracion -> . LET ID DOSP tipo IGUAL expresion
+    (10) declaracion -> . LET ID IGUAL expresion
+    (11) asignacion -> . ID IGUAL expresion
+    (12) asignacion -> . ID dimensiones_arreglo IGUAL expresion
+    (19) funcion -> . FN ID PARA lista_parametros PARC LLAVEA instrucciones LLAVEC
+    (20) funcion -> . FN ID PARA lista_parametros PARC MENOS MAYORQUE tipo LLAVEA instrucciones LLAVEC
+
+    LLAVEC          shift and go to state 110
+    LET             shift and go to state 7
+    ID              shift and go to state 8
+    FN              shift and go to state 9
+
+    instruccion                    shift and go to state 10
+    declaracion                    shift and go to state 4
+    asignacion                     shift and go to state 5
+    funcion                        shift and go to state 6
+
+state 107
+
+    (20) funcion -> FN ID PARA lista_parametros PARC MENOS MAYORQUE . tipo LLAVEA instrucciones LLAVEC
+    (13) tipo -> . I64
+    (14) tipo -> . F64
+    (15) tipo -> . BOOL
+    (16) tipo -> . CHAR
+    (17) tipo -> . STRING
+    (18) tipo -> . STR
+
+    I64             shift and go to state 38
+    F64             shift and go to state 39
+    BOOL            shift and go to state 40
+    CHAR            shift and go to state 41
+    STRING          shift and go to state 42
+    STR             shift and go to state 43
+
+    tipo                           shift and go to state 111
+
+state 108
+
+    (26) expresion -> I64 DOSP DOSP POW PARA expresion . COMA expresion PARC
+    (28) expresion -> expresion . MAS expresion
+    (29) expresion -> expresion . MENOS expresion
+    (30) expresion -> expresion . POR expresion
+    (31) expresion -> expresion . DIV expresion
+    (32) expresion -> expresion . MOD expresion
+    (33) expresion -> expresion . IGUALIGUAL expresion
+    (34) expresion -> expresion . DIFERENTE expresion
+    (35) expresion -> expresion . MENORIGUAL expresion
+    (36) expresion -> expresion . MENORQUE expresion
+    (37) expresion -> expresion . MAYORIGUAL expresion
+    (38) expresion -> expresion . MAYORQUE expresion
+    (41) expresion -> expresion . AND expresion
+    (42) expresion -> expresion . OR expresion
+
+    COMA            shift and go to state 112
+    MAS             shift and go to state 46
+    MENOS           shift and go to state 47
+    POR             shift and go to state 48
+    DIV             shift and go to state 49
+    MOD             shift and go to state 50
+    IGUALIGUAL      shift and go to state 51
+    DIFERENTE       shift and go to state 52
+    MENORIGUAL      shift and go to state 53
+    MENORQUE        shift and go to state 54
+    MAYORIGUAL      shift and go to state 55
+    MAYORQUE        shift and go to state 56
+    AND             shift and go to state 57
+    OR              shift and go to state 58
+
+
+state 109
+
+    (27) expresion -> F64 DOSP DOSP POW PARA expresion . COMA expresion PARC
+    (28) expresion -> expresion . MAS expresion
+    (29) expresion -> expresion . MENOS expresion
+    (30) expresion -> expresion . POR expresion
+    (31) expresion -> expresion . DIV expresion
+    (32) expresion -> expresion . MOD expresion
+    (33) expresion -> expresion . IGUALIGUAL expresion
+    (34) expresion -> expresion . DIFERENTE expresion
+    (35) expresion -> expresion . MENORIGUAL expresion
+    (36) expresion -> expresion . MENORQUE expresion
+    (37) expresion -> expresion . MAYORIGUAL expresion
+    (38) expresion -> expresion . MAYORQUE expresion
+    (41) expresion -> expresion . AND expresion
+    (42) expresion -> expresion . OR expresion
+
+    COMA            shift and go to state 113
+    MAS             shift and go to state 46
+    MENOS           shift and go to state 47
+    POR             shift and go to state 48
+    DIV             shift and go to state 49
+    MOD             shift and go to state 50
+    IGUALIGUAL      shift and go to state 51
+    DIFERENTE       shift and go to state 52
+    MENORIGUAL      shift and go to state 53
+    MENORQUE        shift and go to state 54
+    MAYORIGUAL      shift and go to state 55
+    MAYORQUE        shift and go to state 56
+    AND             shift and go to state 57
+    OR              shift and go to state 58
+
+
+state 110
+
+    (19) funcion -> FN ID PARA lista_parametros PARC LLAVEA instrucciones LLAVEC .
+
+    LET             reduce using rule 19 (funcion -> FN ID PARA lista_parametros PARC LLAVEA instrucciones LLAVEC .)
+    ID              reduce using rule 19 (funcion -> FN ID PARA lista_parametros PARC LLAVEA instrucciones LLAVEC .)
+    FN              reduce using rule 19 (funcion -> FN ID PARA lista_parametros PARC LLAVEA instrucciones LLAVEC .)
+    $end            reduce using rule 19 (funcion -> FN ID PARA lista_parametros PARC LLAVEA instrucciones LLAVEC .)
+    LLAVEC          reduce using rule 19 (funcion -> FN ID PARA lista_parametros PARC LLAVEA instrucciones LLAVEC .)
+
+
+state 111
+
+    (20) funcion -> FN ID PARA lista_parametros PARC MENOS MAYORQUE tipo . LLAVEA instrucciones LLAVEC
+
+    LLAVEA          shift and go to state 114
+
+
+state 112
+
+    (26) expresion -> I64 DOSP DOSP POW PARA expresion COMA . expresion PARC
+    (26) expresion -> . I64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (27) expresion -> . F64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (28) expresion -> . expresion MAS expresion
+    (29) expresion -> . expresion MENOS expresion
+    (30) expresion -> . expresion POR expresion
+    (31) expresion -> . expresion DIV expresion
+    (32) expresion -> . expresion MOD expresion
+    (33) expresion -> . expresion IGUALIGUAL expresion
+    (34) expresion -> . expresion DIFERENTE expresion
+    (35) expresion -> . expresion MENORIGUAL expresion
+    (36) expresion -> . expresion MENORQUE expresion
+    (37) expresion -> . expresion MAYORIGUAL expresion
+    (38) expresion -> . expresion MAYORQUE expresion
+    (39) expresion -> . NOT expresion
+    (40) expresion -> . MENOS expresion
+    (41) expresion -> . expresion AND expresion
+    (42) expresion -> . expresion OR expresion
+    (43) expresion -> . PARA expresion AS tipo PARC
+    (44) expresion -> . PARA expresion PARC
+    (45) expresion -> . ID CORA expresion CORC
+    (46) expresion -> . ENTERO
+    (47) expresion -> . DECIMAL
+    (48) expresion -> . CADENA
+
+    I64             shift and go to state 24
+    F64             shift and go to state 26
+    NOT             shift and go to state 28
+    MENOS           shift and go to state 27
+    PARA            shift and go to state 25
+    ID              shift and go to state 22
+    ENTERO          shift and go to state 29
+    DECIMAL         shift and go to state 30
+    CADENA          shift and go to state 31
+
+    expresion                      shift and go to state 115
+
+state 113
+
+    (27) expresion -> F64 DOSP DOSP POW PARA expresion COMA . expresion PARC
+    (26) expresion -> . I64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (27) expresion -> . F64 DOSP DOSP POW PARA expresion COMA expresion PARC
+    (28) expresion -> . expresion MAS expresion
+    (29) expresion -> . expresion MENOS expresion
+    (30) expresion -> . expresion POR expresion
+    (31) expresion -> . expresion DIV expresion
+    (32) expresion -> . expresion MOD expresion
+    (33) expresion -> . expresion IGUALIGUAL expresion
+    (34) expresion -> . expresion DIFERENTE expresion
+    (35) expresion -> . expresion MENORIGUAL expresion
+    (36) expresion -> . expresion MENORQUE expresion
+    (37) expresion -> . expresion MAYORIGUAL expresion
+    (38) expresion -> . expresion MAYORQUE expresion
+    (39) expresion -> . NOT expresion
+    (40) expresion -> . MENOS expresion
+    (41) expresion -> . expresion AND expresion
+    (42) expresion -> . expresion OR expresion
+    (43) expresion -> . PARA expresion AS tipo PARC
+    (44) expresion -> . PARA expresion PARC
+    (45) expresion -> . ID CORA expresion CORC
+    (46) expresion -> . ENTERO
+    (47) expresion -> . DECIMAL
+    (48) expresion -> . CADENA
+
+    I64             shift and go to state 24
+    F64             shift and go to state 26
+    NOT             shift and go to state 28
+    MENOS           shift and go to state 27
+    PARA            shift and go to state 25
+    ID              shift and go to state 22
+    ENTERO          shift and go to state 29
+    DECIMAL         shift and go to state 30
+    CADENA          shift and go to state 31
+
+    expresion                      shift and go to state 116
+
+state 114
+
+    (20) funcion -> FN ID PARA lista_parametros PARC MENOS MAYORQUE tipo LLAVEA . instrucciones LLAVEC
+    (2) instrucciones -> . instrucciones instruccion
+    (3) instrucciones -> . instruccion
+    (4) instruccion -> . declaracion PYC
+    (5) instruccion -> . asignacion PYC
+    (6) instruccion -> . funcion
+    (7) declaracion -> . LET MUT ID DOSP tipo IGUAL expresion
+    (8) declaracion -> . LET MUT ID IGUAL expresion
+    (9) declaracion -> . LET ID DOSP tipo IGUAL expresion
+    (10) declaracion -> . LET ID IGUAL expresion
+    (11) asignacion -> . ID IGUAL expresion
+    (12) asignacion -> . ID dimensiones_arreglo IGUAL expresion
+    (19) funcion -> . FN ID PARA lista_parametros PARC LLAVEA instrucciones LLAVEC
+    (20) funcion -> . FN ID PARA lista_parametros PARC MENOS MAYORQUE tipo LLAVEA instrucciones LLAVEC
+
+    LET             shift and go to state 7
+    ID              shift and go to state 8
+    FN              shift and go to state 9
+
+    instrucciones                  shift and go to state 117
+    instruccion                    shift and go to state 3
+    declaracion                    shift and go to state 4
+    asignacion                     shift and go to state 5
+    funcion                        shift and go to state 6
+
+state 115
+
+    (26) expresion -> I64 DOSP DOSP POW PARA expresion COMA expresion . PARC
+    (28) expresion -> expresion . MAS expresion
+    (29) expresion -> expresion . MENOS expresion
+    (30) expresion -> expresion . POR expresion
+    (31) expresion -> expresion . DIV expresion
+    (32) expresion -> expresion . MOD expresion
+    (33) expresion -> expresion . IGUALIGUAL expresion
+    (34) expresion -> expresion . DIFERENTE expresion
+    (35) expresion -> expresion . MENORIGUAL expresion
+    (36) expresion -> expresion . MENORQUE expresion
+    (37) expresion -> expresion . MAYORIGUAL expresion
+    (38) expresion -> expresion . MAYORQUE expresion
+    (41) expresion -> expresion . AND expresion
+    (42) expresion -> expresion . OR expresion
+
+    PARC            shift and go to state 118
+    MAS             shift and go to state 46
+    MENOS           shift and go to state 47
+    POR             shift and go to state 48
+    DIV             shift and go to state 49
+    MOD             shift and go to state 50
+    IGUALIGUAL      shift and go to state 51
+    DIFERENTE       shift and go to state 52
+    MENORIGUAL      shift and go to state 53
+    MENORQUE        shift and go to state 54
+    MAYORIGUAL      shift and go to state 55
+    MAYORQUE        shift and go to state 56
+    AND             shift and go to state 57
+    OR              shift and go to state 58
+
+
+state 116
+
+    (27) expresion -> F64 DOSP DOSP POW PARA expresion COMA expresion . PARC
+    (28) expresion -> expresion . MAS expresion
+    (29) expresion -> expresion . MENOS expresion
+    (30) expresion -> expresion . POR expresion
+    (31) expresion -> expresion . DIV expresion
+    (32) expresion -> expresion . MOD expresion
+    (33) expresion -> expresion . IGUALIGUAL expresion
+    (34) expresion -> expresion . DIFERENTE expresion
+    (35) expresion -> expresion . MENORIGUAL expresion
+    (36) expresion -> expresion . MENORQUE expresion
+    (37) expresion -> expresion . MAYORIGUAL expresion
+    (38) expresion -> expresion . MAYORQUE expresion
+    (41) expresion -> expresion . AND expresion
+    (42) expresion -> expresion . OR expresion
+
+    PARC            shift and go to state 119
+    MAS             shift and go to state 46
+    MENOS           shift and go to state 47
+    POR             shift and go to state 48
+    DIV             shift and go to state 49
+    MOD             shift and go to state 50
+    IGUALIGUAL      shift and go to state 51
+    DIFERENTE       shift and go to state 52
+    MENORIGUAL      shift and go to state 53
+    MENORQUE        shift and go to state 54
+    MAYORIGUAL      shift and go to state 55
+    MAYORQUE        shift and go to state 56
+    AND             shift and go to state 57
+    OR              shift and go to state 58
+
+
+state 117
+
+    (20) funcion -> FN ID PARA lista_parametros PARC MENOS MAYORQUE tipo LLAVEA instrucciones . LLAVEC
+    (2) instrucciones -> instrucciones . instruccion
+    (4) instruccion -> . declaracion PYC
+    (5) instruccion -> . asignacion PYC
+    (6) instruccion -> . funcion
+    (7) declaracion -> . LET MUT ID DOSP tipo IGUAL expresion
+    (8) declaracion -> . LET MUT ID IGUAL expresion
+    (9) declaracion -> . LET ID DOSP tipo IGUAL expresion
+    (10) declaracion -> . LET ID IGUAL expresion
+    (11) asignacion -> . ID IGUAL expresion
+    (12) asignacion -> . ID dimensiones_arreglo IGUAL expresion
+    (19) funcion -> . FN ID PARA lista_parametros PARC LLAVEA instrucciones LLAVEC
+    (20) funcion -> . FN ID PARA lista_parametros PARC MENOS MAYORQUE tipo LLAVEA instrucciones LLAVEC
+
+    LLAVEC          shift and go to state 120
+    LET             shift and go to state 7
+    ID              shift and go to state 8
+    FN              shift and go to state 9
+
+    instruccion                    shift and go to state 10
+    declaracion                    shift and go to state 4
+    asignacion                     shift and go to state 5
+    funcion                        shift and go to state 6
+
+state 118
+
+    (26) expresion -> I64 DOSP DOSP POW PARA expresion COMA expresion PARC .
+
+    MAS             reduce using rule 26 (expresion -> I64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    MENOS           reduce using rule 26 (expresion -> I64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    POR             reduce using rule 26 (expresion -> I64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    DIV             reduce using rule 26 (expresion -> I64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    MOD             reduce using rule 26 (expresion -> I64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    IGUALIGUAL      reduce using rule 26 (expresion -> I64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    DIFERENTE       reduce using rule 26 (expresion -> I64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    MENORIGUAL      reduce using rule 26 (expresion -> I64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    MENORQUE        reduce using rule 26 (expresion -> I64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    MAYORIGUAL      reduce using rule 26 (expresion -> I64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    MAYORQUE        reduce using rule 26 (expresion -> I64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    AND             reduce using rule 26 (expresion -> I64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    OR              reduce using rule 26 (expresion -> I64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    PYC             reduce using rule 26 (expresion -> I64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    CORC            reduce using rule 26 (expresion -> I64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    AS              reduce using rule 26 (expresion -> I64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    PARC            reduce using rule 26 (expresion -> I64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    COMA            reduce using rule 26 (expresion -> I64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+
+
+state 119
+
+    (27) expresion -> F64 DOSP DOSP POW PARA expresion COMA expresion PARC .
+
+    MAS             reduce using rule 27 (expresion -> F64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    MENOS           reduce using rule 27 (expresion -> F64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    POR             reduce using rule 27 (expresion -> F64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    DIV             reduce using rule 27 (expresion -> F64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    MOD             reduce using rule 27 (expresion -> F64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    IGUALIGUAL      reduce using rule 27 (expresion -> F64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    DIFERENTE       reduce using rule 27 (expresion -> F64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    MENORIGUAL      reduce using rule 27 (expresion -> F64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    MENORQUE        reduce using rule 27 (expresion -> F64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    MAYORIGUAL      reduce using rule 27 (expresion -> F64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    MAYORQUE        reduce using rule 27 (expresion -> F64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    AND             reduce using rule 27 (expresion -> F64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    OR              reduce using rule 27 (expresion -> F64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    PYC             reduce using rule 27 (expresion -> F64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    CORC            reduce using rule 27 (expresion -> F64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    AS              reduce using rule 27 (expresion -> F64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    PARC            reduce using rule 27 (expresion -> F64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+    COMA            reduce using rule 27 (expresion -> F64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
+
+
+state 120
+
+    (20) funcion -> FN ID PARA lista_parametros PARC MENOS MAYORQUE tipo LLAVEA instrucciones LLAVEC .
+
+    LET             reduce using rule 20 (funcion -> FN ID PARA lista_parametros PARC MENOS MAYORQUE tipo LLAVEA instrucciones LLAVEC .)
+    ID              reduce using rule 20 (funcion -> FN ID PARA lista_parametros PARC MENOS MAYORQUE tipo LLAVEA instrucciones LLAVEC .)
+    FN              reduce using rule 20 (funcion -> FN ID PARA lista_parametros PARC MENOS MAYORQUE tipo LLAVEA instrucciones LLAVEC .)
+    $end            reduce using rule 20 (funcion -> FN ID PARA lista_parametros PARC MENOS MAYORQUE tipo LLAVEA instrucciones LLAVEC .)
+    LLAVEC          reduce using rule 20 (funcion -> FN ID PARA lista_parametros PARC MENOS MAYORQUE tipo LLAVEA instrucciones LLAVEC .)
+
