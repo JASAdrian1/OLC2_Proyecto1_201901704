@@ -1,4 +1,7 @@
+from Interprete.Expresiones.Operaciones.Aritmetica import Aritmetica
+from Interprete.Expresiones.Primitivo import Primitivo
 
+#Palabras reservadas
 reserved = {
     'let':'LET',
     'mut':'MUT',
@@ -15,7 +18,7 @@ reserved = {
     'Vec':'VECN',
     'fn':'FN'
 }
-
+#Simbolos
 tokens = [
     'MAS',
     'POR',
@@ -75,6 +78,8 @@ t_COMA = r','
 t_PYC = r';'
 t_DOSP = r':'
 
+
+#Expresiones regulares
 def t_DECIMAL(t):
     r'\d+\.\d+'
     try:
@@ -144,17 +149,24 @@ precedence = (
 def p_inicio(t):
     '''inicio : instrucciones
     '''
+    t[0] = t[1]
+    return t[1]
 
 def p_instrucciones(t):
     '''instrucciones : instrucciones instruccion
                     | instruccion
     '''
+    #print(t)
+    t[0] = t[1]
+    return t
 
 def p_instruccion(t):
     '''instruccion : declaracion PYC
                     | asignacion PYC
                     | funcion
     '''
+    t[0] = t[1]
+    return t
 
 def p_declaracion(t):
     '''declaracion : LET MUT ID DOSP tipo IGUAL expresion
@@ -163,6 +175,8 @@ def p_declaracion(t):
                     | LET ID IGUAL expresion
     '''
     print("Se reconocio una declaracion con el valor de: ",t[7])
+    t[0] = t[7]
+    return t
 
 def p_asignacion(t):
     '''asignacion : ID IGUAL expresion
@@ -229,12 +243,20 @@ def p_expresion(t):
                 | CADENA
     '''
     if len(t) <= 2:
-        t[0] = t[1]
+        if type(t[1]) == float:
+            tipo = "F64"
+        elif type(t[1]) == int:
+            tipo = "I64"
+        else:
+            tipo = "ERROR"
+        t[0] = Primitivo(t[1],tipo,t.lexer.lineno,1)
     else:
         if t[2] == '+':
-            t[0] = t[1] + t[3]
+            t[0] = Aritmetica(t[1],t[3],False,t.lexer.lineno,1,'+')
+
         else:
             t[0] = t[1]
+    return t
 
 
 def p_error(t):
@@ -248,7 +270,7 @@ parser = yacc.yacc()
 
 def analizar_entrada(input):
     print(input)
-    parser.parse(input)
+    return parser.parse(input)
 
 
 
