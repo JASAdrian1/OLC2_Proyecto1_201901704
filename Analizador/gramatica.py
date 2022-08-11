@@ -1,5 +1,7 @@
 from Interprete.Expresiones.Operaciones.Aritmetica import Aritmetica
 from Interprete.Expresiones.Primitivo import Primitivo
+from Interprete.Expresiones.Operaciones.Relacionales import Relacionales
+from Interprete.Expresiones.Operaciones.Logica import Logica
 
 #Palabras reservadas
 reserved = {
@@ -15,6 +17,8 @@ reserved = {
     'pow':'POW',
     'powf':'POWF',
     'as':'AS',
+    'true':'TRUE',
+    'false':'FALSE',
     'vec':'VEC',
     'Vec':'VECN',
     'fn':'FN'
@@ -253,7 +257,10 @@ def p_expresion_logica(t):
     '''expresion : NOT expresion %prec NOT
                 | expresion AND expresion
                 | expresion OR expresion
+
     '''
+    t[0] = Logica(t[1], t[3], False, t.lexer.lineno, 1, t[2])
+    return t
 
 def p_expresion_relacional(t):
     '''expresion : expresion IGUALIGUAL expresion
@@ -264,17 +271,22 @@ def p_expresion_relacional(t):
                 | expresion MAYORQUE expresion
 
     '''
+    t[0] = Relacionales(t[1],t[3],False,t.lexer.lineno,1,t[2])
     return t
 
 def p_expresion_primitivos(t):
     '''expresion : ENTERO
                 | DECIMAL
                 | CADENA
+                | TRUE
+                | FALSE
     '''
     if type(t[1]) == float:
         tipo = "F64"
     elif type(t[1]) == int:
         tipo = "I64"
+    elif t[1] == "true" or t[1] == "false":
+        tipo = "BOOL"
     else:
         tipo = "ERROR"
     t[0] = Primitivo(t[1], tipo, t.lexer.lineno, 1)

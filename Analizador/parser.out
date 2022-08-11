@@ -57,6 +57,8 @@ Rule 45    expresion -> expresion MAYORQUE expresion
 Rule 46    expresion -> ENTERO
 Rule 47    expresion -> DECIMAL
 Rule 48    expresion -> CADENA
+Rule 49    expresion -> TRUE
+Rule 50    expresion -> FALSE
 
 Terminals, with rules where they appear
 
@@ -74,6 +76,7 @@ DIV                  : 34
 DOSP                 : 7 9 29 29 30 30
 ENTERO               : 46
 F64                  : 14 30
+FALSE                : 50
 FN                   : 19 20
 I64                  : 13 29
 ID                   : 7 8 9 10 11 12 19 20 23 28
@@ -100,6 +103,7 @@ POWF                 : 30
 PYC                  : 4 5
 STR                  : 18
 STRING               : 17
+TRUE                 : 49
 USIZE                : 
 VEC                  : 
 VECN                 : 
@@ -325,6 +329,8 @@ state 15
     (46) expresion -> . ENTERO
     (47) expresion -> . DECIMAL
     (48) expresion -> . CADENA
+    (49) expresion -> . TRUE
+    (50) expresion -> . FALSE
 
     PARA            shift and go to state 24
     ID              shift and go to state 22
@@ -335,6 +341,8 @@ state 15
     ENTERO          shift and go to state 29
     DECIMAL         shift and go to state 30
     CADENA          shift and go to state 31
+    TRUE            shift and go to state 32
+    FALSE           shift and go to state 33
 
     expresion                      shift and go to state 23
 
@@ -342,7 +350,7 @@ state 16
 
     (12) asignacion -> ID dimensiones_arreglo . IGUAL expresion
 
-    IGUAL           shift and go to state 32
+    IGUAL           shift and go to state 34
 
 
 state 17
@@ -372,6 +380,8 @@ state 17
     (46) expresion -> . ENTERO
     (47) expresion -> . DECIMAL
     (48) expresion -> . CADENA
+    (49) expresion -> . TRUE
+    (50) expresion -> . FALSE
 
     PARA            shift and go to state 24
     ID              shift and go to state 22
@@ -382,15 +392,17 @@ state 17
     ENTERO          shift and go to state 29
     DECIMAL         shift and go to state 30
     CADENA          shift and go to state 31
+    TRUE            shift and go to state 32
+    FALSE           shift and go to state 33
 
-    expresion                      shift and go to state 33
+    expresion                      shift and go to state 35
 
 state 18
 
     (19) funcion -> FN ID . PARA lista_parametros PARC LLAVEA instrucciones LLAVEC
     (20) funcion -> FN ID . PARA lista_parametros PARC MENOS MAYORQUE tipo LLAVEA instrucciones LLAVEC
 
-    PARA            shift and go to state 34
+    PARA            shift and go to state 36
 
 
 state 19
@@ -398,8 +410,8 @@ state 19
     (7) declaracion -> LET MUT ID . DOSP tipo IGUAL expresion
     (8) declaracion -> LET MUT ID . IGUAL expresion
 
-    DOSP            shift and go to state 35
-    IGUAL           shift and go to state 36
+    DOSP            shift and go to state 37
+    IGUAL           shift and go to state 38
 
 
 state 20
@@ -412,14 +424,14 @@ state 20
     (17) tipo -> . STRING
     (18) tipo -> . STR
 
-    I64             shift and go to state 38
-    F64             shift and go to state 39
-    BOOL            shift and go to state 40
-    CHAR            shift and go to state 41
-    STRING          shift and go to state 42
-    STR             shift and go to state 43
+    I64             shift and go to state 40
+    F64             shift and go to state 41
+    BOOL            shift and go to state 42
+    CHAR            shift and go to state 43
+    STRING          shift and go to state 44
+    STR             shift and go to state 45
 
-    tipo                           shift and go to state 37
+    tipo                           shift and go to state 39
 
 state 21
 
@@ -447,6 +459,8 @@ state 21
     (46) expresion -> . ENTERO
     (47) expresion -> . DECIMAL
     (48) expresion -> . CADENA
+    (49) expresion -> . TRUE
+    (50) expresion -> . FALSE
 
     PARA            shift and go to state 24
     ID              shift and go to state 22
@@ -457,14 +471,16 @@ state 21
     ENTERO          shift and go to state 29
     DECIMAL         shift and go to state 30
     CADENA          shift and go to state 31
+    TRUE            shift and go to state 32
+    FALSE           shift and go to state 33
 
-    expresion                      shift and go to state 44
+    expresion                      shift and go to state 46
 
 state 22
 
     (28) expresion -> ID . CORA expresion CORC
 
-    CORA            shift and go to state 45
+    CORA            shift and go to state 47
 
 
 state 23
@@ -485,19 +501,19 @@ state 23
     (45) expresion -> expresion . MAYORQUE expresion
 
     PYC             reduce using rule 11 (asignacion -> ID IGUAL expresion .)
-    MAS             shift and go to state 46
-    MENOS           shift and go to state 47
-    POR             shift and go to state 48
-    DIV             shift and go to state 49
-    MOD             shift and go to state 50
-    AND             shift and go to state 51
-    OR              shift and go to state 52
-    IGUALIGUAL      shift and go to state 53
-    DIFERENTE       shift and go to state 54
-    MENORIGUAL      shift and go to state 55
-    MENORQUE        shift and go to state 56
-    MAYORIGUAL      shift and go to state 57
-    MAYORQUE        shift and go to state 58
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIV             shift and go to state 51
+    MOD             shift and go to state 52
+    AND             shift and go to state 53
+    OR              shift and go to state 54
+    IGUALIGUAL      shift and go to state 55
+    DIFERENTE       shift and go to state 56
+    MENORIGUAL      shift and go to state 57
+    MENORQUE        shift and go to state 58
+    MAYORIGUAL      shift and go to state 59
+    MAYORQUE        shift and go to state 60
 
 
 state 24
@@ -527,6 +543,8 @@ state 24
     (46) expresion -> . ENTERO
     (47) expresion -> . DECIMAL
     (48) expresion -> . CADENA
+    (49) expresion -> . TRUE
+    (50) expresion -> . FALSE
 
     PARA            shift and go to state 24
     ID              shift and go to state 22
@@ -537,21 +555,23 @@ state 24
     ENTERO          shift and go to state 29
     DECIMAL         shift and go to state 30
     CADENA          shift and go to state 31
+    TRUE            shift and go to state 32
+    FALSE           shift and go to state 33
 
-    expresion                      shift and go to state 59
+    expresion                      shift and go to state 61
 
 state 25
 
     (29) expresion -> I64 . DOSP DOSP POW PARA expresion COMA expresion PARC
 
-    DOSP            shift and go to state 60
+    DOSP            shift and go to state 62
 
 
 state 26
 
     (30) expresion -> F64 . DOSP DOSP POWF PARA expresion COMA expresion PARC
 
-    DOSP            shift and go to state 61
+    DOSP            shift and go to state 63
 
 
 state 27
@@ -580,6 +600,8 @@ state 27
     (46) expresion -> . ENTERO
     (47) expresion -> . DECIMAL
     (48) expresion -> . CADENA
+    (49) expresion -> . TRUE
+    (50) expresion -> . FALSE
 
     PARA            shift and go to state 24
     ID              shift and go to state 22
@@ -590,8 +612,10 @@ state 27
     ENTERO          shift and go to state 29
     DECIMAL         shift and go to state 30
     CADENA          shift and go to state 31
+    TRUE            shift and go to state 32
+    FALSE           shift and go to state 33
 
-    expresion                      shift and go to state 62
+    expresion                      shift and go to state 64
 
 state 28
 
@@ -619,6 +643,8 @@ state 28
     (46) expresion -> . ENTERO
     (47) expresion -> . DECIMAL
     (48) expresion -> . CADENA
+    (49) expresion -> . TRUE
+    (50) expresion -> . FALSE
 
     PARA            shift and go to state 24
     ID              shift and go to state 22
@@ -629,8 +655,10 @@ state 28
     ENTERO          shift and go to state 29
     DECIMAL         shift and go to state 30
     CADENA          shift and go to state 31
+    TRUE            shift and go to state 32
+    FALSE           shift and go to state 33
 
-    expresion                      shift and go to state 63
+    expresion                      shift and go to state 65
 
 state 29
 
@@ -706,6 +734,54 @@ state 31
 
 state 32
 
+    (49) expresion -> TRUE .
+
+    MAS             reduce using rule 49 (expresion -> TRUE .)
+    MENOS           reduce using rule 49 (expresion -> TRUE .)
+    POR             reduce using rule 49 (expresion -> TRUE .)
+    DIV             reduce using rule 49 (expresion -> TRUE .)
+    MOD             reduce using rule 49 (expresion -> TRUE .)
+    AND             reduce using rule 49 (expresion -> TRUE .)
+    OR              reduce using rule 49 (expresion -> TRUE .)
+    IGUALIGUAL      reduce using rule 49 (expresion -> TRUE .)
+    DIFERENTE       reduce using rule 49 (expresion -> TRUE .)
+    MENORIGUAL      reduce using rule 49 (expresion -> TRUE .)
+    MENORQUE        reduce using rule 49 (expresion -> TRUE .)
+    MAYORIGUAL      reduce using rule 49 (expresion -> TRUE .)
+    MAYORQUE        reduce using rule 49 (expresion -> TRUE .)
+    PYC             reduce using rule 49 (expresion -> TRUE .)
+    CORC            reduce using rule 49 (expresion -> TRUE .)
+    AS              reduce using rule 49 (expresion -> TRUE .)
+    PARC            reduce using rule 49 (expresion -> TRUE .)
+    COMA            reduce using rule 49 (expresion -> TRUE .)
+
+
+state 33
+
+    (50) expresion -> FALSE .
+
+    MAS             reduce using rule 50 (expresion -> FALSE .)
+    MENOS           reduce using rule 50 (expresion -> FALSE .)
+    POR             reduce using rule 50 (expresion -> FALSE .)
+    DIV             reduce using rule 50 (expresion -> FALSE .)
+    MOD             reduce using rule 50 (expresion -> FALSE .)
+    AND             reduce using rule 50 (expresion -> FALSE .)
+    OR              reduce using rule 50 (expresion -> FALSE .)
+    IGUALIGUAL      reduce using rule 50 (expresion -> FALSE .)
+    DIFERENTE       reduce using rule 50 (expresion -> FALSE .)
+    MENORIGUAL      reduce using rule 50 (expresion -> FALSE .)
+    MENORQUE        reduce using rule 50 (expresion -> FALSE .)
+    MAYORIGUAL      reduce using rule 50 (expresion -> FALSE .)
+    MAYORQUE        reduce using rule 50 (expresion -> FALSE .)
+    PYC             reduce using rule 50 (expresion -> FALSE .)
+    CORC            reduce using rule 50 (expresion -> FALSE .)
+    AS              reduce using rule 50 (expresion -> FALSE .)
+    PARC            reduce using rule 50 (expresion -> FALSE .)
+    COMA            reduce using rule 50 (expresion -> FALSE .)
+
+
+state 34
+
     (12) asignacion -> ID dimensiones_arreglo IGUAL . expresion
     (26) expresion -> . PARA expresion AS tipo PARC
     (27) expresion -> . PARA expresion PARC
@@ -730,6 +806,8 @@ state 32
     (46) expresion -> . ENTERO
     (47) expresion -> . DECIMAL
     (48) expresion -> . CADENA
+    (49) expresion -> . TRUE
+    (50) expresion -> . FALSE
 
     PARA            shift and go to state 24
     ID              shift and go to state 22
@@ -740,10 +818,12 @@ state 32
     ENTERO          shift and go to state 29
     DECIMAL         shift and go to state 30
     CADENA          shift and go to state 31
+    TRUE            shift and go to state 32
+    FALSE           shift and go to state 33
 
-    expresion                      shift and go to state 64
+    expresion                      shift and go to state 66
 
-state 33
+state 35
 
     (24) dimensiones_arreglo -> CORA expresion . CORC dimensiones_arreglo
     (25) dimensiones_arreglo -> CORA expresion . CORC
@@ -761,23 +841,23 @@ state 33
     (44) expresion -> expresion . MAYORIGUAL expresion
     (45) expresion -> expresion . MAYORQUE expresion
 
-    CORC            shift and go to state 65
-    MAS             shift and go to state 46
-    MENOS           shift and go to state 47
-    POR             shift and go to state 48
-    DIV             shift and go to state 49
-    MOD             shift and go to state 50
-    AND             shift and go to state 51
-    OR              shift and go to state 52
-    IGUALIGUAL      shift and go to state 53
-    DIFERENTE       shift and go to state 54
-    MENORIGUAL      shift and go to state 55
-    MENORQUE        shift and go to state 56
-    MAYORIGUAL      shift and go to state 57
-    MAYORQUE        shift and go to state 58
+    CORC            shift and go to state 67
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIV             shift and go to state 51
+    MOD             shift and go to state 52
+    AND             shift and go to state 53
+    OR              shift and go to state 54
+    IGUALIGUAL      shift and go to state 55
+    DIFERENTE       shift and go to state 56
+    MENORIGUAL      shift and go to state 57
+    MENORQUE        shift and go to state 58
+    MAYORIGUAL      shift and go to state 59
+    MAYORQUE        shift and go to state 60
 
 
-state 34
+state 36
 
     (19) funcion -> FN ID PARA . lista_parametros PARC LLAVEA instrucciones LLAVEC
     (20) funcion -> FN ID PARA . lista_parametros PARC MENOS MAYORQUE tipo LLAVEA instrucciones LLAVEC
@@ -785,12 +865,12 @@ state 34
     (22) lista_parametros -> . parametro
     (23) parametro -> . ID
 
-    ID              shift and go to state 66
+    ID              shift and go to state 68
 
-    lista_parametros               shift and go to state 67
-    parametro                      shift and go to state 68
+    lista_parametros               shift and go to state 69
+    parametro                      shift and go to state 70
 
-state 35
+state 37
 
     (7) declaracion -> LET MUT ID DOSP . tipo IGUAL expresion
     (13) tipo -> . I64
@@ -800,16 +880,16 @@ state 35
     (17) tipo -> . STRING
     (18) tipo -> . STR
 
-    I64             shift and go to state 38
-    F64             shift and go to state 39
-    BOOL            shift and go to state 40
-    CHAR            shift and go to state 41
-    STRING          shift and go to state 42
-    STR             shift and go to state 43
+    I64             shift and go to state 40
+    F64             shift and go to state 41
+    BOOL            shift and go to state 42
+    CHAR            shift and go to state 43
+    STRING          shift and go to state 44
+    STR             shift and go to state 45
 
-    tipo                           shift and go to state 69
+    tipo                           shift and go to state 71
 
-state 36
+state 38
 
     (8) declaracion -> LET MUT ID IGUAL . expresion
     (26) expresion -> . PARA expresion AS tipo PARC
@@ -835,6 +915,8 @@ state 36
     (46) expresion -> . ENTERO
     (47) expresion -> . DECIMAL
     (48) expresion -> . CADENA
+    (49) expresion -> . TRUE
+    (50) expresion -> . FALSE
 
     PARA            shift and go to state 24
     ID              shift and go to state 22
@@ -845,17 +927,19 @@ state 36
     ENTERO          shift and go to state 29
     DECIMAL         shift and go to state 30
     CADENA          shift and go to state 31
+    TRUE            shift and go to state 32
+    FALSE           shift and go to state 33
 
-    expresion                      shift and go to state 70
+    expresion                      shift and go to state 72
 
-state 37
+state 39
 
     (9) declaracion -> LET ID DOSP tipo . IGUAL expresion
 
-    IGUAL           shift and go to state 71
+    IGUAL           shift and go to state 73
 
 
-state 38
+state 40
 
     (13) tipo -> I64 .
 
@@ -864,7 +948,7 @@ state 38
     LLAVEA          reduce using rule 13 (tipo -> I64 .)
 
 
-state 39
+state 41
 
     (14) tipo -> F64 .
 
@@ -873,7 +957,7 @@ state 39
     LLAVEA          reduce using rule 14 (tipo -> F64 .)
 
 
-state 40
+state 42
 
     (15) tipo -> BOOL .
 
@@ -882,7 +966,7 @@ state 40
     LLAVEA          reduce using rule 15 (tipo -> BOOL .)
 
 
-state 41
+state 43
 
     (16) tipo -> CHAR .
 
@@ -891,7 +975,7 @@ state 41
     LLAVEA          reduce using rule 16 (tipo -> CHAR .)
 
 
-state 42
+state 44
 
     (17) tipo -> STRING .
 
@@ -900,7 +984,7 @@ state 42
     LLAVEA          reduce using rule 17 (tipo -> STRING .)
 
 
-state 43
+state 45
 
     (18) tipo -> STR .
 
@@ -909,7 +993,7 @@ state 43
     LLAVEA          reduce using rule 18 (tipo -> STR .)
 
 
-state 44
+state 46
 
     (10) declaracion -> LET ID IGUAL expresion .
     (31) expresion -> expresion . MAS expresion
@@ -927,22 +1011,22 @@ state 44
     (45) expresion -> expresion . MAYORQUE expresion
 
     PYC             reduce using rule 10 (declaracion -> LET ID IGUAL expresion .)
-    MAS             shift and go to state 46
-    MENOS           shift and go to state 47
-    POR             shift and go to state 48
-    DIV             shift and go to state 49
-    MOD             shift and go to state 50
-    AND             shift and go to state 51
-    OR              shift and go to state 52
-    IGUALIGUAL      shift and go to state 53
-    DIFERENTE       shift and go to state 54
-    MENORIGUAL      shift and go to state 55
-    MENORQUE        shift and go to state 56
-    MAYORIGUAL      shift and go to state 57
-    MAYORQUE        shift and go to state 58
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIV             shift and go to state 51
+    MOD             shift and go to state 52
+    AND             shift and go to state 53
+    OR              shift and go to state 54
+    IGUALIGUAL      shift and go to state 55
+    DIFERENTE       shift and go to state 56
+    MENORIGUAL      shift and go to state 57
+    MENORQUE        shift and go to state 58
+    MAYORIGUAL      shift and go to state 59
+    MAYORQUE        shift and go to state 60
 
 
-state 45
+state 47
 
     (28) expresion -> ID CORA . expresion CORC
     (26) expresion -> . PARA expresion AS tipo PARC
@@ -968,6 +1052,8 @@ state 45
     (46) expresion -> . ENTERO
     (47) expresion -> . DECIMAL
     (48) expresion -> . CADENA
+    (49) expresion -> . TRUE
+    (50) expresion -> . FALSE
 
     PARA            shift and go to state 24
     ID              shift and go to state 22
@@ -978,10 +1064,12 @@ state 45
     ENTERO          shift and go to state 29
     DECIMAL         shift and go to state 30
     CADENA          shift and go to state 31
+    TRUE            shift and go to state 32
+    FALSE           shift and go to state 33
 
-    expresion                      shift and go to state 72
+    expresion                      shift and go to state 74
 
-state 46
+state 48
 
     (31) expresion -> expresion MAS . expresion
     (26) expresion -> . PARA expresion AS tipo PARC
@@ -1007,6 +1095,8 @@ state 46
     (46) expresion -> . ENTERO
     (47) expresion -> . DECIMAL
     (48) expresion -> . CADENA
+    (49) expresion -> . TRUE
+    (50) expresion -> . FALSE
 
     PARA            shift and go to state 24
     ID              shift and go to state 22
@@ -1017,10 +1107,12 @@ state 46
     ENTERO          shift and go to state 29
     DECIMAL         shift and go to state 30
     CADENA          shift and go to state 31
+    TRUE            shift and go to state 32
+    FALSE           shift and go to state 33
 
-    expresion                      shift and go to state 73
+    expresion                      shift and go to state 75
 
-state 47
+state 49
 
     (32) expresion -> expresion MENOS . expresion
     (26) expresion -> . PARA expresion AS tipo PARC
@@ -1046,6 +1138,8 @@ state 47
     (46) expresion -> . ENTERO
     (47) expresion -> . DECIMAL
     (48) expresion -> . CADENA
+    (49) expresion -> . TRUE
+    (50) expresion -> . FALSE
 
     PARA            shift and go to state 24
     ID              shift and go to state 22
@@ -1056,10 +1150,12 @@ state 47
     ENTERO          shift and go to state 29
     DECIMAL         shift and go to state 30
     CADENA          shift and go to state 31
+    TRUE            shift and go to state 32
+    FALSE           shift and go to state 33
 
-    expresion                      shift and go to state 74
+    expresion                      shift and go to state 76
 
-state 48
+state 50
 
     (33) expresion -> expresion POR . expresion
     (26) expresion -> . PARA expresion AS tipo PARC
@@ -1085,6 +1181,8 @@ state 48
     (46) expresion -> . ENTERO
     (47) expresion -> . DECIMAL
     (48) expresion -> . CADENA
+    (49) expresion -> . TRUE
+    (50) expresion -> . FALSE
 
     PARA            shift and go to state 24
     ID              shift and go to state 22
@@ -1095,10 +1193,12 @@ state 48
     ENTERO          shift and go to state 29
     DECIMAL         shift and go to state 30
     CADENA          shift and go to state 31
+    TRUE            shift and go to state 32
+    FALSE           shift and go to state 33
 
-    expresion                      shift and go to state 75
+    expresion                      shift and go to state 77
 
-state 49
+state 51
 
     (34) expresion -> expresion DIV . expresion
     (26) expresion -> . PARA expresion AS tipo PARC
@@ -1124,6 +1224,8 @@ state 49
     (46) expresion -> . ENTERO
     (47) expresion -> . DECIMAL
     (48) expresion -> . CADENA
+    (49) expresion -> . TRUE
+    (50) expresion -> . FALSE
 
     PARA            shift and go to state 24
     ID              shift and go to state 22
@@ -1134,10 +1236,12 @@ state 49
     ENTERO          shift and go to state 29
     DECIMAL         shift and go to state 30
     CADENA          shift and go to state 31
+    TRUE            shift and go to state 32
+    FALSE           shift and go to state 33
 
-    expresion                      shift and go to state 76
+    expresion                      shift and go to state 78
 
-state 50
+state 52
 
     (35) expresion -> expresion MOD . expresion
     (26) expresion -> . PARA expresion AS tipo PARC
@@ -1163,6 +1267,8 @@ state 50
     (46) expresion -> . ENTERO
     (47) expresion -> . DECIMAL
     (48) expresion -> . CADENA
+    (49) expresion -> . TRUE
+    (50) expresion -> . FALSE
 
     PARA            shift and go to state 24
     ID              shift and go to state 22
@@ -1173,10 +1279,12 @@ state 50
     ENTERO          shift and go to state 29
     DECIMAL         shift and go to state 30
     CADENA          shift and go to state 31
+    TRUE            shift and go to state 32
+    FALSE           shift and go to state 33
 
-    expresion                      shift and go to state 77
+    expresion                      shift and go to state 79
 
-state 51
+state 53
 
     (38) expresion -> expresion AND . expresion
     (26) expresion -> . PARA expresion AS tipo PARC
@@ -1202,6 +1310,8 @@ state 51
     (46) expresion -> . ENTERO
     (47) expresion -> . DECIMAL
     (48) expresion -> . CADENA
+    (49) expresion -> . TRUE
+    (50) expresion -> . FALSE
 
     PARA            shift and go to state 24
     ID              shift and go to state 22
@@ -1212,10 +1322,12 @@ state 51
     ENTERO          shift and go to state 29
     DECIMAL         shift and go to state 30
     CADENA          shift and go to state 31
+    TRUE            shift and go to state 32
+    FALSE           shift and go to state 33
 
-    expresion                      shift and go to state 78
+    expresion                      shift and go to state 80
 
-state 52
+state 54
 
     (39) expresion -> expresion OR . expresion
     (26) expresion -> . PARA expresion AS tipo PARC
@@ -1241,6 +1353,8 @@ state 52
     (46) expresion -> . ENTERO
     (47) expresion -> . DECIMAL
     (48) expresion -> . CADENA
+    (49) expresion -> . TRUE
+    (50) expresion -> . FALSE
 
     PARA            shift and go to state 24
     ID              shift and go to state 22
@@ -1251,10 +1365,12 @@ state 52
     ENTERO          shift and go to state 29
     DECIMAL         shift and go to state 30
     CADENA          shift and go to state 31
+    TRUE            shift and go to state 32
+    FALSE           shift and go to state 33
 
-    expresion                      shift and go to state 79
+    expresion                      shift and go to state 81
 
-state 53
+state 55
 
     (40) expresion -> expresion IGUALIGUAL . expresion
     (26) expresion -> . PARA expresion AS tipo PARC
@@ -1280,6 +1396,8 @@ state 53
     (46) expresion -> . ENTERO
     (47) expresion -> . DECIMAL
     (48) expresion -> . CADENA
+    (49) expresion -> . TRUE
+    (50) expresion -> . FALSE
 
     PARA            shift and go to state 24
     ID              shift and go to state 22
@@ -1290,10 +1408,12 @@ state 53
     ENTERO          shift and go to state 29
     DECIMAL         shift and go to state 30
     CADENA          shift and go to state 31
+    TRUE            shift and go to state 32
+    FALSE           shift and go to state 33
 
-    expresion                      shift and go to state 80
+    expresion                      shift and go to state 82
 
-state 54
+state 56
 
     (41) expresion -> expresion DIFERENTE . expresion
     (26) expresion -> . PARA expresion AS tipo PARC
@@ -1319,6 +1439,8 @@ state 54
     (46) expresion -> . ENTERO
     (47) expresion -> . DECIMAL
     (48) expresion -> . CADENA
+    (49) expresion -> . TRUE
+    (50) expresion -> . FALSE
 
     PARA            shift and go to state 24
     ID              shift and go to state 22
@@ -1329,10 +1451,12 @@ state 54
     ENTERO          shift and go to state 29
     DECIMAL         shift and go to state 30
     CADENA          shift and go to state 31
+    TRUE            shift and go to state 32
+    FALSE           shift and go to state 33
 
-    expresion                      shift and go to state 81
+    expresion                      shift and go to state 83
 
-state 55
+state 57
 
     (42) expresion -> expresion MENORIGUAL . expresion
     (26) expresion -> . PARA expresion AS tipo PARC
@@ -1358,6 +1482,8 @@ state 55
     (46) expresion -> . ENTERO
     (47) expresion -> . DECIMAL
     (48) expresion -> . CADENA
+    (49) expresion -> . TRUE
+    (50) expresion -> . FALSE
 
     PARA            shift and go to state 24
     ID              shift and go to state 22
@@ -1368,10 +1494,12 @@ state 55
     ENTERO          shift and go to state 29
     DECIMAL         shift and go to state 30
     CADENA          shift and go to state 31
+    TRUE            shift and go to state 32
+    FALSE           shift and go to state 33
 
-    expresion                      shift and go to state 82
+    expresion                      shift and go to state 84
 
-state 56
+state 58
 
     (43) expresion -> expresion MENORQUE . expresion
     (26) expresion -> . PARA expresion AS tipo PARC
@@ -1397,6 +1525,8 @@ state 56
     (46) expresion -> . ENTERO
     (47) expresion -> . DECIMAL
     (48) expresion -> . CADENA
+    (49) expresion -> . TRUE
+    (50) expresion -> . FALSE
 
     PARA            shift and go to state 24
     ID              shift and go to state 22
@@ -1407,10 +1537,12 @@ state 56
     ENTERO          shift and go to state 29
     DECIMAL         shift and go to state 30
     CADENA          shift and go to state 31
+    TRUE            shift and go to state 32
+    FALSE           shift and go to state 33
 
-    expresion                      shift and go to state 83
+    expresion                      shift and go to state 85
 
-state 57
+state 59
 
     (44) expresion -> expresion MAYORIGUAL . expresion
     (26) expresion -> . PARA expresion AS tipo PARC
@@ -1436,6 +1568,8 @@ state 57
     (46) expresion -> . ENTERO
     (47) expresion -> . DECIMAL
     (48) expresion -> . CADENA
+    (49) expresion -> . TRUE
+    (50) expresion -> . FALSE
 
     PARA            shift and go to state 24
     ID              shift and go to state 22
@@ -1446,10 +1580,12 @@ state 57
     ENTERO          shift and go to state 29
     DECIMAL         shift and go to state 30
     CADENA          shift and go to state 31
+    TRUE            shift and go to state 32
+    FALSE           shift and go to state 33
 
-    expresion                      shift and go to state 84
+    expresion                      shift and go to state 86
 
-state 58
+state 60
 
     (45) expresion -> expresion MAYORQUE . expresion
     (26) expresion -> . PARA expresion AS tipo PARC
@@ -1475,6 +1611,8 @@ state 58
     (46) expresion -> . ENTERO
     (47) expresion -> . DECIMAL
     (48) expresion -> . CADENA
+    (49) expresion -> . TRUE
+    (50) expresion -> . FALSE
 
     PARA            shift and go to state 24
     ID              shift and go to state 22
@@ -1485,10 +1623,12 @@ state 58
     ENTERO          shift and go to state 29
     DECIMAL         shift and go to state 30
     CADENA          shift and go to state 31
+    TRUE            shift and go to state 32
+    FALSE           shift and go to state 33
 
-    expresion                      shift and go to state 85
+    expresion                      shift and go to state 87
 
-state 59
+state 61
 
     (26) expresion -> PARA expresion . AS tipo PARC
     (27) expresion -> PARA expresion . PARC
@@ -1506,38 +1646,38 @@ state 59
     (44) expresion -> expresion . MAYORIGUAL expresion
     (45) expresion -> expresion . MAYORQUE expresion
 
-    AS              shift and go to state 86
-    PARC            shift and go to state 87
-    MAS             shift and go to state 46
-    MENOS           shift and go to state 47
-    POR             shift and go to state 48
-    DIV             shift and go to state 49
-    MOD             shift and go to state 50
-    AND             shift and go to state 51
-    OR              shift and go to state 52
-    IGUALIGUAL      shift and go to state 53
-    DIFERENTE       shift and go to state 54
-    MENORIGUAL      shift and go to state 55
-    MENORQUE        shift and go to state 56
-    MAYORIGUAL      shift and go to state 57
-    MAYORQUE        shift and go to state 58
-
-
-state 60
-
-    (29) expresion -> I64 DOSP . DOSP POW PARA expresion COMA expresion PARC
-
-    DOSP            shift and go to state 88
-
-
-state 61
-
-    (30) expresion -> F64 DOSP . DOSP POWF PARA expresion COMA expresion PARC
-
-    DOSP            shift and go to state 89
+    AS              shift and go to state 88
+    PARC            shift and go to state 89
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIV             shift and go to state 51
+    MOD             shift and go to state 52
+    AND             shift and go to state 53
+    OR              shift and go to state 54
+    IGUALIGUAL      shift and go to state 55
+    DIFERENTE       shift and go to state 56
+    MENORIGUAL      shift and go to state 57
+    MENORQUE        shift and go to state 58
+    MAYORIGUAL      shift and go to state 59
+    MAYORQUE        shift and go to state 60
 
 
 state 62
+
+    (29) expresion -> I64 DOSP . DOSP POW PARA expresion COMA expresion PARC
+
+    DOSP            shift and go to state 90
+
+
+state 63
+
+    (30) expresion -> F64 DOSP . DOSP POWF PARA expresion COMA expresion PARC
+
+    DOSP            shift and go to state 91
+
+
+state 64
 
     (36) expresion -> MENOS expresion .
     (31) expresion -> expresion . MAS expresion
@@ -1573,22 +1713,22 @@ state 62
     PARC            reduce using rule 36 (expresion -> MENOS expresion .)
     COMA            reduce using rule 36 (expresion -> MENOS expresion .)
 
-  ! MAS             [ shift and go to state 46 ]
-  ! MENOS           [ shift and go to state 47 ]
-  ! POR             [ shift and go to state 48 ]
-  ! DIV             [ shift and go to state 49 ]
-  ! MOD             [ shift and go to state 50 ]
-  ! AND             [ shift and go to state 51 ]
-  ! OR              [ shift and go to state 52 ]
-  ! IGUALIGUAL      [ shift and go to state 53 ]
-  ! DIFERENTE       [ shift and go to state 54 ]
-  ! MENORIGUAL      [ shift and go to state 55 ]
-  ! MENORQUE        [ shift and go to state 56 ]
-  ! MAYORIGUAL      [ shift and go to state 57 ]
-  ! MAYORQUE        [ shift and go to state 58 ]
+  ! MAS             [ shift and go to state 48 ]
+  ! MENOS           [ shift and go to state 49 ]
+  ! POR             [ shift and go to state 50 ]
+  ! DIV             [ shift and go to state 51 ]
+  ! MOD             [ shift and go to state 52 ]
+  ! AND             [ shift and go to state 53 ]
+  ! OR              [ shift and go to state 54 ]
+  ! IGUALIGUAL      [ shift and go to state 55 ]
+  ! DIFERENTE       [ shift and go to state 56 ]
+  ! MENORIGUAL      [ shift and go to state 57 ]
+  ! MENORQUE        [ shift and go to state 58 ]
+  ! MAYORIGUAL      [ shift and go to state 59 ]
+  ! MAYORQUE        [ shift and go to state 60 ]
 
 
-state 63
+state 65
 
     (37) expresion -> NOT expresion .
     (31) expresion -> expresion . MAS expresion
@@ -1612,17 +1752,17 @@ state 63
     AS              reduce using rule 37 (expresion -> NOT expresion .)
     PARC            reduce using rule 37 (expresion -> NOT expresion .)
     COMA            reduce using rule 37 (expresion -> NOT expresion .)
-    MAS             shift and go to state 46
-    MENOS           shift and go to state 47
-    POR             shift and go to state 48
-    DIV             shift and go to state 49
-    MOD             shift and go to state 50
-    IGUALIGUAL      shift and go to state 53
-    DIFERENTE       shift and go to state 54
-    MENORIGUAL      shift and go to state 55
-    MENORQUE        shift and go to state 56
-    MAYORIGUAL      shift and go to state 57
-    MAYORQUE        shift and go to state 58
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIV             shift and go to state 51
+    MOD             shift and go to state 52
+    IGUALIGUAL      shift and go to state 55
+    DIFERENTE       shift and go to state 56
+    MENORIGUAL      shift and go to state 57
+    MENORQUE        shift and go to state 58
+    MAYORIGUAL      shift and go to state 59
+    MAYORQUE        shift and go to state 60
 
   ! MAS             [ reduce using rule 37 (expresion -> NOT expresion .) ]
   ! MENOS           [ reduce using rule 37 (expresion -> NOT expresion .) ]
@@ -1635,11 +1775,11 @@ state 63
   ! MENORQUE        [ reduce using rule 37 (expresion -> NOT expresion .) ]
   ! MAYORIGUAL      [ reduce using rule 37 (expresion -> NOT expresion .) ]
   ! MAYORQUE        [ reduce using rule 37 (expresion -> NOT expresion .) ]
-  ! AND             [ shift and go to state 51 ]
-  ! OR              [ shift and go to state 52 ]
+  ! AND             [ shift and go to state 53 ]
+  ! OR              [ shift and go to state 54 ]
 
 
-state 64
+state 66
 
     (12) asignacion -> ID dimensiones_arreglo IGUAL expresion .
     (31) expresion -> expresion . MAS expresion
@@ -1657,22 +1797,22 @@ state 64
     (45) expresion -> expresion . MAYORQUE expresion
 
     PYC             reduce using rule 12 (asignacion -> ID dimensiones_arreglo IGUAL expresion .)
-    MAS             shift and go to state 46
-    MENOS           shift and go to state 47
-    POR             shift and go to state 48
-    DIV             shift and go to state 49
-    MOD             shift and go to state 50
-    AND             shift and go to state 51
-    OR              shift and go to state 52
-    IGUALIGUAL      shift and go to state 53
-    DIFERENTE       shift and go to state 54
-    MENORIGUAL      shift and go to state 55
-    MENORQUE        shift and go to state 56
-    MAYORIGUAL      shift and go to state 57
-    MAYORQUE        shift and go to state 58
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIV             shift and go to state 51
+    MOD             shift and go to state 52
+    AND             shift and go to state 53
+    OR              shift and go to state 54
+    IGUALIGUAL      shift and go to state 55
+    DIFERENTE       shift and go to state 56
+    MENORIGUAL      shift and go to state 57
+    MENORQUE        shift and go to state 58
+    MAYORIGUAL      shift and go to state 59
+    MAYORQUE        shift and go to state 60
 
 
-state 65
+state 67
 
     (24) dimensiones_arreglo -> CORA expresion CORC . dimensiones_arreglo
     (25) dimensiones_arreglo -> CORA expresion CORC .
@@ -1682,9 +1822,9 @@ state 65
     IGUAL           reduce using rule 25 (dimensiones_arreglo -> CORA expresion CORC .)
     CORA            shift and go to state 17
 
-    dimensiones_arreglo            shift and go to state 90
+    dimensiones_arreglo            shift and go to state 92
 
-state 66
+state 68
 
     (23) parametro -> ID .
 
@@ -1692,17 +1832,17 @@ state 66
     COMA            reduce using rule 23 (parametro -> ID .)
 
 
-state 67
+state 69
 
     (19) funcion -> FN ID PARA lista_parametros . PARC LLAVEA instrucciones LLAVEC
     (20) funcion -> FN ID PARA lista_parametros . PARC MENOS MAYORQUE tipo LLAVEA instrucciones LLAVEC
     (21) lista_parametros -> lista_parametros . COMA parametro
 
-    PARC            shift and go to state 91
-    COMA            shift and go to state 92
+    PARC            shift and go to state 93
+    COMA            shift and go to state 94
 
 
-state 68
+state 70
 
     (22) lista_parametros -> parametro .
 
@@ -1710,14 +1850,14 @@ state 68
     COMA            reduce using rule 22 (lista_parametros -> parametro .)
 
 
-state 69
+state 71
 
     (7) declaracion -> LET MUT ID DOSP tipo . IGUAL expresion
 
-    IGUAL           shift and go to state 93
+    IGUAL           shift and go to state 95
 
 
-state 70
+state 72
 
     (8) declaracion -> LET MUT ID IGUAL expresion .
     (31) expresion -> expresion . MAS expresion
@@ -1735,22 +1875,22 @@ state 70
     (45) expresion -> expresion . MAYORQUE expresion
 
     PYC             reduce using rule 8 (declaracion -> LET MUT ID IGUAL expresion .)
-    MAS             shift and go to state 46
-    MENOS           shift and go to state 47
-    POR             shift and go to state 48
-    DIV             shift and go to state 49
-    MOD             shift and go to state 50
-    AND             shift and go to state 51
-    OR              shift and go to state 52
-    IGUALIGUAL      shift and go to state 53
-    DIFERENTE       shift and go to state 54
-    MENORIGUAL      shift and go to state 55
-    MENORQUE        shift and go to state 56
-    MAYORIGUAL      shift and go to state 57
-    MAYORQUE        shift and go to state 58
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIV             shift and go to state 51
+    MOD             shift and go to state 52
+    AND             shift and go to state 53
+    OR              shift and go to state 54
+    IGUALIGUAL      shift and go to state 55
+    DIFERENTE       shift and go to state 56
+    MENORIGUAL      shift and go to state 57
+    MENORQUE        shift and go to state 58
+    MAYORIGUAL      shift and go to state 59
+    MAYORQUE        shift and go to state 60
 
 
-state 71
+state 73
 
     (9) declaracion -> LET ID DOSP tipo IGUAL . expresion
     (26) expresion -> . PARA expresion AS tipo PARC
@@ -1776,6 +1916,8 @@ state 71
     (46) expresion -> . ENTERO
     (47) expresion -> . DECIMAL
     (48) expresion -> . CADENA
+    (49) expresion -> . TRUE
+    (50) expresion -> . FALSE
 
     PARA            shift and go to state 24
     ID              shift and go to state 22
@@ -1786,10 +1928,12 @@ state 71
     ENTERO          shift and go to state 29
     DECIMAL         shift and go to state 30
     CADENA          shift and go to state 31
+    TRUE            shift and go to state 32
+    FALSE           shift and go to state 33
 
-    expresion                      shift and go to state 94
+    expresion                      shift and go to state 96
 
-state 72
+state 74
 
     (28) expresion -> ID CORA expresion . CORC
     (31) expresion -> expresion . MAS expresion
@@ -1806,23 +1950,23 @@ state 72
     (44) expresion -> expresion . MAYORIGUAL expresion
     (45) expresion -> expresion . MAYORQUE expresion
 
-    CORC            shift and go to state 95
-    MAS             shift and go to state 46
-    MENOS           shift and go to state 47
-    POR             shift and go to state 48
-    DIV             shift and go to state 49
-    MOD             shift and go to state 50
-    AND             shift and go to state 51
-    OR              shift and go to state 52
-    IGUALIGUAL      shift and go to state 53
-    DIFERENTE       shift and go to state 54
-    MENORIGUAL      shift and go to state 55
-    MENORQUE        shift and go to state 56
-    MAYORIGUAL      shift and go to state 57
-    MAYORQUE        shift and go to state 58
+    CORC            shift and go to state 97
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIV             shift and go to state 51
+    MOD             shift and go to state 52
+    AND             shift and go to state 53
+    OR              shift and go to state 54
+    IGUALIGUAL      shift and go to state 55
+    DIFERENTE       shift and go to state 56
+    MENORIGUAL      shift and go to state 57
+    MENORQUE        shift and go to state 58
+    MAYORIGUAL      shift and go to state 59
+    MAYORQUE        shift and go to state 60
 
 
-state 73
+state 75
 
     (31) expresion -> expresion MAS expresion .
     (31) expresion -> expresion . MAS expresion
@@ -1854,26 +1998,26 @@ state 73
     AS              reduce using rule 31 (expresion -> expresion MAS expresion .)
     PARC            reduce using rule 31 (expresion -> expresion MAS expresion .)
     COMA            reduce using rule 31 (expresion -> expresion MAS expresion .)
-    POR             shift and go to state 48
-    DIV             shift and go to state 49
-    MOD             shift and go to state 50
+    POR             shift and go to state 50
+    DIV             shift and go to state 51
+    MOD             shift and go to state 52
 
   ! POR             [ reduce using rule 31 (expresion -> expresion MAS expresion .) ]
   ! DIV             [ reduce using rule 31 (expresion -> expresion MAS expresion .) ]
   ! MOD             [ reduce using rule 31 (expresion -> expresion MAS expresion .) ]
-  ! MAS             [ shift and go to state 46 ]
-  ! MENOS           [ shift and go to state 47 ]
-  ! AND             [ shift and go to state 51 ]
-  ! OR              [ shift and go to state 52 ]
-  ! IGUALIGUAL      [ shift and go to state 53 ]
-  ! DIFERENTE       [ shift and go to state 54 ]
-  ! MENORIGUAL      [ shift and go to state 55 ]
-  ! MENORQUE        [ shift and go to state 56 ]
-  ! MAYORIGUAL      [ shift and go to state 57 ]
-  ! MAYORQUE        [ shift and go to state 58 ]
+  ! MAS             [ shift and go to state 48 ]
+  ! MENOS           [ shift and go to state 49 ]
+  ! AND             [ shift and go to state 53 ]
+  ! OR              [ shift and go to state 54 ]
+  ! IGUALIGUAL      [ shift and go to state 55 ]
+  ! DIFERENTE       [ shift and go to state 56 ]
+  ! MENORIGUAL      [ shift and go to state 57 ]
+  ! MENORQUE        [ shift and go to state 58 ]
+  ! MAYORIGUAL      [ shift and go to state 59 ]
+  ! MAYORQUE        [ shift and go to state 60 ]
 
 
-state 74
+state 76
 
     (32) expresion -> expresion MENOS expresion .
     (31) expresion -> expresion . MAS expresion
@@ -1905,26 +2049,26 @@ state 74
     AS              reduce using rule 32 (expresion -> expresion MENOS expresion .)
     PARC            reduce using rule 32 (expresion -> expresion MENOS expresion .)
     COMA            reduce using rule 32 (expresion -> expresion MENOS expresion .)
-    POR             shift and go to state 48
-    DIV             shift and go to state 49
-    MOD             shift and go to state 50
+    POR             shift and go to state 50
+    DIV             shift and go to state 51
+    MOD             shift and go to state 52
 
   ! POR             [ reduce using rule 32 (expresion -> expresion MENOS expresion .) ]
   ! DIV             [ reduce using rule 32 (expresion -> expresion MENOS expresion .) ]
   ! MOD             [ reduce using rule 32 (expresion -> expresion MENOS expresion .) ]
-  ! MAS             [ shift and go to state 46 ]
-  ! MENOS           [ shift and go to state 47 ]
-  ! AND             [ shift and go to state 51 ]
-  ! OR              [ shift and go to state 52 ]
-  ! IGUALIGUAL      [ shift and go to state 53 ]
-  ! DIFERENTE       [ shift and go to state 54 ]
-  ! MENORIGUAL      [ shift and go to state 55 ]
-  ! MENORQUE        [ shift and go to state 56 ]
-  ! MAYORIGUAL      [ shift and go to state 57 ]
-  ! MAYORQUE        [ shift and go to state 58 ]
+  ! MAS             [ shift and go to state 48 ]
+  ! MENOS           [ shift and go to state 49 ]
+  ! AND             [ shift and go to state 53 ]
+  ! OR              [ shift and go to state 54 ]
+  ! IGUALIGUAL      [ shift and go to state 55 ]
+  ! DIFERENTE       [ shift and go to state 56 ]
+  ! MENORIGUAL      [ shift and go to state 57 ]
+  ! MENORQUE        [ shift and go to state 58 ]
+  ! MAYORIGUAL      [ shift and go to state 59 ]
+  ! MAYORQUE        [ shift and go to state 60 ]
 
 
-state 75
+state 77
 
     (33) expresion -> expresion POR expresion .
     (31) expresion -> expresion . MAS expresion
@@ -1958,24 +2102,24 @@ state 75
     AS              reduce using rule 33 (expresion -> expresion POR expresion .)
     PARC            reduce using rule 33 (expresion -> expresion POR expresion .)
     COMA            reduce using rule 33 (expresion -> expresion POR expresion .)
-    MOD             shift and go to state 50
+    MOD             shift and go to state 52
 
   ! MOD             [ reduce using rule 33 (expresion -> expresion POR expresion .) ]
-  ! MAS             [ shift and go to state 46 ]
-  ! MENOS           [ shift and go to state 47 ]
-  ! POR             [ shift and go to state 48 ]
-  ! DIV             [ shift and go to state 49 ]
-  ! AND             [ shift and go to state 51 ]
-  ! OR              [ shift and go to state 52 ]
-  ! IGUALIGUAL      [ shift and go to state 53 ]
-  ! DIFERENTE       [ shift and go to state 54 ]
-  ! MENORIGUAL      [ shift and go to state 55 ]
-  ! MENORQUE        [ shift and go to state 56 ]
-  ! MAYORIGUAL      [ shift and go to state 57 ]
-  ! MAYORQUE        [ shift and go to state 58 ]
+  ! MAS             [ shift and go to state 48 ]
+  ! MENOS           [ shift and go to state 49 ]
+  ! POR             [ shift and go to state 50 ]
+  ! DIV             [ shift and go to state 51 ]
+  ! AND             [ shift and go to state 53 ]
+  ! OR              [ shift and go to state 54 ]
+  ! IGUALIGUAL      [ shift and go to state 55 ]
+  ! DIFERENTE       [ shift and go to state 56 ]
+  ! MENORIGUAL      [ shift and go to state 57 ]
+  ! MENORQUE        [ shift and go to state 58 ]
+  ! MAYORIGUAL      [ shift and go to state 59 ]
+  ! MAYORQUE        [ shift and go to state 60 ]
 
 
-state 76
+state 78
 
     (34) expresion -> expresion DIV expresion .
     (31) expresion -> expresion . MAS expresion
@@ -2009,24 +2153,24 @@ state 76
     AS              reduce using rule 34 (expresion -> expresion DIV expresion .)
     PARC            reduce using rule 34 (expresion -> expresion DIV expresion .)
     COMA            reduce using rule 34 (expresion -> expresion DIV expresion .)
-    MOD             shift and go to state 50
+    MOD             shift and go to state 52
 
   ! MOD             [ reduce using rule 34 (expresion -> expresion DIV expresion .) ]
-  ! MAS             [ shift and go to state 46 ]
-  ! MENOS           [ shift and go to state 47 ]
-  ! POR             [ shift and go to state 48 ]
-  ! DIV             [ shift and go to state 49 ]
-  ! AND             [ shift and go to state 51 ]
-  ! OR              [ shift and go to state 52 ]
-  ! IGUALIGUAL      [ shift and go to state 53 ]
-  ! DIFERENTE       [ shift and go to state 54 ]
-  ! MENORIGUAL      [ shift and go to state 55 ]
-  ! MENORQUE        [ shift and go to state 56 ]
-  ! MAYORIGUAL      [ shift and go to state 57 ]
-  ! MAYORQUE        [ shift and go to state 58 ]
+  ! MAS             [ shift and go to state 48 ]
+  ! MENOS           [ shift and go to state 49 ]
+  ! POR             [ shift and go to state 50 ]
+  ! DIV             [ shift and go to state 51 ]
+  ! AND             [ shift and go to state 53 ]
+  ! OR              [ shift and go to state 54 ]
+  ! IGUALIGUAL      [ shift and go to state 55 ]
+  ! DIFERENTE       [ shift and go to state 56 ]
+  ! MENORIGUAL      [ shift and go to state 57 ]
+  ! MENORQUE        [ shift and go to state 58 ]
+  ! MAYORIGUAL      [ shift and go to state 59 ]
+  ! MAYORQUE        [ shift and go to state 60 ]
 
 
-state 77
+state 79
 
     (35) expresion -> expresion MOD expresion .
     (31) expresion -> expresion . MAS expresion
@@ -2060,24 +2204,24 @@ state 77
     AS              reduce using rule 35 (expresion -> expresion MOD expresion .)
     PARC            reduce using rule 35 (expresion -> expresion MOD expresion .)
     COMA            reduce using rule 35 (expresion -> expresion MOD expresion .)
-    MOD             shift and go to state 50
+    MOD             shift and go to state 52
 
   ! MOD             [ reduce using rule 35 (expresion -> expresion MOD expresion .) ]
-  ! MAS             [ shift and go to state 46 ]
-  ! MENOS           [ shift and go to state 47 ]
-  ! POR             [ shift and go to state 48 ]
-  ! DIV             [ shift and go to state 49 ]
-  ! AND             [ shift and go to state 51 ]
-  ! OR              [ shift and go to state 52 ]
-  ! IGUALIGUAL      [ shift and go to state 53 ]
-  ! DIFERENTE       [ shift and go to state 54 ]
-  ! MENORIGUAL      [ shift and go to state 55 ]
-  ! MENORQUE        [ shift and go to state 56 ]
-  ! MAYORIGUAL      [ shift and go to state 57 ]
-  ! MAYORQUE        [ shift and go to state 58 ]
+  ! MAS             [ shift and go to state 48 ]
+  ! MENOS           [ shift and go to state 49 ]
+  ! POR             [ shift and go to state 50 ]
+  ! DIV             [ shift and go to state 51 ]
+  ! AND             [ shift and go to state 53 ]
+  ! OR              [ shift and go to state 54 ]
+  ! IGUALIGUAL      [ shift and go to state 55 ]
+  ! DIFERENTE       [ shift and go to state 56 ]
+  ! MENORIGUAL      [ shift and go to state 57 ]
+  ! MENORQUE        [ shift and go to state 58 ]
+  ! MAYORIGUAL      [ shift and go to state 59 ]
+  ! MAYORQUE        [ shift and go to state 60 ]
 
 
-state 78
+state 80
 
     (38) expresion -> expresion AND expresion .
     (31) expresion -> expresion . MAS expresion
@@ -2101,17 +2245,17 @@ state 78
     AS              reduce using rule 38 (expresion -> expresion AND expresion .)
     PARC            reduce using rule 38 (expresion -> expresion AND expresion .)
     COMA            reduce using rule 38 (expresion -> expresion AND expresion .)
-    MAS             shift and go to state 46
-    MENOS           shift and go to state 47
-    POR             shift and go to state 48
-    DIV             shift and go to state 49
-    MOD             shift and go to state 50
-    IGUALIGUAL      shift and go to state 53
-    DIFERENTE       shift and go to state 54
-    MENORIGUAL      shift and go to state 55
-    MENORQUE        shift and go to state 56
-    MAYORIGUAL      shift and go to state 57
-    MAYORQUE        shift and go to state 58
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIV             shift and go to state 51
+    MOD             shift and go to state 52
+    IGUALIGUAL      shift and go to state 55
+    DIFERENTE       shift and go to state 56
+    MENORIGUAL      shift and go to state 57
+    MENORQUE        shift and go to state 58
+    MAYORIGUAL      shift and go to state 59
+    MAYORQUE        shift and go to state 60
 
   ! MAS             [ reduce using rule 38 (expresion -> expresion AND expresion .) ]
   ! MENOS           [ reduce using rule 38 (expresion -> expresion AND expresion .) ]
@@ -2124,11 +2268,11 @@ state 78
   ! MENORQUE        [ reduce using rule 38 (expresion -> expresion AND expresion .) ]
   ! MAYORIGUAL      [ reduce using rule 38 (expresion -> expresion AND expresion .) ]
   ! MAYORQUE        [ reduce using rule 38 (expresion -> expresion AND expresion .) ]
-  ! AND             [ shift and go to state 51 ]
-  ! OR              [ shift and go to state 52 ]
+  ! AND             [ shift and go to state 53 ]
+  ! OR              [ shift and go to state 54 ]
 
 
-state 79
+state 81
 
     (39) expresion -> expresion OR expresion .
     (31) expresion -> expresion . MAS expresion
@@ -2151,18 +2295,18 @@ state 79
     AS              reduce using rule 39 (expresion -> expresion OR expresion .)
     PARC            reduce using rule 39 (expresion -> expresion OR expresion .)
     COMA            reduce using rule 39 (expresion -> expresion OR expresion .)
-    MAS             shift and go to state 46
-    MENOS           shift and go to state 47
-    POR             shift and go to state 48
-    DIV             shift and go to state 49
-    MOD             shift and go to state 50
-    AND             shift and go to state 51
-    IGUALIGUAL      shift and go to state 53
-    DIFERENTE       shift and go to state 54
-    MENORIGUAL      shift and go to state 55
-    MENORQUE        shift and go to state 56
-    MAYORIGUAL      shift and go to state 57
-    MAYORQUE        shift and go to state 58
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIV             shift and go to state 51
+    MOD             shift and go to state 52
+    AND             shift and go to state 53
+    IGUALIGUAL      shift and go to state 55
+    DIFERENTE       shift and go to state 56
+    MENORIGUAL      shift and go to state 57
+    MENORQUE        shift and go to state 58
+    MAYORIGUAL      shift and go to state 59
+    MAYORQUE        shift and go to state 60
 
   ! MAS             [ reduce using rule 39 (expresion -> expresion OR expresion .) ]
   ! MENOS           [ reduce using rule 39 (expresion -> expresion OR expresion .) ]
@@ -2176,10 +2320,10 @@ state 79
   ! MENORQUE        [ reduce using rule 39 (expresion -> expresion OR expresion .) ]
   ! MAYORIGUAL      [ reduce using rule 39 (expresion -> expresion OR expresion .) ]
   ! MAYORQUE        [ reduce using rule 39 (expresion -> expresion OR expresion .) ]
-  ! OR              [ shift and go to state 52 ]
+  ! OR              [ shift and go to state 54 ]
 
 
-state 80
+state 82
 
     (40) expresion -> expresion IGUALIGUAL expresion .
     (31) expresion -> expresion . MAS expresion
@@ -2209,28 +2353,28 @@ state 80
     AS              reduce using rule 40 (expresion -> expresion IGUALIGUAL expresion .)
     PARC            reduce using rule 40 (expresion -> expresion IGUALIGUAL expresion .)
     COMA            reduce using rule 40 (expresion -> expresion IGUALIGUAL expresion .)
-    MAS             shift and go to state 46
-    MENOS           shift and go to state 47
-    POR             shift and go to state 48
-    DIV             shift and go to state 49
-    MOD             shift and go to state 50
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIV             shift and go to state 51
+    MOD             shift and go to state 52
 
   ! MAS             [ reduce using rule 40 (expresion -> expresion IGUALIGUAL expresion .) ]
   ! MENOS           [ reduce using rule 40 (expresion -> expresion IGUALIGUAL expresion .) ]
   ! POR             [ reduce using rule 40 (expresion -> expresion IGUALIGUAL expresion .) ]
   ! DIV             [ reduce using rule 40 (expresion -> expresion IGUALIGUAL expresion .) ]
   ! MOD             [ reduce using rule 40 (expresion -> expresion IGUALIGUAL expresion .) ]
-  ! AND             [ shift and go to state 51 ]
-  ! OR              [ shift and go to state 52 ]
-  ! IGUALIGUAL      [ shift and go to state 53 ]
-  ! DIFERENTE       [ shift and go to state 54 ]
-  ! MENORIGUAL      [ shift and go to state 55 ]
-  ! MENORQUE        [ shift and go to state 56 ]
-  ! MAYORIGUAL      [ shift and go to state 57 ]
-  ! MAYORQUE        [ shift and go to state 58 ]
+  ! AND             [ shift and go to state 53 ]
+  ! OR              [ shift and go to state 54 ]
+  ! IGUALIGUAL      [ shift and go to state 55 ]
+  ! DIFERENTE       [ shift and go to state 56 ]
+  ! MENORIGUAL      [ shift and go to state 57 ]
+  ! MENORQUE        [ shift and go to state 58 ]
+  ! MAYORIGUAL      [ shift and go to state 59 ]
+  ! MAYORQUE        [ shift and go to state 60 ]
 
 
-state 81
+state 83
 
     (41) expresion -> expresion DIFERENTE expresion .
     (31) expresion -> expresion . MAS expresion
@@ -2260,28 +2404,28 @@ state 81
     AS              reduce using rule 41 (expresion -> expresion DIFERENTE expresion .)
     PARC            reduce using rule 41 (expresion -> expresion DIFERENTE expresion .)
     COMA            reduce using rule 41 (expresion -> expresion DIFERENTE expresion .)
-    MAS             shift and go to state 46
-    MENOS           shift and go to state 47
-    POR             shift and go to state 48
-    DIV             shift and go to state 49
-    MOD             shift and go to state 50
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIV             shift and go to state 51
+    MOD             shift and go to state 52
 
   ! MAS             [ reduce using rule 41 (expresion -> expresion DIFERENTE expresion .) ]
   ! MENOS           [ reduce using rule 41 (expresion -> expresion DIFERENTE expresion .) ]
   ! POR             [ reduce using rule 41 (expresion -> expresion DIFERENTE expresion .) ]
   ! DIV             [ reduce using rule 41 (expresion -> expresion DIFERENTE expresion .) ]
   ! MOD             [ reduce using rule 41 (expresion -> expresion DIFERENTE expresion .) ]
-  ! AND             [ shift and go to state 51 ]
-  ! OR              [ shift and go to state 52 ]
-  ! IGUALIGUAL      [ shift and go to state 53 ]
-  ! DIFERENTE       [ shift and go to state 54 ]
-  ! MENORIGUAL      [ shift and go to state 55 ]
-  ! MENORQUE        [ shift and go to state 56 ]
-  ! MAYORIGUAL      [ shift and go to state 57 ]
-  ! MAYORQUE        [ shift and go to state 58 ]
+  ! AND             [ shift and go to state 53 ]
+  ! OR              [ shift and go to state 54 ]
+  ! IGUALIGUAL      [ shift and go to state 55 ]
+  ! DIFERENTE       [ shift and go to state 56 ]
+  ! MENORIGUAL      [ shift and go to state 57 ]
+  ! MENORQUE        [ shift and go to state 58 ]
+  ! MAYORIGUAL      [ shift and go to state 59 ]
+  ! MAYORQUE        [ shift and go to state 60 ]
 
 
-state 82
+state 84
 
     (42) expresion -> expresion MENORIGUAL expresion .
     (31) expresion -> expresion . MAS expresion
@@ -2311,28 +2455,28 @@ state 82
     AS              reduce using rule 42 (expresion -> expresion MENORIGUAL expresion .)
     PARC            reduce using rule 42 (expresion -> expresion MENORIGUAL expresion .)
     COMA            reduce using rule 42 (expresion -> expresion MENORIGUAL expresion .)
-    MAS             shift and go to state 46
-    MENOS           shift and go to state 47
-    POR             shift and go to state 48
-    DIV             shift and go to state 49
-    MOD             shift and go to state 50
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIV             shift and go to state 51
+    MOD             shift and go to state 52
 
   ! MAS             [ reduce using rule 42 (expresion -> expresion MENORIGUAL expresion .) ]
   ! MENOS           [ reduce using rule 42 (expresion -> expresion MENORIGUAL expresion .) ]
   ! POR             [ reduce using rule 42 (expresion -> expresion MENORIGUAL expresion .) ]
   ! DIV             [ reduce using rule 42 (expresion -> expresion MENORIGUAL expresion .) ]
   ! MOD             [ reduce using rule 42 (expresion -> expresion MENORIGUAL expresion .) ]
-  ! AND             [ shift and go to state 51 ]
-  ! OR              [ shift and go to state 52 ]
-  ! IGUALIGUAL      [ shift and go to state 53 ]
-  ! DIFERENTE       [ shift and go to state 54 ]
-  ! MENORIGUAL      [ shift and go to state 55 ]
-  ! MENORQUE        [ shift and go to state 56 ]
-  ! MAYORIGUAL      [ shift and go to state 57 ]
-  ! MAYORQUE        [ shift and go to state 58 ]
+  ! AND             [ shift and go to state 53 ]
+  ! OR              [ shift and go to state 54 ]
+  ! IGUALIGUAL      [ shift and go to state 55 ]
+  ! DIFERENTE       [ shift and go to state 56 ]
+  ! MENORIGUAL      [ shift and go to state 57 ]
+  ! MENORQUE        [ shift and go to state 58 ]
+  ! MAYORIGUAL      [ shift and go to state 59 ]
+  ! MAYORQUE        [ shift and go to state 60 ]
 
 
-state 83
+state 85
 
     (43) expresion -> expresion MENORQUE expresion .
     (31) expresion -> expresion . MAS expresion
@@ -2362,28 +2506,28 @@ state 83
     AS              reduce using rule 43 (expresion -> expresion MENORQUE expresion .)
     PARC            reduce using rule 43 (expresion -> expresion MENORQUE expresion .)
     COMA            reduce using rule 43 (expresion -> expresion MENORQUE expresion .)
-    MAS             shift and go to state 46
-    MENOS           shift and go to state 47
-    POR             shift and go to state 48
-    DIV             shift and go to state 49
-    MOD             shift and go to state 50
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIV             shift and go to state 51
+    MOD             shift and go to state 52
 
   ! MAS             [ reduce using rule 43 (expresion -> expresion MENORQUE expresion .) ]
   ! MENOS           [ reduce using rule 43 (expresion -> expresion MENORQUE expresion .) ]
   ! POR             [ reduce using rule 43 (expresion -> expresion MENORQUE expresion .) ]
   ! DIV             [ reduce using rule 43 (expresion -> expresion MENORQUE expresion .) ]
   ! MOD             [ reduce using rule 43 (expresion -> expresion MENORQUE expresion .) ]
-  ! AND             [ shift and go to state 51 ]
-  ! OR              [ shift and go to state 52 ]
-  ! IGUALIGUAL      [ shift and go to state 53 ]
-  ! DIFERENTE       [ shift and go to state 54 ]
-  ! MENORIGUAL      [ shift and go to state 55 ]
-  ! MENORQUE        [ shift and go to state 56 ]
-  ! MAYORIGUAL      [ shift and go to state 57 ]
-  ! MAYORQUE        [ shift and go to state 58 ]
+  ! AND             [ shift and go to state 53 ]
+  ! OR              [ shift and go to state 54 ]
+  ! IGUALIGUAL      [ shift and go to state 55 ]
+  ! DIFERENTE       [ shift and go to state 56 ]
+  ! MENORIGUAL      [ shift and go to state 57 ]
+  ! MENORQUE        [ shift and go to state 58 ]
+  ! MAYORIGUAL      [ shift and go to state 59 ]
+  ! MAYORQUE        [ shift and go to state 60 ]
 
 
-state 84
+state 86
 
     (44) expresion -> expresion MAYORIGUAL expresion .
     (31) expresion -> expresion . MAS expresion
@@ -2413,28 +2557,28 @@ state 84
     AS              reduce using rule 44 (expresion -> expresion MAYORIGUAL expresion .)
     PARC            reduce using rule 44 (expresion -> expresion MAYORIGUAL expresion .)
     COMA            reduce using rule 44 (expresion -> expresion MAYORIGUAL expresion .)
-    MAS             shift and go to state 46
-    MENOS           shift and go to state 47
-    POR             shift and go to state 48
-    DIV             shift and go to state 49
-    MOD             shift and go to state 50
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIV             shift and go to state 51
+    MOD             shift and go to state 52
 
   ! MAS             [ reduce using rule 44 (expresion -> expresion MAYORIGUAL expresion .) ]
   ! MENOS           [ reduce using rule 44 (expresion -> expresion MAYORIGUAL expresion .) ]
   ! POR             [ reduce using rule 44 (expresion -> expresion MAYORIGUAL expresion .) ]
   ! DIV             [ reduce using rule 44 (expresion -> expresion MAYORIGUAL expresion .) ]
   ! MOD             [ reduce using rule 44 (expresion -> expresion MAYORIGUAL expresion .) ]
-  ! AND             [ shift and go to state 51 ]
-  ! OR              [ shift and go to state 52 ]
-  ! IGUALIGUAL      [ shift and go to state 53 ]
-  ! DIFERENTE       [ shift and go to state 54 ]
-  ! MENORIGUAL      [ shift and go to state 55 ]
-  ! MENORQUE        [ shift and go to state 56 ]
-  ! MAYORIGUAL      [ shift and go to state 57 ]
-  ! MAYORQUE        [ shift and go to state 58 ]
+  ! AND             [ shift and go to state 53 ]
+  ! OR              [ shift and go to state 54 ]
+  ! IGUALIGUAL      [ shift and go to state 55 ]
+  ! DIFERENTE       [ shift and go to state 56 ]
+  ! MENORIGUAL      [ shift and go to state 57 ]
+  ! MENORQUE        [ shift and go to state 58 ]
+  ! MAYORIGUAL      [ shift and go to state 59 ]
+  ! MAYORQUE        [ shift and go to state 60 ]
 
 
-state 85
+state 87
 
     (45) expresion -> expresion MAYORQUE expresion .
     (31) expresion -> expresion . MAS expresion
@@ -2464,28 +2608,28 @@ state 85
     AS              reduce using rule 45 (expresion -> expresion MAYORQUE expresion .)
     PARC            reduce using rule 45 (expresion -> expresion MAYORQUE expresion .)
     COMA            reduce using rule 45 (expresion -> expresion MAYORQUE expresion .)
-    MAS             shift and go to state 46
-    MENOS           shift and go to state 47
-    POR             shift and go to state 48
-    DIV             shift and go to state 49
-    MOD             shift and go to state 50
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIV             shift and go to state 51
+    MOD             shift and go to state 52
 
   ! MAS             [ reduce using rule 45 (expresion -> expresion MAYORQUE expresion .) ]
   ! MENOS           [ reduce using rule 45 (expresion -> expresion MAYORQUE expresion .) ]
   ! POR             [ reduce using rule 45 (expresion -> expresion MAYORQUE expresion .) ]
   ! DIV             [ reduce using rule 45 (expresion -> expresion MAYORQUE expresion .) ]
   ! MOD             [ reduce using rule 45 (expresion -> expresion MAYORQUE expresion .) ]
-  ! AND             [ shift and go to state 51 ]
-  ! OR              [ shift and go to state 52 ]
-  ! IGUALIGUAL      [ shift and go to state 53 ]
-  ! DIFERENTE       [ shift and go to state 54 ]
-  ! MENORIGUAL      [ shift and go to state 55 ]
-  ! MENORQUE        [ shift and go to state 56 ]
-  ! MAYORIGUAL      [ shift and go to state 57 ]
-  ! MAYORQUE        [ shift and go to state 58 ]
+  ! AND             [ shift and go to state 53 ]
+  ! OR              [ shift and go to state 54 ]
+  ! IGUALIGUAL      [ shift and go to state 55 ]
+  ! DIFERENTE       [ shift and go to state 56 ]
+  ! MENORIGUAL      [ shift and go to state 57 ]
+  ! MENORQUE        [ shift and go to state 58 ]
+  ! MAYORIGUAL      [ shift and go to state 59 ]
+  ! MAYORQUE        [ shift and go to state 60 ]
 
 
-state 86
+state 88
 
     (26) expresion -> PARA expresion AS . tipo PARC
     (13) tipo -> . I64
@@ -2495,16 +2639,16 @@ state 86
     (17) tipo -> . STRING
     (18) tipo -> . STR
 
-    I64             shift and go to state 38
-    F64             shift and go to state 39
-    BOOL            shift and go to state 40
-    CHAR            shift and go to state 41
-    STRING          shift and go to state 42
-    STR             shift and go to state 43
+    I64             shift and go to state 40
+    F64             shift and go to state 41
+    BOOL            shift and go to state 42
+    CHAR            shift and go to state 43
+    STRING          shift and go to state 44
+    STR             shift and go to state 45
 
-    tipo                           shift and go to state 96
+    tipo                           shift and go to state 98
 
-state 87
+state 89
 
     (27) expresion -> PARA expresion PARC .
 
@@ -2528,46 +2672,46 @@ state 87
     COMA            reduce using rule 27 (expresion -> PARA expresion PARC .)
 
 
-state 88
+state 90
 
     (29) expresion -> I64 DOSP DOSP . POW PARA expresion COMA expresion PARC
 
-    POW             shift and go to state 97
+    POW             shift and go to state 99
 
 
-state 89
+state 91
 
     (30) expresion -> F64 DOSP DOSP . POWF PARA expresion COMA expresion PARC
 
-    POWF            shift and go to state 98
+    POWF            shift and go to state 100
 
 
-state 90
+state 92
 
     (24) dimensiones_arreglo -> CORA expresion CORC dimensiones_arreglo .
 
     IGUAL           reduce using rule 24 (dimensiones_arreglo -> CORA expresion CORC dimensiones_arreglo .)
 
 
-state 91
+state 93
 
     (19) funcion -> FN ID PARA lista_parametros PARC . LLAVEA instrucciones LLAVEC
     (20) funcion -> FN ID PARA lista_parametros PARC . MENOS MAYORQUE tipo LLAVEA instrucciones LLAVEC
 
-    LLAVEA          shift and go to state 99
-    MENOS           shift and go to state 100
+    LLAVEA          shift and go to state 101
+    MENOS           shift and go to state 102
 
 
-state 92
+state 94
 
     (21) lista_parametros -> lista_parametros COMA . parametro
     (23) parametro -> . ID
 
-    ID              shift and go to state 66
+    ID              shift and go to state 68
 
-    parametro                      shift and go to state 101
+    parametro                      shift and go to state 103
 
-state 93
+state 95
 
     (7) declaracion -> LET MUT ID DOSP tipo IGUAL . expresion
     (26) expresion -> . PARA expresion AS tipo PARC
@@ -2593,6 +2737,8 @@ state 93
     (46) expresion -> . ENTERO
     (47) expresion -> . DECIMAL
     (48) expresion -> . CADENA
+    (49) expresion -> . TRUE
+    (50) expresion -> . FALSE
 
     PARA            shift and go to state 24
     ID              shift and go to state 22
@@ -2603,10 +2749,12 @@ state 93
     ENTERO          shift and go to state 29
     DECIMAL         shift and go to state 30
     CADENA          shift and go to state 31
+    TRUE            shift and go to state 32
+    FALSE           shift and go to state 33
 
-    expresion                      shift and go to state 102
+    expresion                      shift and go to state 104
 
-state 94
+state 96
 
     (9) declaracion -> LET ID DOSP tipo IGUAL expresion .
     (31) expresion -> expresion . MAS expresion
@@ -2624,22 +2772,22 @@ state 94
     (45) expresion -> expresion . MAYORQUE expresion
 
     PYC             reduce using rule 9 (declaracion -> LET ID DOSP tipo IGUAL expresion .)
-    MAS             shift and go to state 46
-    MENOS           shift and go to state 47
-    POR             shift and go to state 48
-    DIV             shift and go to state 49
-    MOD             shift and go to state 50
-    AND             shift and go to state 51
-    OR              shift and go to state 52
-    IGUALIGUAL      shift and go to state 53
-    DIFERENTE       shift and go to state 54
-    MENORIGUAL      shift and go to state 55
-    MENORQUE        shift and go to state 56
-    MAYORIGUAL      shift and go to state 57
-    MAYORQUE        shift and go to state 58
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIV             shift and go to state 51
+    MOD             shift and go to state 52
+    AND             shift and go to state 53
+    OR              shift and go to state 54
+    IGUALIGUAL      shift and go to state 55
+    DIFERENTE       shift and go to state 56
+    MENORIGUAL      shift and go to state 57
+    MENORQUE        shift and go to state 58
+    MAYORIGUAL      shift and go to state 59
+    MAYORQUE        shift and go to state 60
 
 
-state 95
+state 97
 
     (28) expresion -> ID CORA expresion CORC .
 
@@ -2663,28 +2811,28 @@ state 95
     COMA            reduce using rule 28 (expresion -> ID CORA expresion CORC .)
 
 
-state 96
+state 98
 
     (26) expresion -> PARA expresion AS tipo . PARC
 
-    PARC            shift and go to state 103
-
-
-state 97
-
-    (29) expresion -> I64 DOSP DOSP POW . PARA expresion COMA expresion PARC
-
-    PARA            shift and go to state 104
-
-
-state 98
-
-    (30) expresion -> F64 DOSP DOSP POWF . PARA expresion COMA expresion PARC
-
-    PARA            shift and go to state 105
+    PARC            shift and go to state 105
 
 
 state 99
+
+    (29) expresion -> I64 DOSP DOSP POW . PARA expresion COMA expresion PARC
+
+    PARA            shift and go to state 106
+
+
+state 100
+
+    (30) expresion -> F64 DOSP DOSP POWF . PARA expresion COMA expresion PARC
+
+    PARA            shift and go to state 107
+
+
+state 101
 
     (19) funcion -> FN ID PARA lista_parametros PARC LLAVEA . instrucciones LLAVEC
     (2) instrucciones -> . instrucciones instruccion
@@ -2705,20 +2853,20 @@ state 99
     ID              shift and go to state 8
     FN              shift and go to state 9
 
-    instrucciones                  shift and go to state 106
+    instrucciones                  shift and go to state 108
     instruccion                    shift and go to state 3
     declaracion                    shift and go to state 4
     asignacion                     shift and go to state 5
     funcion                        shift and go to state 6
 
-state 100
+state 102
 
     (20) funcion -> FN ID PARA lista_parametros PARC MENOS . MAYORQUE tipo LLAVEA instrucciones LLAVEC
 
-    MAYORQUE        shift and go to state 107
+    MAYORQUE        shift and go to state 109
 
 
-state 101
+state 103
 
     (21) lista_parametros -> lista_parametros COMA parametro .
 
@@ -2726,7 +2874,7 @@ state 101
     COMA            reduce using rule 21 (lista_parametros -> lista_parametros COMA parametro .)
 
 
-state 102
+state 104
 
     (7) declaracion -> LET MUT ID DOSP tipo IGUAL expresion .
     (31) expresion -> expresion . MAS expresion
@@ -2744,22 +2892,22 @@ state 102
     (45) expresion -> expresion . MAYORQUE expresion
 
     PYC             reduce using rule 7 (declaracion -> LET MUT ID DOSP tipo IGUAL expresion .)
-    MAS             shift and go to state 46
-    MENOS           shift and go to state 47
-    POR             shift and go to state 48
-    DIV             shift and go to state 49
-    MOD             shift and go to state 50
-    AND             shift and go to state 51
-    OR              shift and go to state 52
-    IGUALIGUAL      shift and go to state 53
-    DIFERENTE       shift and go to state 54
-    MENORIGUAL      shift and go to state 55
-    MENORQUE        shift and go to state 56
-    MAYORIGUAL      shift and go to state 57
-    MAYORQUE        shift and go to state 58
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIV             shift and go to state 51
+    MOD             shift and go to state 52
+    AND             shift and go to state 53
+    OR              shift and go to state 54
+    IGUALIGUAL      shift and go to state 55
+    DIFERENTE       shift and go to state 56
+    MENORIGUAL      shift and go to state 57
+    MENORQUE        shift and go to state 58
+    MAYORIGUAL      shift and go to state 59
+    MAYORQUE        shift and go to state 60
 
 
-state 103
+state 105
 
     (26) expresion -> PARA expresion AS tipo PARC .
 
@@ -2783,7 +2931,7 @@ state 103
     COMA            reduce using rule 26 (expresion -> PARA expresion AS tipo PARC .)
 
 
-state 104
+state 106
 
     (29) expresion -> I64 DOSP DOSP POW PARA . expresion COMA expresion PARC
     (26) expresion -> . PARA expresion AS tipo PARC
@@ -2809,6 +2957,8 @@ state 104
     (46) expresion -> . ENTERO
     (47) expresion -> . DECIMAL
     (48) expresion -> . CADENA
+    (49) expresion -> . TRUE
+    (50) expresion -> . FALSE
 
     PARA            shift and go to state 24
     ID              shift and go to state 22
@@ -2819,10 +2969,12 @@ state 104
     ENTERO          shift and go to state 29
     DECIMAL         shift and go to state 30
     CADENA          shift and go to state 31
+    TRUE            shift and go to state 32
+    FALSE           shift and go to state 33
 
-    expresion                      shift and go to state 108
+    expresion                      shift and go to state 110
 
-state 105
+state 107
 
     (30) expresion -> F64 DOSP DOSP POWF PARA . expresion COMA expresion PARC
     (26) expresion -> . PARA expresion AS tipo PARC
@@ -2848,6 +3000,8 @@ state 105
     (46) expresion -> . ENTERO
     (47) expresion -> . DECIMAL
     (48) expresion -> . CADENA
+    (49) expresion -> . TRUE
+    (50) expresion -> . FALSE
 
     PARA            shift and go to state 24
     ID              shift and go to state 22
@@ -2858,10 +3012,12 @@ state 105
     ENTERO          shift and go to state 29
     DECIMAL         shift and go to state 30
     CADENA          shift and go to state 31
+    TRUE            shift and go to state 32
+    FALSE           shift and go to state 33
 
-    expresion                      shift and go to state 109
+    expresion                      shift and go to state 111
 
-state 106
+state 108
 
     (19) funcion -> FN ID PARA lista_parametros PARC LLAVEA instrucciones . LLAVEC
     (2) instrucciones -> instrucciones . instruccion
@@ -2877,7 +3033,7 @@ state 106
     (19) funcion -> . FN ID PARA lista_parametros PARC LLAVEA instrucciones LLAVEC
     (20) funcion -> . FN ID PARA lista_parametros PARC MENOS MAYORQUE tipo LLAVEA instrucciones LLAVEC
 
-    LLAVEC          shift and go to state 110
+    LLAVEC          shift and go to state 112
     LET             shift and go to state 7
     ID              shift and go to state 8
     FN              shift and go to state 9
@@ -2887,7 +3043,7 @@ state 106
     asignacion                     shift and go to state 5
     funcion                        shift and go to state 6
 
-state 107
+state 109
 
     (20) funcion -> FN ID PARA lista_parametros PARC MENOS MAYORQUE . tipo LLAVEA instrucciones LLAVEC
     (13) tipo -> . I64
@@ -2897,16 +3053,16 @@ state 107
     (17) tipo -> . STRING
     (18) tipo -> . STR
 
-    I64             shift and go to state 38
-    F64             shift and go to state 39
-    BOOL            shift and go to state 40
-    CHAR            shift and go to state 41
-    STRING          shift and go to state 42
-    STR             shift and go to state 43
+    I64             shift and go to state 40
+    F64             shift and go to state 41
+    BOOL            shift and go to state 42
+    CHAR            shift and go to state 43
+    STRING          shift and go to state 44
+    STR             shift and go to state 45
 
-    tipo                           shift and go to state 111
+    tipo                           shift and go to state 113
 
-state 108
+state 110
 
     (29) expresion -> I64 DOSP DOSP POW PARA expresion . COMA expresion PARC
     (31) expresion -> expresion . MAS expresion
@@ -2923,23 +3079,23 @@ state 108
     (44) expresion -> expresion . MAYORIGUAL expresion
     (45) expresion -> expresion . MAYORQUE expresion
 
-    COMA            shift and go to state 112
-    MAS             shift and go to state 46
-    MENOS           shift and go to state 47
-    POR             shift and go to state 48
-    DIV             shift and go to state 49
-    MOD             shift and go to state 50
-    AND             shift and go to state 51
-    OR              shift and go to state 52
-    IGUALIGUAL      shift and go to state 53
-    DIFERENTE       shift and go to state 54
-    MENORIGUAL      shift and go to state 55
-    MENORQUE        shift and go to state 56
-    MAYORIGUAL      shift and go to state 57
-    MAYORQUE        shift and go to state 58
+    COMA            shift and go to state 114
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIV             shift and go to state 51
+    MOD             shift and go to state 52
+    AND             shift and go to state 53
+    OR              shift and go to state 54
+    IGUALIGUAL      shift and go to state 55
+    DIFERENTE       shift and go to state 56
+    MENORIGUAL      shift and go to state 57
+    MENORQUE        shift and go to state 58
+    MAYORIGUAL      shift and go to state 59
+    MAYORQUE        shift and go to state 60
 
 
-state 109
+state 111
 
     (30) expresion -> F64 DOSP DOSP POWF PARA expresion . COMA expresion PARC
     (31) expresion -> expresion . MAS expresion
@@ -2956,23 +3112,23 @@ state 109
     (44) expresion -> expresion . MAYORIGUAL expresion
     (45) expresion -> expresion . MAYORQUE expresion
 
-    COMA            shift and go to state 113
-    MAS             shift and go to state 46
-    MENOS           shift and go to state 47
-    POR             shift and go to state 48
-    DIV             shift and go to state 49
-    MOD             shift and go to state 50
-    AND             shift and go to state 51
-    OR              shift and go to state 52
-    IGUALIGUAL      shift and go to state 53
-    DIFERENTE       shift and go to state 54
-    MENORIGUAL      shift and go to state 55
-    MENORQUE        shift and go to state 56
-    MAYORIGUAL      shift and go to state 57
-    MAYORQUE        shift and go to state 58
+    COMA            shift and go to state 115
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIV             shift and go to state 51
+    MOD             shift and go to state 52
+    AND             shift and go to state 53
+    OR              shift and go to state 54
+    IGUALIGUAL      shift and go to state 55
+    DIFERENTE       shift and go to state 56
+    MENORIGUAL      shift and go to state 57
+    MENORQUE        shift and go to state 58
+    MAYORIGUAL      shift and go to state 59
+    MAYORQUE        shift and go to state 60
 
 
-state 110
+state 112
 
     (19) funcion -> FN ID PARA lista_parametros PARC LLAVEA instrucciones LLAVEC .
 
@@ -2983,14 +3139,14 @@ state 110
     LLAVEC          reduce using rule 19 (funcion -> FN ID PARA lista_parametros PARC LLAVEA instrucciones LLAVEC .)
 
 
-state 111
+state 113
 
     (20) funcion -> FN ID PARA lista_parametros PARC MENOS MAYORQUE tipo . LLAVEA instrucciones LLAVEC
 
-    LLAVEA          shift and go to state 114
+    LLAVEA          shift and go to state 116
 
 
-state 112
+state 114
 
     (29) expresion -> I64 DOSP DOSP POW PARA expresion COMA . expresion PARC
     (26) expresion -> . PARA expresion AS tipo PARC
@@ -3016,6 +3172,8 @@ state 112
     (46) expresion -> . ENTERO
     (47) expresion -> . DECIMAL
     (48) expresion -> . CADENA
+    (49) expresion -> . TRUE
+    (50) expresion -> . FALSE
 
     PARA            shift and go to state 24
     ID              shift and go to state 22
@@ -3026,10 +3184,12 @@ state 112
     ENTERO          shift and go to state 29
     DECIMAL         shift and go to state 30
     CADENA          shift and go to state 31
+    TRUE            shift and go to state 32
+    FALSE           shift and go to state 33
 
-    expresion                      shift and go to state 115
+    expresion                      shift and go to state 117
 
-state 113
+state 115
 
     (30) expresion -> F64 DOSP DOSP POWF PARA expresion COMA . expresion PARC
     (26) expresion -> . PARA expresion AS tipo PARC
@@ -3055,6 +3215,8 @@ state 113
     (46) expresion -> . ENTERO
     (47) expresion -> . DECIMAL
     (48) expresion -> . CADENA
+    (49) expresion -> . TRUE
+    (50) expresion -> . FALSE
 
     PARA            shift and go to state 24
     ID              shift and go to state 22
@@ -3065,10 +3227,12 @@ state 113
     ENTERO          shift and go to state 29
     DECIMAL         shift and go to state 30
     CADENA          shift and go to state 31
+    TRUE            shift and go to state 32
+    FALSE           shift and go to state 33
 
-    expresion                      shift and go to state 116
+    expresion                      shift and go to state 118
 
-state 114
+state 116
 
     (20) funcion -> FN ID PARA lista_parametros PARC MENOS MAYORQUE tipo LLAVEA . instrucciones LLAVEC
     (2) instrucciones -> . instrucciones instruccion
@@ -3089,13 +3253,13 @@ state 114
     ID              shift and go to state 8
     FN              shift and go to state 9
 
-    instrucciones                  shift and go to state 117
+    instrucciones                  shift and go to state 119
     instruccion                    shift and go to state 3
     declaracion                    shift and go to state 4
     asignacion                     shift and go to state 5
     funcion                        shift and go to state 6
 
-state 115
+state 117
 
     (29) expresion -> I64 DOSP DOSP POW PARA expresion COMA expresion . PARC
     (31) expresion -> expresion . MAS expresion
@@ -3112,23 +3276,23 @@ state 115
     (44) expresion -> expresion . MAYORIGUAL expresion
     (45) expresion -> expresion . MAYORQUE expresion
 
-    PARC            shift and go to state 118
-    MAS             shift and go to state 46
-    MENOS           shift and go to state 47
-    POR             shift and go to state 48
-    DIV             shift and go to state 49
-    MOD             shift and go to state 50
-    AND             shift and go to state 51
-    OR              shift and go to state 52
-    IGUALIGUAL      shift and go to state 53
-    DIFERENTE       shift and go to state 54
-    MENORIGUAL      shift and go to state 55
-    MENORQUE        shift and go to state 56
-    MAYORIGUAL      shift and go to state 57
-    MAYORQUE        shift and go to state 58
+    PARC            shift and go to state 120
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIV             shift and go to state 51
+    MOD             shift and go to state 52
+    AND             shift and go to state 53
+    OR              shift and go to state 54
+    IGUALIGUAL      shift and go to state 55
+    DIFERENTE       shift and go to state 56
+    MENORIGUAL      shift and go to state 57
+    MENORQUE        shift and go to state 58
+    MAYORIGUAL      shift and go to state 59
+    MAYORQUE        shift and go to state 60
 
 
-state 116
+state 118
 
     (30) expresion -> F64 DOSP DOSP POWF PARA expresion COMA expresion . PARC
     (31) expresion -> expresion . MAS expresion
@@ -3145,23 +3309,23 @@ state 116
     (44) expresion -> expresion . MAYORIGUAL expresion
     (45) expresion -> expresion . MAYORQUE expresion
 
-    PARC            shift and go to state 119
-    MAS             shift and go to state 46
-    MENOS           shift and go to state 47
-    POR             shift and go to state 48
-    DIV             shift and go to state 49
-    MOD             shift and go to state 50
-    AND             shift and go to state 51
-    OR              shift and go to state 52
-    IGUALIGUAL      shift and go to state 53
-    DIFERENTE       shift and go to state 54
-    MENORIGUAL      shift and go to state 55
-    MENORQUE        shift and go to state 56
-    MAYORIGUAL      shift and go to state 57
-    MAYORQUE        shift and go to state 58
+    PARC            shift and go to state 121
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIV             shift and go to state 51
+    MOD             shift and go to state 52
+    AND             shift and go to state 53
+    OR              shift and go to state 54
+    IGUALIGUAL      shift and go to state 55
+    DIFERENTE       shift and go to state 56
+    MENORIGUAL      shift and go to state 57
+    MENORQUE        shift and go to state 58
+    MAYORIGUAL      shift and go to state 59
+    MAYORQUE        shift and go to state 60
 
 
-state 117
+state 119
 
     (20) funcion -> FN ID PARA lista_parametros PARC MENOS MAYORQUE tipo LLAVEA instrucciones . LLAVEC
     (2) instrucciones -> instrucciones . instruccion
@@ -3177,7 +3341,7 @@ state 117
     (19) funcion -> . FN ID PARA lista_parametros PARC LLAVEA instrucciones LLAVEC
     (20) funcion -> . FN ID PARA lista_parametros PARC MENOS MAYORQUE tipo LLAVEA instrucciones LLAVEC
 
-    LLAVEC          shift and go to state 120
+    LLAVEC          shift and go to state 122
     LET             shift and go to state 7
     ID              shift and go to state 8
     FN              shift and go to state 9
@@ -3187,7 +3351,7 @@ state 117
     asignacion                     shift and go to state 5
     funcion                        shift and go to state 6
 
-state 118
+state 120
 
     (29) expresion -> I64 DOSP DOSP POW PARA expresion COMA expresion PARC .
 
@@ -3211,7 +3375,7 @@ state 118
     COMA            reduce using rule 29 (expresion -> I64 DOSP DOSP POW PARA expresion COMA expresion PARC .)
 
 
-state 119
+state 121
 
     (30) expresion -> F64 DOSP DOSP POWF PARA expresion COMA expresion PARC .
 
@@ -3235,7 +3399,7 @@ state 119
     COMA            reduce using rule 30 (expresion -> F64 DOSP DOSP POWF PARA expresion COMA expresion PARC .)
 
 
-state 120
+state 122
 
     (20) funcion -> FN ID PARA lista_parametros PARC MENOS MAYORQUE tipo LLAVEA instrucciones LLAVEC .
 
