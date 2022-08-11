@@ -62,9 +62,11 @@ validar_tipo = {
     '^':{
         tipo.I64:{
             tipo.I64: tipo.I64
-        },
+        }
+    },
+    '^^':{
         tipo.F64:{
-            tipo.F64: tipo.F64
+            tipo.F64:tipo.F64
         }
     },
     '%':{

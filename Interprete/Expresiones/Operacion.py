@@ -10,7 +10,7 @@ class Operacion(Expresion):
         self.exp1 = exp1
         self.exp2 = exp2
         self.expU = expU
-        self.operador = signo
+        self.operador_enum = self.getOperador(signo)
         self.linea = linea
         self.col = col
         self.signo = signo
@@ -46,6 +46,7 @@ class operador(enum.Enum):
     AND = 13
     NOT = 14
     UNARIO = 15
+    POTF = 16
 
 
 tipo_operacion = {
@@ -55,6 +56,7 @@ tipo_operacion = {
     '*': operador.MULT,
     '%': operador.MOD,
     '^': operador.POT,
+    '^^': operador.POTF,
     '>=': operador.MAYORIGUAL,
     '>': operador.MAYORQUE,
     '<=': operador.MENORIGUAL,

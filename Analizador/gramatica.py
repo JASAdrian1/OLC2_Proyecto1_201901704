@@ -13,6 +13,7 @@ reserved = {
     'usize':'USIZE',
     '&str':'STR',
     'pow':'POW',
+    'powf':'POWF',
     'as':'AS',
     'vec':'VEC',
     'Vec':'VECN',
@@ -156,8 +157,12 @@ def p_instrucciones(t):
     '''instrucciones : instrucciones instruccion
                     | instruccion
     '''
-    #print(t)
-    t[0] = t[1]
+    if len(t) == 2:
+        t[0] = []
+        t[0].append(t[1])
+    else:
+        t[0] = t[1]
+        t[0].append(t[2])
     return t
 
 def p_instruccion(t):
@@ -218,46 +223,62 @@ def p_dimensiones_arreglo(t):
     print("Se reconocio una dimension con valor")
 
 def p_expresion(t):
+    '''expresion : PARA expresion AS tipo PARC
+                | PARA expresion PARC
+                | ID CORA expresion CORC
+    '''
+    return t
+
+def p_expresion_aritmeticas(t):
     '''expresion : I64 DOSP DOSP POW PARA expresion COMA expresion PARC
-                | F64 DOSP DOSP POW PARA expresion COMA expresion PARC
+                | F64 DOSP DOSP POWF PARA expresion COMA expresion PARC
                 | expresion MAS expresion
                 | expresion MENOS expresion
                 | expresion POR expresion
                 | expresion DIV expresion
                 | expresion MOD expresion
-                | expresion IGUALIGUAL expresion
+                | MENOS expresion %prec UMENOS
+    '''
+    if len(t) <=4:
+        t[0] = Aritmetica(t[1],t[3],False,t.lexer.lineno,1,t[2])
+    elif t[4] == "pow":
+        t[0] = Aritmetica(t[6],t[8],False,t.lexer.lineno,1,"^")
+    elif t[4] == "powf":
+        t[0] = Aritmetica(t[6], t[8], False, t.lexer.lineno, 1, "^^")
+    else:
+        t[0] = t[1]
+    return t
+
+def p_expresion_logica(t):
+    '''expresion : NOT expresion %prec NOT
+                | expresion AND expresion
+                | expresion OR expresion
+    '''
+
+def p_expresion_relacional(t):
+    '''expresion : expresion IGUALIGUAL expresion
                 | expresion DIFERENTE expresion
                 | expresion MENORIGUAL expresion
                 | expresion MENORQUE expresion
                 | expresion MAYORIGUAL expresion
                 | expresion MAYORQUE expresion
-                | NOT expresion %prec NOT
-                | MENOS expresion %prec UMENOS
-                | expresion AND expresion
-                | expresion OR expresion
-                | PARA expresion AS tipo PARC
-                | PARA expresion PARC
-                | ID CORA expresion CORC
-                | ENTERO
+
+    '''
+    return t
+
+def p_expresion_primitivos(t):
+    '''expresion : ENTERO
                 | DECIMAL
                 | CADENA
     '''
-    if len(t) <= 2:
-        if type(t[1]) == float:
-            tipo = "F64"
-        elif type(t[1]) == int:
-            tipo = "I64"
-        else:
-            tipo = "ERROR"
-        t[0] = Primitivo(t[1],tipo,t.lexer.lineno,1)
+    if type(t[1]) == float:
+        tipo = "F64"
+    elif type(t[1]) == int:
+        tipo = "I64"
     else:
-        if t[2] == '+':
-            t[0] = Aritmetica(t[1],t[3],False,t.lexer.lineno,1,'+')
-
-        else:
-            t[0] = t[1]
+        tipo = "ERROR"
+    t[0] = Primitivo(t[1], tipo, t.lexer.lineno, 1)
     return t
-
 
 def p_error(t):
     print("Error sintáctico en '%s'" % t.value)
