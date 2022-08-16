@@ -15,7 +15,7 @@ class tipo(enum.Enum):
 
 
 class Tipo:
-    def __init__(self, tip):
+    def __init__(self, tip):    #(self, tip: string)
         self.tipo_enum = tipo[tip]
         self.tipo = tip
 

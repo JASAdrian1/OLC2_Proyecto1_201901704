@@ -2,6 +2,9 @@ from Interprete.Expresiones.Operaciones.Aritmetica import Aritmetica
 from Interprete.Expresiones.Primitivo import Primitivo
 from Interprete.Expresiones.Operaciones.Relacionales import Relacionales
 from Interprete.Expresiones.Operaciones.Logica import Logica
+from Interprete.Instrucciones.Asignacion import Asignacion
+from Interprete.Instrucciones.Declaracion import Declaracion
+from Interprete.TablaSimbolos.Tipo import Tipo
 
 #Palabras reservadas
 reserved = {
@@ -178,21 +181,44 @@ def p_instruccion(t):
     return t
 
 def p_declaracion(t):
-    '''declaracion : LET MUT ID DOSP tipo IGUAL expresion
-                    | LET MUT ID IGUAL expresion
-                    | LET ID DOSP tipo IGUAL expresion
-                    | LET ID IGUAL expresion
+    '''declaracion : LET MUT lista_id DOSP tipo IGUAL expresion
+                    | LET MUT lista_id IGUAL expresion
+                    | LET lista_id DOSP tipo IGUAL expresion
+                    | LET lista_id IGUAL expresion
     '''
-    print("Se reconocio una declaracion con el valor de: ",t[7])
-    t[0] = t[7]
+    if len(t) == 8:
+        print("Se reconocio una declaracion con el valor de: ",t[7])
+        t[0] = Declaracion(t[5],t[7],t[3],True,t.lexer.lineno,1)
+    elif len(t) == 6:
+        print("Se reconocio una declaracion con el valor de: ", t[5])
+        t[0] = Declaracion(None, t[5], t[3], True, t.lexer.lineno, 1)
+    elif len(t) == 7:
+        print("Se reconocio una declaracion con el valor de: ", t[6])
+        t[0] = Declaracion(t[4], t[6], t[2], False, t.lexer.lineno, 1)
+    elif len(t) == 5:
+        print("Se reconocio una declaracion con el valor de: ", t[4])
+        t[0] = Declaracion(None, t[4], t[2], True, t.lexer.lineno, 1)
     return t
 
 def p_asignacion(t):
     '''asignacion : ID IGUAL expresion
                     | ID dimensiones_arreglo IGUAL expresion
     '''
+    if len(t) == 4:
+        t[0] = Asignacion(t[1],t[3],t.lexer.lineno,1)
+    return t
 
-
+def p_lista_id(t):
+    '''lista_id : ID COMA lista_id
+                | ID
+    '''
+    if len(t) == 2:
+        t[0] = []
+        t[0].append(t[1])
+    else:
+        t[0] = t[1]
+        t[0].append(t[3])
+    return t
 
 def p_tipo(t):
     '''tipo : I64
@@ -202,7 +228,9 @@ def p_tipo(t):
             | STRING
             | STR
     '''
-    print("Se reconocio tipo: ",t[1])
+    #print("Se reconocio tipo: ",t[1])
+    t[0] = Tipo(t[1].upper())
+    return t
 
 
 #------------------------------FUNCIONES-----------------------------------------

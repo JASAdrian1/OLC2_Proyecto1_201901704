@@ -49,7 +49,7 @@ class Logica(Operacion):
             else:
                 val_bool_exp2 = True
             if self.operador_enum == operador.OR:
-                return val_bool_exp1 or val_bool_exp2      
+                return val_bool_exp1 or val_bool_exp2
             elif self.operador_enum == operador.AND:
                 return val_bool_exp1 and val_bool_exp2
         else:
