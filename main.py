@@ -17,3 +17,4 @@ for nodo in nodos:
     #print(nodo)
     #print(nodo.getTipo(controlador,ts))
     #print(nodo.getValor(controlador,ts))
+print(controlador.consola)

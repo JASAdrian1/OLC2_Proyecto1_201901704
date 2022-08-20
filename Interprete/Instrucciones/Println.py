@@ -1,0 +1,32 @@
+from Interprete.Interfaces.Instruccion import Instruccion
+from Interprete.ast.nodo import Nodo
+from Interprete.TablaSimbolos.Error import Error
+import re
+
+
+class Pritnln(Instruccion):
+    def __init__(self, cadena, valores, linea, columna):
+        self.cadena = cadena
+        self.valores = valores
+        self.linea = linea
+        self.columna = columna
+
+
+    def ejecutar(self, controlador, ts):
+        if self.valores is not None:
+            llaves_cadena = re.findall(r'{.*}',self.cadena)
+            if len(self.valores) == len(llaves_cadena):
+                print(len(llaves_cadena))
+                for valor in self.valores:
+                    self.cadena = re.sub(r'{.*}',valor.getValor(controlador,ts),self.cadena,1)
+                    controlador.agregarAConsola(self.cadena)
+                controlador.agregarAConsola("\n")
+            else:
+                controlador.agregarAConsola("***ERROR***La cantidad de llaves no coinciden los valores a imprimir")
+                controlador.agregarError(Error("SEMANTICO","La cantidad de llaves no coinciden los valores a imprimir",self.linea,self.columna))
+        else:
+            controlador.agregarAConsola(self.cadena+"\n")
+
+
+    def recorrer(self) -> Nodo:
+        pass

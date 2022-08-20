@@ -29,3 +29,4 @@ class TablaSimbolos:
             if id.lower() in ts.tabla:
                 return ts.tabla[id.lower()]
             ts = ts.tablaAnterior
+        return None

@@ -16,6 +16,9 @@ class Relacionales(Operacion):
             return tipo.ERROR
         if (tipo_expresion1 == tipo_expresion2) and (tipo_expresion1 == tipo.I64 or tipo_expresion1 == tipo.F64 or tipo_expresion1 == tipo.STRING):
             return tipo.BOOL
+        else:
+            controlador.agregarAConsola("***ERROR***Los operadores de laa operacion relacional no coinciden %s != %s\n" % (tipo_expresion1, tipo_expresion2))
+            return tipo.ERROR
 
 
 
