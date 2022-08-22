@@ -17,6 +17,7 @@ class Asignacion(Instruccion):
             if variable.esMutable is True:
                 if tipoNuevoValor == variable.tipoDato.tipo_enum:
                     variable.valor = self.valor.getValor(controlador, ts)
+                    print(variable.valor)
                 else:
                     print("***ERROR***El tipo de la variable no coincide con el nuevo valor agregrado")
             else:

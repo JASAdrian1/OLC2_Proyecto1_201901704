@@ -129,4 +129,4 @@ parsetab.py
 **/__pycache__/**
 .idea
 ./entradas
-entrada.txt
+Entradas/

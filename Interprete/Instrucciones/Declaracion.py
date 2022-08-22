@@ -13,6 +13,7 @@ class Declaracion(Instruccion):
         self.esMutable = esMutable
         self.fila = fila
         self.columna = columna
+        self.tipoInstruccion = "declaracion"
 
     def ejecutar(self, controlador, ts):
         for id in self.lista_id:
@@ -31,7 +32,7 @@ class Declaracion(Instruccion):
                         nueva_variable = Simbolo(id, self.valor.getValor(controlador, ts), "variable", tipo_new_varible, "",
                                                  self.esMutable, self.fila, self.columna)
                         lista_simbolos.append(nueva_variable)
-                        print("++++",nueva_variable.tipoDato)
+                        #print("++++",nueva_variable.tipoDato)
                         ts.agregarSimbolo(id, nueva_variable)
 
 

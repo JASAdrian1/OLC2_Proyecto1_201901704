@@ -8,7 +8,7 @@ controlador = Controlador()
 ts = TablaSimbolos(None)
 
 
-f = open("./entrada.txt", "r")
+f = open("./Entradas/match.txt", "r")
 input = f.read()
 nodos = analizar_entrada(input)
 for nodo in nodos:

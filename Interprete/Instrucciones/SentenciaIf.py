@@ -1,3 +1,4 @@
+from Interprete.Instrucciones.SentenciaBreak import SentenciaBreak
 from Interprete.Interfaces.Instruccion import Instruccion
 from Interprete.TablaSimbolos.Error import Error
 from Interprete.ast.nodo import Nodo
@@ -12,6 +13,7 @@ class SentenciaIf(Instruccion):
         self.instruccionesElse = instruccionesElse
         self.linea = linea
         self.columna = columna
+        self.tipoInstruccion = "if"
 
 
     def ejecutar(self, controlador, ts):
@@ -19,7 +21,10 @@ class SentenciaIf(Instruccion):
             if self.condicion.getValor(controlador, ts) == True:
                 for instruccion in self.instruccionesIf:
                     tablaLocal = TablaSimbolos(ts)
-                    instruccion.ejecutar(controlador, tablaLocal)
+                    sentencia = instruccion.ejecutar(controlador, tablaLocal)
+                    if isinstance(sentencia, SentenciaBreak):
+                        return sentencia
+
             else:
                 if self.instruccionesElse is not None:
                     for instruccion in self.instruccionesElse:

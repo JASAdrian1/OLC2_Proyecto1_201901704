@@ -8,6 +8,11 @@ from Interprete.Instrucciones.Declaracion import Declaracion
 from Interprete.TablaSimbolos.Tipo import Tipo
 from Interprete.Instrucciones.Println import Pritnln
 from Interprete.Instrucciones.SentenciaIf import SentenciaIf
+from Interprete.Instrucciones.SentenciaMatch import SentenciaMatch
+from Interprete.Instrucciones.BrazoMatch import BrazoMatch
+from Interprete.Instrucciones.BucleLoop import BucleLoop
+from Interprete.Instrucciones.BucleWhile import BucleWhile
+from Interprete.Instrucciones.SentenciaBreak import SentenciaBreak
 
 #Palabras reservadas
 reserved = {
@@ -31,10 +36,13 @@ reserved = {
     'println':'PRINTLN',
     'if':'IF',
     'else':'ELSE',
-    'match':'MATCH'
+    'match':'MATCH',
+    'loop':'LOOP',
+    'while':'WHILE',
+    'break':"BREAK"
 }
 #Simbolos
-tokens = [
+tokens = list(reserved.values()) + [
     'MAS',
     'POR',
     'DIV',
@@ -65,7 +73,7 @@ tokens = [
     'ID',
     'GUIONBAJO',
     'ORMATCH'
-] + list(reserved.values())
+]
 
 
 
@@ -189,10 +197,46 @@ def p_instruccion(t):
                     | funcion
                     | impresion PYC
                     | sentencia_if
+                    | sentencia_match
+                    | bucle_loop
+                    | bucle_while
+                    | BREAK PYC
+    '''
+    if t[1] == "break":
+        t[0] = SentenciaBreak()
+        print(type(t[0]))
+    else:
+        t[0] = t[1]
+    return t
+
+
+#======================INSTRUCCION PARA SOLO UNA LINEA MATCH====================================
+def p_instrucciones_match(t):
+    '''instrucciones_match : instrucciones_match instruccion_match
+                    | instruccion_match
+    '''
+    if len(t) == 2:
+        t[0] = []
+        t[0].append(t[1])
+    else:
+        t[0] = t[1]
+        t[0].append(t[2])
+    return t
+
+def p_instruccion_match(t):
+    '''instruccion_match : declaracion
+                        | asignacion
+                        | impresion
+                        | sentencia_if
+                        | sentencia_match
+                        | bucle_while
+                        | BREAK
     '''
     t[0] = t[1]
     return t
 
+
+#=============================DECLARACION DE VARIABLES============================================
 def p_declaracion(t):
     '''declaracion : LET MUT lista_id DOSP tipo IGUAL expresion
                     | LET MUT lista_id IGUAL expresion
@@ -200,16 +244,16 @@ def p_declaracion(t):
                     | LET lista_id IGUAL expresion
     '''
     if len(t) == 8:
-        print("Se reconocio una declaracion con el valor de: ",t[7])
+        #print("Se reconocio una declaracion con el valor de: ",t[7])
         t[0] = Declaracion(t[5],t[7],t[3],True,t.lexer.lineno,1)
     elif len(t) == 6:
-        print("Se reconocio una declaracion con el valor de: ", t[5])
+        #print("Se reconocio una declaracion con el valor de: ", t[5])
         t[0] = Declaracion(None, t[5], t[3], True, t.lexer.lineno, 1)
     elif len(t) == 7:
-        print("Se reconocio una declaracion con el valor de: ", t[6])
+        #print("Se reconocio una declaracion con el valor de: ", t[6])
         t[0] = Declaracion(t[4], t[6], t[2], False, t.lexer.lineno, 1)
     elif len(t) == 5:
-        print("Se reconocio una declaracion con el valor de: ", t[4])
+        #print("Se reconocio una declaracion con el valor de: ", t[4])
         t[0] = Declaracion(None, t[4], t[2], True, t.lexer.lineno, 1)
     return t
 
@@ -240,20 +284,32 @@ def p_tipo(t):
             | CHAR
             | STRING
             | STR
+            | CORA tipo PYC ENTERO CORC
     '''
     #print("Se reconocio tipo: ",t[1])
-    t[0] = Tipo(t[1].upper())
+    if len(t) == 2:
+        t[0] = Tipo(t[1].upper())
+    else:
+        t[0] = Tipo("ARRAY")
     return t
+
+
+#------------------------------ARREGLOS------------------------------------------
+def p_dimensiones_arreglo(t):       #----PENDIENTE------
+    '''dimensiones_arreglo : CORA expresion CORC dimensiones_arreglo
+                            | CORA expresion CORC
+    '''
+    print("Se reconocio una dimension con valor")
 
 #-------------------------FUNCIONES NATIVAS--------------------------------------
 def p_impresion(t):
-    '''impresion : PRINTLN PARA CADENA PARC
-                | PRINTLN PARA CADENA COMA lista_expresiones PARC
+    '''impresion : PRINTLN NOT PARA CADENA PARC
+                | PRINTLN NOT PARA CADENA COMA lista_expresiones PARC
     '''
-    if len(t) == 5:
-        t[0] = Pritnln(t[3],None,t.lexer.lineno,1)
-    elif len(t) == 7:
-        t[0] = Pritnln(t[3],t[5],t.lexer.lineno,1)
+    if len(t) == 6:
+        t[0] = Pritnln(t[4],None,t.lexer.lineno,1)
+    elif len(t) == 8:
+        t[0] = Pritnln(t[4],t[6],t.lexer.lineno,1)
     return t
 
 def p_lista_expresion(t):
@@ -267,11 +323,11 @@ def p_lista_expresion(t):
         t[0] = t[1]
         t[0].append(t[3])
     return t
-    return t
 
 
 
 #------------------------SENTENCIAS DE CONTROL-----------------------------------
+#================================================================================
 def p_sentencia_if(t):
     '''sentencia_if : IF expresion LLAVEA instrucciones LLAVEC
                     | IF expresion LLAVEA instrucciones LLAVEC ELSE  sentencia_if
@@ -287,19 +343,67 @@ def p_sentencia_if(t):
 
 
 def p_sentencia_match(t):
-    ''' sentencia_match : MATCH expresion LLAVEA casos_match LLAVEC
+    ''' sentencia_match : MATCH expresion LLAVEA lista_casos_match LLAVEC
+                        | MATCH expresion LLAVEA lista_casos_match GUIONBAJO IGUAL MAYORQUE instrucciones_match LLAVEC
+                        | MATCH expresion LLAVEA lista_casos_match GUIONBAJO IGUAL MAYORQUE instruccion_match COMA LLAVEC
     '''
+    if len(t) == 6:
+        t[0] = SentenciaMatch(t[2],t[4],None, t.lexer.lineno,1)
+    else:
+        t[0] = SentenciaMatch(t[2], t[4], t[8], t.lexer.lineno, 1)
+    return t
+
+
+def p_lista_casos_match(t):
+    ''' lista_casos_match : lista_casos_match caso_match
+                        | caso_match
+    '''
+    if len(t) == 2:
+        t[0] = []
+        t[0].append(t[1])
+    else:
+        t[0] = t[1]
+        t[0].append(t[2])
+    return t
 
 def p_casos_match(t):
-    ''' casos_match : opciones_match IGUAL MAYORQUE LLAVEA instrucciones LLAVEC
-                    | opciones_match IGUAL MAYORQUE instruccion COMA
-                    | GUIONBAJO IGUAL MAYORQUE instruccion COMA
+    ''' caso_match : opciones_match IGUAL MAYORQUE LLAVEA instrucciones LLAVEC
+                    | opciones_match IGUAL MAYORQUE instruccion_match COMA
     '''
+    if len(t) == 7:
+        t[0] = BrazoMatch(t[1],t[5],t.lexer.lineno,1)
+    else:
+        t[0] = BrazoMatch(t[1],[t[4]], t.lexer.lineno, 1)
+    return t
 
 def p_opciones_match(t):
     ''' opciones_match : opciones_match ORMATCH expresion
                         | expresion
     '''
+    if len(t) == 2:
+        t[0] = []
+        t[0].append(t[1])
+    else:
+        t[0] = t[1]
+        t[0].append(t[3])
+    return t
+
+
+
+#-------------------------------BUCLES-------------------------------------------
+#================================================================================
+def p_loop(t):
+    ''' bucle_loop : LOOP LLAVEA instrucciones LLAVEC
+    '''
+    t[0] = BucleLoop(t[3])
+    return t
+
+
+def p_while(t):
+    ''' bucle_while : WHILE expresion LLAVEA instrucciones LLAVEC
+    '''
+    t[0] = BucleWhile(t[2],t[4],t.lexer.lineno,1)
+    return t
 
 
 #------------------------------FUNCIONES-----------------------------------------
@@ -317,12 +421,9 @@ def p_parametro(t):     #----PENDIENTE------
     '''parametro : ID
     '''
 
-def p_dimensiones_arreglo(t):       #----PENDIENTE------
-    '''dimensiones_arreglo : CORA expresion CORC dimensiones_arreglo
-                            | CORA expresion CORC
-    '''
-    print("Se reconocio una dimension con valor")
 
+#===================PRDUCCIONES PARA EXPRESIONES==========================
+#==========================================================================
 def p_expresion(t): #----PENDIENTE------
     '''expresion : PARA expresion AS tipo PARC
                 | PARA expresion PARC
@@ -399,6 +500,11 @@ def p_expresion_id(t):
     '''
     t[0] = Identificador(t[1],t.lexer.lineno,1)
 
+def p_expresion_arreglo(t):
+    ''' expresion : CORA lista_expresion CORC
+    '''
+
+
 def p_error(t):
     print("Error sintáctico en '%s'" % t.value)
 
@@ -409,7 +515,7 @@ import Analizador.ply.yacc as yacc
 parser = yacc.yacc()
 
 def analizar_entrada(input):
-    print(input)
+    #print(input)
     return parser.parse(input)
 
 
