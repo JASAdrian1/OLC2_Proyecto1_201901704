@@ -5,6 +5,11 @@ from Interprete.Expresiones.Operaciones.Logica import Logica
 from Interprete.Expresiones.identificador import Identificador
 from Interprete.Instrucciones.Asignacion import Asignacion
 from Interprete.Instrucciones.Declaracion import Declaracion
+from Interprete.Instrucciones.Estructuras.DeclaracionArreglo import DeclaracionArreglo
+from Interprete.Instrucciones.Estructuras.DeclaracionVector import DeclaracionVector
+from Interprete.Expresiones.InicializacionVector import InicializacionVector
+from Interprete.Expresiones.AccesoArreglo import AccesoArreglo
+from Interprete.Expresiones.AccesoVector import AccesoVector
 from Interprete.TablaSimbolos.Tipo import Tipo
 from Interprete.Instrucciones.Println import Pritnln
 from Interprete.Instrucciones.SentenciaIf import SentenciaIf
@@ -14,34 +19,37 @@ from Interprete.Instrucciones.BucleLoop import BucleLoop
 from Interprete.Instrucciones.BucleWhile import BucleWhile
 from Interprete.Instrucciones.SentenciaBreak import SentenciaBreak
 
-#Palabras reservadas
+# Palabras reservadas
 reserved = {
-    'let':'LET',
-    'mut':'MUT',
-    'i64':'I64',
-    'f64':'F64',
-    'bool':'BOOL',
-    'char':'CHAR',
-    'String':'STRING',
-    'usize':'USIZE',
-    '&str':'STR',
-    'pow':'POW',
-    'powf':'POWF',
-    'as':'AS',
-    'true':'TRUE',
-    'false':'FALSE',
-    'vec':'VEC',
-    'Vec':'VECN',
-    'fn':'FN',
-    'println':'PRINTLN',
-    'if':'IF',
-    'else':'ELSE',
-    'match':'MATCH',
-    'loop':'LOOP',
-    'while':'WHILE',
-    'break':"BREAK"
+    'let': 'LET',
+    'mut': 'MUT',
+    'i64': 'I64',
+    'f64': 'F64',
+    'bool': 'BOOL',
+    'char': 'CHAR',
+    'String': 'STRING',
+    'usize': 'USIZE',
+    '&str': 'STR',
+    'pow': 'POW',
+    'powf': 'POWF',
+    'as': 'AS',
+    'true': 'TRUE',
+    'false': 'FALSE',
+    'vec': 'VEC',
+    'Vec': 'VECN',
+    'new': 'NEW',
+    'fn': 'FN',
+    'println': 'PRINTLN',
+    'if': 'IF',
+    'else': 'ELSE',
+    'match': 'MATCH',
+    'loop': 'LOOP',
+    'while': 'WHILE',
+    'break': "BREAK",
+    'with': 'WITH',
+    'capacity':'CAPACITY'
 }
-#Simbolos
+# Simbolos
 tokens = list(reserved.values()) + [
     'MAS',
     'POR',
@@ -75,9 +83,7 @@ tokens = list(reserved.values()) + [
     'ORMATCH'
 ]
 
-
-
-#Asignacion de tokens
+# Asignacion de tokens
 t_MAS = r'\+'
 t_POR = r'\*'
 t_DIV = r'/'
@@ -106,7 +112,7 @@ t_GUIONBAJO = r'_'
 t_ORMATCH = r'\|'
 
 
-#Expresiones regulares
+# Expresiones regulares
 def t_DECIMAL(t):
     r'\d+\.\d+'
     try:
@@ -129,55 +135,63 @@ def t_ENTERO(t):
 
 def t_CADENA(t):
     r'"([^"\n]|(\\"))*"'
-    #print("Se ha reconocido la cadena: ",t.value)
+    # print("Se ha reconocido la cadena: ",t.value)
     return t
+
 
 def t_ID(t):
     r'[a-zA-Z][a-zA-Z0-9]*'
     t.type = reserved.get(t.value, 'ID')
     try:
-        t.type = reserved.get(t.value,"ID")
+        t.type = reserved.get(t.value, "ID")
     except ValueError:
         print("Se esperaba un identificador")
         t.value = 'ERROR'
     return t
 
+
 def t_COMMENT(t):
     r'\#.*'
     pass
 
+
 t_ignore = " \t"
+
 
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += t.value.count("\n")
 
+
 def t_error(t):
     print("Error al leer '%s'" % t.value[0])
     t.lexer.skip(1)
+
 
 #################INICIAN PRODUCCIONES######################
 import Analizador.ply.lex as lex
 
 lexer = lex.lex()
 
-#SE DECLARA LA PRECEDENCIA
+# SE DECLARA LA PRECEDENCIA
 precedence = (
-    ('left','OR'),
-    ('left','AND'),
-    ('right','NOT'),
-    ('left','IGUALIGUAL','DIFERENTE','MENORQUE','MAYORQUE','MENORIGUAL','MAYORIGUAL'),
-    ('left','MAS','MENOS'),
-    ('left','POR','DIV'),
-    ('right','MOD'),
-    ('left','UMENOS')
+    ('left', 'OR'),
+    ('left', 'AND'),
+    ('right', 'NOT'),
+    ('left', 'IGUALIGUAL', 'DIFERENTE', 'MENORQUE', 'MAYORQUE', 'MENORIGUAL', 'MAYORIGUAL'),
+    ('left', 'MAS', 'MENOS'),
+    ('left', 'POR', 'DIV'),
+    ('right', 'MOD'),
+    ('left', 'UMENOS')
 )
+
 
 def p_inicio(t):
     '''inicio : instrucciones
     '''
     t[0] = t[1]
     return t[1]
+
 
 def p_instrucciones(t):
     '''instrucciones : instrucciones instruccion
@@ -190,6 +204,7 @@ def p_instrucciones(t):
         t[0] = t[1]
         t[0].append(t[2])
     return t
+
 
 def p_instruccion(t):
     '''instruccion : declaracion PYC
@@ -210,7 +225,7 @@ def p_instruccion(t):
     return t
 
 
-#======================INSTRUCCION PARA SOLO UNA LINEA MATCH====================================
+# ======================INSTRUCCION PARA SOLO UNA LINEA MATCH====================================
 def p_instrucciones_match(t):
     '''instrucciones_match : instrucciones_match instruccion_match
                     | instruccion_match
@@ -222,6 +237,7 @@ def p_instrucciones_match(t):
         t[0] = t[1]
         t[0].append(t[2])
     return t
+
 
 def p_instruccion_match(t):
     '''instruccion_match : declaracion
@@ -236,7 +252,7 @@ def p_instruccion_match(t):
     return t
 
 
-#=============================DECLARACION DE VARIABLES============================================
+# =============================DECLARACION DE VARIABLES============================================
 def p_declaracion(t):
     '''declaracion : LET MUT lista_id DOSP tipo IGUAL expresion
                     | LET MUT lista_id IGUAL expresion
@@ -244,26 +260,39 @@ def p_declaracion(t):
                     | LET lista_id IGUAL expresion
     '''
     if len(t) == 8:
-        #print("Se reconocio una declaracion con el valor de: ",t[7])
-        t[0] = Declaracion(t[5],t[7],t[3],True,t.lexer.lineno,1)
-    elif len(t) == 6:
-        #print("Se reconocio una declaracion con el valor de: ", t[5])
-        t[0] = Declaracion(None, t[5], t[3], True, t.lexer.lineno, 1)
-    elif len(t) == 7:
-        #print("Se reconocio una declaracion con el valor de: ", t[6])
-        t[0] = Declaracion(t[4], t[6], t[2], False, t.lexer.lineno, 1)
-    elif len(t) == 5:
-        #print("Se reconocio una declaracion con el valor de: ", t[4])
-        t[0] = Declaracion(None, t[4], t[2], True, t.lexer.lineno, 1)
+        tipo = t[5]
+    else:
+        tipo = t[4]
+    if len(t) == 6 and isinstance(t[5],InicializacionVector):   #PRIMERO VALIDAMOS SI LO QUE SE DECLARA ES UN VECTOR
+        t[0] = DeclaracionVector(t[3],t[5],"VEC",None,True,None, t.lexer.lineno,1)            #DECLARAR VECTOR MUTABLE
+
+    elif len(t) == 5 and isinstance(t[4],InicializacionVector):
+        t[0] = DeclaracionVector(t[2],t[4],"VEC",None,False,None, t.lexer.lineno,1)            #DECLARAR VECTOR NO MUTABLE
+    else:
+        if len(t) == 8:
+            # print("Se reconocio una declaracion con el valor de: ",t[7])
+            t[0] = Declaracion(tipo, t[7], t[3], True, t.lexer.lineno, 1)
+        elif len(t) == 6:
+            # print("Se reconocio una declaracion con el valor de: ", t[5])
+            t[0] = Declaracion(None, t[5], t[3], True, t.lexer.lineno, 1)
+        elif len(t) == 7:
+            # print("Se reconocio una declaracion con el valor de: ", t[6])
+            t[0] = Declaracion(tipo, t[6], t[2], False, t.lexer.lineno, 1)
+        elif len(t) == 5:
+            # print("Se reconocio una declaracion con el valor de: ", t[4])
+            t[0] = Declaracion(None, t[4], t[2], True, t.lexer.lineno, 1)
+        #print(tipo)
     return t
+
 
 def p_asignacion(t):
     '''asignacion : ID IGUAL expresion
-                    | ID dimensiones_arreglo IGUAL expresion
+                    | ID dimensiones_acceso_arreglo IGUAL expresion
     '''
     if len(t) == 4:
-        t[0] = Asignacion(t[1],t[3],t.lexer.lineno,1)
+        t[0] = Asignacion(t[1], t[3], t.lexer.lineno, 1)
     return t
+
 
 def p_lista_id(t):
     '''lista_id : ID COMA lista_id
@@ -277,6 +306,7 @@ def p_lista_id(t):
         t[0].append(t[3])
     return t
 
+
 def p_tipo(t):
     '''tipo : I64
             | F64
@@ -284,33 +314,103 @@ def p_tipo(t):
             | CHAR
             | STRING
             | STR
-            | CORA tipo PYC ENTERO CORC
+
     '''
-    #print("Se reconocio tipo: ",t[1])
-    if len(t) == 2:
-        t[0] = Tipo(t[1].upper())
-    else:
-        t[0] = Tipo("ARRAY")
+    # print("Se reconocio tipo: ",t[1])
+    t[0] = Tipo(t[1].upper())
     return t
 
 
-#------------------------------ARREGLOS------------------------------------------
-def p_dimensiones_arreglo(t):       #----PENDIENTE------
-    '''dimensiones_arreglo : CORA expresion CORC dimensiones_arreglo
+# ------------------------------ARREGLOS------------------------------------------
+def p_declaracion_arreglo(t):
+    ''' declaracion : LET MUT lista_id DOSP CORA dimension_arreglo_declaracion CORC IGUAL expresion
+                    | LET lista_id DOSP CORA dimension_arreglo_declaracion CORC IGUAL expresion
+    '''
+    if len(t) == 10:        #t[6/5][0] = dimension del arreglo -- t[6/5] = Estructura del arreglo(tipo de elementos y longitud de los arreglos)
+        t[0] = DeclaracionArreglo(t[3], t[9], Tipo("ARRAY"), t[6][0], t[6],True, t.lexer.lineno, 1)
+    elif len(t) == 9:
+        t[0] = DeclaracionArreglo(t[2],t[8],Tipo("ARRAY"),t[5][0],t[5],False ,t.lexer.lineno,1)
+    return t
+
+
+def p_dimension_arreglo_declaracion(t):
+    ''' dimension_arreglo_declaracion : dimension_arreglo_declaracion PYC ENTERO
+                                    | CORA dimension_arreglo_declaracion PYC ENTERO CORC
+                                    | tipo
+    '''
+    if len(t) == 2:  # t[0][0] = tipo principal del arreglo
+        t[0] = []
+        t[0].append(t[1])  # t[0][1] = tamaño del sub arreglo
+        print(t[0])
+    elif len(t) == 4:
+        t[0] = t[1]
+        t[0].append(t[3])
+        print(t[0])
+    else:
+        t[0] = t[2]
+        t[0].append(t[4])
+    return t
+
+
+def p_dimensiones_acceso_arreglo(t):
+    '''dimensiones_acceso_arreglo : dimensiones_acceso_arreglo CORA expresion CORC
                             | CORA expresion CORC
     '''
     print("Se reconocio una dimension con valor")
+    if len(t) == 4:
+        t[0] = []
+        t[0].append(t[2])
+    else:
+        t[0] = t[1]
+        t[0].append(t[3])
+    return t
 
-#-------------------------FUNCIONES NATIVAS--------------------------------------
+
+# -------------------------------VECTORES-------------------------------------------
+def p_declaracion_vector(t):
+    ''' declaracion :  LET MUT lista_id DOSP VECN MENORQUE tipo MAYORQUE IGUAL VECN DOSP DOSP NEW PARA PARC
+                    | LET lista_id DOSP VECN MENORQUE tipo MAYORQUE IGUAL VECN DOSP DOSP NEW PARA PARC
+                    | LET MUT lista_id DOSP VECN MENORQUE tipo MAYORQUE IGUAL VECN DOSP DOSP WITH GUIONBAJO CAPACITY PARA expresion PARC
+                    | LET lista_id DOSP VECN MENORQUE tipo MAYORQUE IGUAL VECN DOSP DOSP WITH GUIONBAJO CAPACITY PARA expresion PARC
+    '''
+
+    if t[2] == "mut":
+        tipo = t[7]
+        mut = True
+    else:
+        tipo = t[6]
+        mut = False
+    if len(t) == 19:
+        t[0] = DeclaracionVector(t[2], None, "VEC", tipo, mut, t[17], t.lexer.lineno, 1)
+    elif len(t) == 18:
+        t[0] = DeclaracionVector(t[2], None, "VEC", tipo, mut,t[16], t.lexer.lineno, 1)
+    elif len(t) == 16 or len(t) == 15:
+        t[0] = DeclaracionVector(t[2], None, "VEC", tipo, mut, 0, t.lexer.lineno, 1)
+    #print(tipo)
+    return t
+
+def p_dimension_vector_declaracion(t):
+    ''' expresion : VEC NOT CORA expresion PYC ENTERO CORC
+                | VEC NOT CORA lista_expresiones CORC
+    '''
+    if len(t) == 8:  # t[0][0] = tipo principal del arreglo
+        t[0] = InicializacionVector(t[4],t[6])
+    else:
+        t[0] = InicializacionVector(t[4],0)
+    return t
+
+
+# -------------------------FUNCIONES NATIVAS--------------------------------------
 def p_impresion(t):
     '''impresion : PRINTLN NOT PARA CADENA PARC
                 | PRINTLN NOT PARA CADENA COMA lista_expresiones PARC
     '''
     if len(t) == 6:
-        t[0] = Pritnln(t[4],None,t.lexer.lineno,1)
+        t[0] = Pritnln(t[4], None, t.lexer.lineno, 1)
     elif len(t) == 8:
-        t[0] = Pritnln(t[4],t[6],t.lexer.lineno,1)
+        t[0] = Pritnln(t[4], t[6], t.lexer.lineno, 1)
     return t
+
 
 def p_lista_expresion(t):
     '''lista_expresiones : lista_expresiones COMA expresion
@@ -325,20 +425,19 @@ def p_lista_expresion(t):
     return t
 
 
-
-#------------------------SENTENCIAS DE CONTROL-----------------------------------
-#================================================================================
+# ------------------------SENTENCIAS DE CONTROL-----------------------------------
+# ================================================================================
 def p_sentencia_if(t):
     '''sentencia_if : IF expresion LLAVEA instrucciones LLAVEC
                     | IF expresion LLAVEA instrucciones LLAVEC ELSE  sentencia_if
                     | IF expresion LLAVEA instrucciones LLAVEC ELSE LLAVEA instrucciones LLAVEC
     '''
     if len(t) == 6:
-        t[0] = SentenciaIf(t[2],t[4],None,t.lexer.lineno,1)
+        t[0] = SentenciaIf(t[2], t[4], None, t.lexer.lineno, 1)
     elif len(t) == 8:
         t[0] = 2
     elif len(t) == 10:
-        t[0] = SentenciaIf(t[2],t[4],t[8],t.lexer.lineno,1)
+        t[0] = SentenciaIf(t[2], t[4], t[8], t.lexer.lineno, 1)
     return t
 
 
@@ -348,7 +447,7 @@ def p_sentencia_match(t):
                         | MATCH expresion LLAVEA lista_casos_match GUIONBAJO IGUAL MAYORQUE instruccion_match COMA LLAVEC
     '''
     if len(t) == 6:
-        t[0] = SentenciaMatch(t[2],t[4],None, t.lexer.lineno,1)
+        t[0] = SentenciaMatch(t[2], t[4], None, t.lexer.lineno, 1)
     else:
         t[0] = SentenciaMatch(t[2], t[4], t[8], t.lexer.lineno, 1)
     return t
@@ -366,15 +465,17 @@ def p_lista_casos_match(t):
         t[0].append(t[2])
     return t
 
+
 def p_casos_match(t):
     ''' caso_match : opciones_match IGUAL MAYORQUE LLAVEA instrucciones LLAVEC
                     | opciones_match IGUAL MAYORQUE instruccion_match COMA
     '''
     if len(t) == 7:
-        t[0] = BrazoMatch(t[1],t[5],t.lexer.lineno,1)
+        t[0] = BrazoMatch(t[1], t[5], t.lexer.lineno, 1)
     else:
-        t[0] = BrazoMatch(t[1],[t[4]], t.lexer.lineno, 1)
+        t[0] = BrazoMatch(t[1], [t[4]], t.lexer.lineno, 1)
     return t
+
 
 def p_opciones_match(t):
     ''' opciones_match : opciones_match ORMATCH expresion
@@ -389,9 +490,8 @@ def p_opciones_match(t):
     return t
 
 
-
-#-------------------------------BUCLES-------------------------------------------
-#================================================================================
+# -------------------------------BUCLES-------------------------------------------
+# ================================================================================
 def p_loop(t):
     ''' bucle_loop : LOOP LLAVEA instrucciones LLAVEC
     '''
@@ -402,34 +502,36 @@ def p_loop(t):
 def p_while(t):
     ''' bucle_while : WHILE expresion LLAVEA instrucciones LLAVEC
     '''
-    t[0] = BucleWhile(t[2],t[4],t.lexer.lineno,1)
+    t[0] = BucleWhile(t[2], t[4], t.lexer.lineno, 1)
     return t
 
 
-#------------------------------FUNCIONES-----------------------------------------
-def p_funcion(t):       #----PENDIENTE------
+# ------------------------------FUNCIONES-----------------------------------------
+def p_funcion(t):  # ----PENDIENTE------
     ''' funcion : FN ID PARA lista_parametros PARC LLAVEA instrucciones LLAVEC
                 | FN ID PARA lista_parametros PARC MENOS MAYORQUE tipo LLAVEA instrucciones LLAVEC
     '''
 
-def p_lista_parametros(t):      #----PENDIENTE------
+
+def p_lista_parametros(t):  # ----PENDIENTE------
     '''lista_parametros : lista_parametros COMA parametro
                         | parametro
     '''
 
-def p_parametro(t):     #----PENDIENTE------
+
+def p_parametro(t):  # ----PENDIENTE------
     '''parametro : ID
     '''
 
 
-#===================PRDUCCIONES PARA EXPRESIONES==========================
-#==========================================================================
-def p_expresion(t): #----PENDIENTE------
+# ===================PRDUCCIONES PARA EXPRESIONES==========================
+# ==========================================================================
+def p_expresion(t):  # ----PENDIENTE------
     '''expresion : PARA expresion AS tipo PARC
                 | PARA expresion PARC
-                | ID CORA expresion CORC
     '''
     return t
+
 
 def p_expresion_aritmeticas(t):
     '''expresion : I64 DOSP DOSP POW PARA expresion COMA expresion PARC
@@ -441,15 +543,16 @@ def p_expresion_aritmeticas(t):
                 | expresion MOD expresion
                 | MENOS expresion %prec UMENOS
     '''
-    if len(t) <=4:
-        t[0] = Aritmetica(t[1],t[3],False,t.lexer.lineno,1,t[2])
+    if len(t) <= 4:
+        t[0] = Aritmetica(t[1], t[3], False, t.lexer.lineno, 1, t[2])
     elif t[4] == "pow":
-        t[0] = Aritmetica(t[6],t[8],False,t.lexer.lineno,1,"^")
+        t[0] = Aritmetica(t[6], t[8], False, t.lexer.lineno, 1, "^")
     elif t[4] == "powf":
         t[0] = Aritmetica(t[6], t[8], False, t.lexer.lineno, 1, "^^")
     else:
         t[0] = t[1]
     return t
+
 
 def p_expresion_logica(t):
     '''expresion : NOT expresion %prec NOT
@@ -460,6 +563,7 @@ def p_expresion_logica(t):
     t[0] = Logica(t[1], t[3], False, t.lexer.lineno, 1, t[2])
     return t
 
+
 def p_expresion_relacional(t):
     '''expresion : expresion IGUALIGUAL expresion
                 | expresion DIFERENTE expresion
@@ -469,8 +573,9 @@ def p_expresion_relacional(t):
                 | expresion MAYORQUE expresion
 
     '''
-    t[0] = Relacionales(t[1],t[3],False,t.lexer.lineno,1,t[2])
+    t[0] = Relacionales(t[1], t[3], False, t.lexer.lineno, 1, t[2])
     return t
+
 
 def p_expresion_primitivos(t):
     '''expresion : ENTERO
@@ -495,27 +600,39 @@ def p_expresion_primitivos(t):
     t[0] = Primitivo(valor, tipo, t.lexer.lineno, 1)
     return t
 
+
 def p_expresion_id(t):
     ''' expresion : ID
     '''
-    t[0] = Identificador(t[1],t.lexer.lineno,1)
+    t[0] = Identificador(t[1], t.lexer.lineno, 1)
+
 
 def p_expresion_arreglo(t):
-    ''' expresion : CORA lista_expresion CORC
+    ''' expresion : CORA lista_expresiones CORC
     '''
+    t[0] = t[2]
+    return t
+
+def p_acceso_arreglo(t):
+    ''' expresion : ID dimensiones_acceso_arreglo
+    '''
+    #print(t[1])
+    #print(t[2])
+    t[0] = AccesoArreglo(t[1],t[2],t.lexer.lineno,1)
+    return t
 
 
 def p_error(t):
     print("Error sintáctico en '%s'" % t.value)
 
 
-
 import Analizador.ply.yacc as yacc
 
 parser = yacc.yacc()
 
+
 def analizar_entrada(input):
-    #print(input)
+    # print(input)
     return parser.parse(input)
 
 
