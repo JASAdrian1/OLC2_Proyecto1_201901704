@@ -7,8 +7,7 @@ from Interprete.Controlador import Controlador
 from Interprete.TablaSimbolos.TablaSimbolos import TablaSimbolos
 
 
-controlador = Controlador()
-ts = TablaSimbolos(None)
+
 
 
 class Ventana:
@@ -46,10 +45,14 @@ class Ventana:
         botonAcerca.pack(side="left")
 
     def compilar(self):
+        self.text_console.delete("1.0",tk.END)
         input = self.text_editor.get(0.1, tk.END)
         nodos = analizar_entrada(input)
+        controlador = Controlador()
+        ts = TablaSimbolos(None)
         for nodo in nodos:
             print("---------------------------------------------------")
+            print(nodo)
             nodo.ejecutar(controlador, ts)
             # print(nodo)
             # print(nodo.getTipo(controlador,ts))

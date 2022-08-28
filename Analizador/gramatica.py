@@ -47,7 +47,9 @@ reserved = {
     'while': 'WHILE',
     'break': "BREAK",
     'with': 'WITH',
-    'capacity':'CAPACITY'
+    'capacity':'CAPACITY',
+    'to':'TO',
+    'string':'STRINGE'
 }
 # Simbolos
 tokens = list(reserved.values()) + [
@@ -75,9 +77,11 @@ tokens = list(reserved.values()) + [
     'COMA',
     'PYC',
     'DOSP',
+    'PUNTO',
     'ENTERO',
     'DECIMAL',
     'CADENA',
+    'CARACTER',
     'ID',
     'GUIONBAJO',
     'ORMATCH'
@@ -108,6 +112,7 @@ t_LLAVEC = r'}'
 t_COMA = r','
 t_PYC = r';'
 t_DOSP = r':'
+t_PUNTO= r'\.'
 t_GUIONBAJO = r'_'
 t_ORMATCH = r'\|'
 
@@ -136,6 +141,11 @@ def t_ENTERO(t):
 def t_CADENA(t):
     r'"([^"\n]|(\\"))*"'
     # print("Se ha reconocido la cadena: ",t.value)
+    return t
+
+def t_CARACTER(t):
+    r'\'[a-zA-Z]\''
+    print("Se ha reconocido el caracter: ", t.value)
     return t
 
 
@@ -280,7 +290,7 @@ def p_declaracion(t):
             t[0] = Declaracion(tipo, t[6], t[2], False, t.lexer.lineno, 1)
         elif len(t) == 5:
             # print("Se reconocio una declaracion con el valor de: ", t[4])
-            t[0] = Declaracion(None, t[4], t[2], True, t.lexer.lineno, 1)
+            t[0] = Declaracion(None, t[4], t[2], False, t.lexer.lineno, 1)
         #print(tipo)
     return t
 
@@ -435,11 +445,10 @@ def p_sentencia_if(t):
     if len(t) == 6:
         t[0] = SentenciaIf(t[2], t[4], None, t.lexer.lineno, 1)
     elif len(t) == 8:
-        t[0] = 2
+        t[0] = SentenciaIf(t[2],t[4],[t[7]],t.lexer.lineno,1)
     elif len(t) == 10:
         t[0] = SentenciaIf(t[2], t[4], t[8], t.lexer.lineno, 1)
     return t
-
 
 def p_sentencia_match(t):
     ''' sentencia_match : MATCH expresion LLAVEA lista_casos_match LLAVEC
@@ -530,6 +539,8 @@ def p_expresion(t):  # ----PENDIENTE------
     '''expresion : PARA expresion AS tipo PARC
                 | PARA expresion PARC
     '''
+    if len(t) == 4:
+        t[0] = t[2]
     return t
 
 
@@ -543,8 +554,10 @@ def p_expresion_aritmeticas(t):
                 | expresion MOD expresion
                 | MENOS expresion %prec UMENOS
     '''
-    if len(t) <= 4:
+    if len(t) == 4:
         t[0] = Aritmetica(t[1], t[3], False, t.lexer.lineno, 1, t[2])
+    elif len(t) == 3:
+        t[0] = Aritmetica(t[2], None, True, t.lexer.lineno, 1, t[2])
     elif t[4] == "pow":
         t[0] = Aritmetica(t[6], t[8], False, t.lexer.lineno, 1, "^")
     elif t[4] == "powf":
@@ -560,7 +573,11 @@ def p_expresion_logica(t):
                 | expresion OR expresion
 
     '''
-    t[0] = Logica(t[1], t[3], False, t.lexer.lineno, 1, t[2])
+    print(len(t))
+    if len(t) == 4:
+        t[0] = Logica(t[1], t[3], False, t.lexer.lineno, 1, t[2])
+    else:
+        t[0] = Logica(t[2], None, True, t.lexer.lineno, 1, t[2])
     return t
 
 
@@ -580,7 +597,9 @@ def p_expresion_relacional(t):
 def p_expresion_primitivos(t):
     '''expresion : ENTERO
                 | DECIMAL
+                | CARACTER
                 | CADENA
+                | CADENA PUNTO TO GUIONBAJO STRINGE PARA PARC
                 | TRUE
                 | FALSE
     '''
@@ -591,11 +610,17 @@ def p_expresion_primitivos(t):
     elif t[1] == "true" or t[1] == "false":
         tipo = "BOOL"
     elif type(t[1]) == str:
-        tipo = "STRING"
+        if len(t[1]) == 3:
+            #print("HOLLLALALAL")
+            tipo = "CHAR"
+        elif len(t) == 8:
+            tipo = "STRING"
+        else:
+            tipo = "STR"
     else:
         tipo = "ERROR"
     valor = t[1]
-    if tipo == "STRING":
+    if tipo == "STRING" or tipo == "CHAR" or tipo == "STR":
         valor = valor[1:-1]
     t[0] = Primitivo(valor, tipo, t.lexer.lineno, 1)
     return t
@@ -623,7 +648,7 @@ def p_acceso_arreglo(t):
 
 
 def p_error(t):
-    print("Error sintáctico en '%s'" % t.value)
+    print("Error sintáctico en '%s'" % t.value, "Linea: %d" % t.lexer.lineno)
 
 
 import Analizador.ply.yacc as yacc

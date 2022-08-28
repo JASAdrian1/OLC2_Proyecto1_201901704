@@ -18,6 +18,7 @@ class SentenciaIf(Instruccion):
 
     def ejecutar(self, controlador, ts):
         if self.condicion.getTipo(controlador, ts) == tipo.BOOL:
+            print(self.condicion)
             if self.condicion.getValor(controlador, ts) == True:
                 for instruccion in self.instruccionesIf:
                     tablaLocal = TablaSimbolos(ts)

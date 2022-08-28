@@ -27,7 +27,8 @@ class Pritnln(Instruccion):
                 controlador.agregarAConsola("***ERROR***La cantidad de llaves no coinciden los valores a imprimir")
                 controlador.agregarError(Error("SEMANTICO","La cantidad de llaves no coinciden los valores a imprimir",self.linea,self.columna))
         else:
-            controlador.agregarAConsola(self.cadena+"\n")
+            controlador.agregarAConsola(self.cadena)
+            controlador.agregarAConsola("\n")
 
 
     def recorrer(self) -> Nodo:

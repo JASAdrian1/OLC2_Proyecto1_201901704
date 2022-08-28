@@ -1,4 +1,5 @@
 from Interprete.Interfaces.Instruccion import Instruccion
+from Interprete.TablaSimbolos.Error import Error
 from Interprete.TablaSimbolos.Tipo import tipo, Tipo
 from Interprete.ast.nodo import Nodo
 from Interprete.TablaSimbolos.Simbolo import lista_simbolos
@@ -19,6 +20,11 @@ class Declaracion(Instruccion):
         for id in self.lista_id:
             if ts.verificarActualExiste(id):
                 print("***ERROR***El id \"%s\" ya ha sido declarado anteriormente" % id)
+                controlador.agregarError(
+                    Error("SEMANTICO", "***ERROR***El id \"%s\" ya ha sido declarado anteriormente" % id, self.linea,
+                          self.columna))
+                controlador.agregarAConsola(
+                    "***ERROR***El id \"%s\" ya ha sido declarado anteriormente" % id)
             else:
                 if self.valor is not None:
                     if self.tipo is not None:
@@ -26,6 +32,12 @@ class Declaracion(Instruccion):
                             nueva_variable = Simbolo(id,self.valor.getValor(controlador,ts),"variable",self.tipo,"", self.esMutable,self.fila,self.columna)
                             lista_simbolos.append(nueva_variable)
                             ts.agregarSimbolo(id,nueva_variable)
+                        else:
+                            controlador.agregarError(
+                                Error("SEMANTICO", "El tipo de la variable no coincide con la expresion", self.linea,
+                                      self.columna))
+                            controlador.agregarAConsola(
+                                "***ERROR***El tipo de la variable no coincide con la expresion")
                     else:
                         tipo_new_varible = tipo(self.valor.getTipo(controlador,ts)).name    #Se obtiene el string del nombre del valor en el enum
                         tipo_new_varible = Tipo(tipo_new_varible)       #Con el nombre obtenido se crea un objeto de tipo Tipo

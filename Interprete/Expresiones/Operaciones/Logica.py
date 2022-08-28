@@ -35,7 +35,11 @@ class Logica(Operacion):
             tipo_expresion1 = self.exp1.getTipo(contralador, ts)
             valor_expresion1 = self.exp1.getValor(contralador, ts)
             if tipo_expresion1 == tipo.BOOL:
-                return not valor_expresion1
+                #print(type(valor_expresion1))
+                if valor_expresion1 == "true":
+                    return False
+                else:
+                    return True
             else:
                 print("***ERROR***EL operador de la operacion logica no es de tipo booleano")
                 return None
