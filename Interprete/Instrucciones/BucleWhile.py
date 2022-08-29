@@ -11,6 +11,7 @@ class BucleWhile(Instruccion):
         self.instrucciones = instrucciones
         self.linea = linea
         self.columna = columna
+        self.tipoInstruccion = "while"
 
 
     def ejecutar(self, controlador, ts):

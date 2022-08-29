@@ -11,12 +11,15 @@ from Interprete.Expresiones.InicializacionVector import InicializacionVector
 from Interprete.Expresiones.AccesoArreglo import AccesoArreglo
 from Interprete.Expresiones.AccesoVector import AccesoVector
 from Interprete.TablaSimbolos.Tipo import Tipo
+from Interprete.Instrucciones.Funcion import Funcion
 from Interprete.Instrucciones.Println import Pritnln
 from Interprete.Instrucciones.SentenciaIf import SentenciaIf
 from Interprete.Instrucciones.SentenciaMatch import SentenciaMatch
 from Interprete.Instrucciones.BrazoMatch import BrazoMatch
 from Interprete.Instrucciones.BucleLoop import BucleLoop
 from Interprete.Instrucciones.BucleWhile import BucleWhile
+from Interprete.Instrucciones.BucleFor import BucleFor
+from Interprete.Instrucciones.RecorridoFor import RecorridoFor
 from Interprete.Instrucciones.SentenciaBreak import SentenciaBreak
 
 # Palabras reservadas
@@ -45,6 +48,8 @@ reserved = {
     'match': 'MATCH',
     'loop': 'LOOP',
     'while': 'WHILE',
+    'for': 'FOR',
+    'in':'IN',
     'break': "BREAK",
     'with': 'WITH',
     'capacity':'CAPACITY',
@@ -84,7 +89,8 @@ tokens = list(reserved.values()) + [
     'CARACTER',
     'ID',
     'GUIONBAJO',
-    'ORMATCH'
+    'ORMATCH',
+    'DOSPUNTOSCONTINUO'
 ]
 
 # Asignacion de tokens
@@ -112,6 +118,7 @@ t_LLAVEC = r'}'
 t_COMA = r','
 t_PYC = r';'
 t_DOSP = r':'
+t_DOSPUNTOSCONTINUO = r'\.\.'
 t_PUNTO= r'\.'
 t_GUIONBAJO = r'_'
 t_ORMATCH = r'\|'
@@ -225,6 +232,7 @@ def p_instruccion(t):
                     | sentencia_match
                     | bucle_loop
                     | bucle_while
+                    | bucle_for
                     | BREAK PYC
     '''
     if t[1] == "break":
@@ -256,6 +264,7 @@ def p_instruccion_match(t):
                         | sentencia_if
                         | sentencia_match
                         | bucle_while
+                        | bucle_for
                         | BREAK
     '''
     t[0] = t[1]
@@ -337,9 +346,9 @@ def p_declaracion_arreglo(t):
                     | LET lista_id DOSP CORA dimension_arreglo_declaracion CORC IGUAL expresion
     '''
     if len(t) == 10:        #t[6/5][0] = dimension del arreglo -- t[6/5] = Estructura del arreglo(tipo de elementos y longitud de los arreglos)
-        t[0] = DeclaracionArreglo(t[3], t[9], Tipo("ARRAY"), t[6][0], t[6],True, t.lexer.lineno, 1)
+        t[0] = DeclaracionArreglo(t[3], t[9], "ARRAY", t[6][0], t[6],True, t.lexer.lineno, 1)
     elif len(t) == 9:
-        t[0] = DeclaracionArreglo(t[2],t[8],Tipo("ARRAY"),t[5][0],t[5],False ,t.lexer.lineno,1)
+        t[0] = DeclaracionArreglo(t[2],t[8],"ARRAY",t[5][0],t[5],False ,t.lexer.lineno,1)
     return t
 
 
@@ -501,17 +510,35 @@ def p_opciones_match(t):
 
 # -------------------------------BUCLES-------------------------------------------
 # ================================================================================
+#CICLO LOOP
 def p_loop(t):
     ''' bucle_loop : LOOP LLAVEA instrucciones LLAVEC
     '''
     t[0] = BucleLoop(t[3])
     return t
 
-
+#CICLO WHILE
 def p_while(t):
     ''' bucle_while : WHILE expresion LLAVEA instrucciones LLAVEC
     '''
     t[0] = BucleWhile(t[2], t[4], t.lexer.lineno, 1)
+    return t
+
+#CICLO FOR
+def p_for(t):
+    ''' bucle_for : FOR recorrido_for LLAVEA instrucciones LLAVEC
+    '''
+    t[0] = BucleFor(t[2],t[4],t.lexer.lineno,1)
+    return t
+
+def p_recorrido_for(t):
+    ''' recorrido_for : expresion IN expresion
+                    | expresion IN expresion DOSPUNTOSCONTINUO expresion
+    '''
+    if len(t) == 4:
+        t[0] = RecorridoFor(t[1],t[3],None,None)
+    else:
+        t[0] = RecorridoFor(t[1],None,t[3],t[5])
     return t
 
 
@@ -520,12 +547,23 @@ def p_funcion(t):  # ----PENDIENTE------
     ''' funcion : FN ID PARA lista_parametros PARC LLAVEA instrucciones LLAVEC
                 | FN ID PARA lista_parametros PARC MENOS MAYORQUE tipo LLAVEA instrucciones LLAVEC
     '''
-
+    if len(t) == 9:
+        t[0] = Funcion(t[2],None,t[4],t[7],t.lexer.lineno,1)
+    else:
+        t[0] = Funcion(t[2],t[8],t[4],t[10],t.lexer.lineno,1)
+    return t
 
 def p_lista_parametros(t):  # ----PENDIENTE------
     '''lista_parametros : lista_parametros COMA parametro
                         | parametro
     '''
+    if len(t) == 2:
+        t[0] = []
+        t[0].append(t[1])
+    else:
+        t[0] = t[1]
+        t[0].append(t[3])
+    return t
 
 
 def p_parametro(t):  # ----PENDIENTE------
@@ -610,7 +648,7 @@ def p_expresion_primitivos(t):
     elif t[1] == "true" or t[1] == "false":
         tipo = "BOOL"
     elif type(t[1]) == str:
-        if len(t[1]) == 3:
+        if t[1].find("'") != -1:
             #print("HOLLLALALAL")
             tipo = "CHAR"
         elif len(t) == 8:

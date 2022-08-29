@@ -43,12 +43,13 @@ class Logica(Operacion):
             else:
                 print("***ERROR***EL operador de la operacion logica no es de tipo booleano")
                 return None
+        #print(valor_expresion1, " == ",valor_expresion2)
         if tipo_expresion1 == tipo.BOOL and tipo_expresion2 == tipo.BOOL:
-            if valor_expresion1 == "false":
+            if valor_expresion1 == "false" or valor_expresion1 == False:
                 val_bool_exp1 = False
             else:
                 val_bool_exp1 = True
-            if valor_expresion2 == "false":
+            if valor_expresion2 == "false" or valor_expresion2 == False:
                 val_bool_exp2 = False
             else:
                 val_bool_exp2 = True

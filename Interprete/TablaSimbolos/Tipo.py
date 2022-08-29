@@ -32,8 +32,14 @@ validar_tipo = {
             tipo.F64: tipo.F64
         },
         tipo.STR:{
+            tipo.STR: tipo.STR,
+            tipo.STRING: tipo.STRING
+        },
+        tipo.STRING:{
+            tipo.STRING: tipo.STRING,
             tipo.STR: tipo.STR
         }
+
     },
     '-':{
         tipo.F64:{

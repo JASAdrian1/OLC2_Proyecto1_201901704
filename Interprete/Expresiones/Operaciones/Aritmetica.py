@@ -22,9 +22,9 @@ class Aritmetica(Operacion):
             tipo_exp1 = self.exp1.getTipo(controlador, ts)
             if tipo_exp1 == tipo.ERROR:
                 return  tipo.ERROR
-            print(tipo_exp1)
+            #print(tipo_exp1)
             return tipo_exp1
-        print(self.operador_enum)
+        #print(self.operador_enum)
         resultado = validar_tipo.get(self.signo, tipo.ERROR)
         if resultado == tipo.ERROR:
             print("c")
@@ -53,7 +53,7 @@ class Aritmetica(Operacion):
         if tipo_exp1 != tipo.ERROR and tipo_exp2 != tipo.ERROR:
             if tipo_exp1 == tipo_exp2:
                 if self.operador_enum == operador.SUMA:
-                    if tipo_exp1 == tipo.I64 or tipo_exp1 == tipo.F64:
+                    if tipo_exp1 == tipo.I64 or tipo_exp1 == tipo.F64 or tipo_exp1 == tipo.STR or tipo_exp1 == tipo.STRING:
                         return valor_exp1 + valor_exp2
                     else:
                         print("***ERROR*** Tipo de dato invalido para realizar suma")

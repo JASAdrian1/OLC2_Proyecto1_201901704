@@ -15,7 +15,7 @@ class Asignacion(Instruccion):
         tipoNuevoValor = self.valor.getTipo(controlador, ts)
         if variable is not None:
             if variable.esMutable is True:
-                print(tipoNuevoValor, " == ",variable.tipoDato.tipo_enum)
+                #print(tipoNuevoValor, " == ",variable.tipoDato.tipo_enum)
                 if tipoNuevoValor == variable.tipoDato.tipo_enum:
                     variable.valor = self.valor.getValor(controlador, ts)
                     print("Valor(Impreso desde asignacion):",variable.valor)

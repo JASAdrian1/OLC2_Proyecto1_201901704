@@ -23,6 +23,8 @@ class Identificador(Expresion):
     def getTipo(self, controlador, ts) -> tipo:
         variable = ts.getSimbolo(self.id)
         if variable is not None:
+            #print(variable.valor,"/----------------------")
+            print(variable.tipoDato)
             return variable.tipoDato.tipo_enum
         else:
             controlador.agregarAConsola("***ERROR***LA variable con el id %s no ha sido declarado" % self.id)

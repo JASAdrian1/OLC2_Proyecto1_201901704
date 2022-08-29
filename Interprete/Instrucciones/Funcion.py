@@ -11,6 +11,7 @@ class Funcion(Instruccion):
         self.listaInstrucciones = listaInstrucciones
         self.linea = linea
         self.columna: columna
+        self.tipoInstruccion = "funcion"
 
     def ejecutar(self, controlador, ts):
         tablaLocal = TablaSimbolos(ts)

@@ -39,8 +39,8 @@ class Relacionales(Operacion):
                 if self.operador_enum == operador.MENORIGUAL:
                     return valor_expresion1 <= valor_expresion2
                 if self.operador_enum == operador.IGUALACION:
-                    #print(valor_expresion1, " == ",valor_expresion2)
-                    #print(valor_expresion1 == valor_expresion2)
+                    print(valor_expresion1, " == ",valor_expresion2)
+                    #print(valor_expresion1 == valor_expresion2,"asddasdasdasd")
                     return  valor_expresion1 == valor_expresion2
                 if self.operador_enum == operador.DISTINTO:
                     return valor_expresion1 != valor_expresion2
