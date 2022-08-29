@@ -10,6 +10,7 @@ from Interprete.Instrucciones.Estructuras.DeclaracionVector import DeclaracionVe
 from Interprete.Expresiones.InicializacionVector import InicializacionVector
 from Interprete.Expresiones.AccesoArreglo import AccesoArreglo
 from Interprete.Expresiones.AccesoVector import AccesoVector
+from Interprete.Instrucciones.Estructuras.AsignacionArreglo import AsignacionArreglo
 from Interprete.TablaSimbolos.Tipo import Tipo
 from Interprete.Instrucciones.Funcion import Funcion
 from Interprete.Instrucciones.Println import Pritnln
@@ -310,6 +311,8 @@ def p_asignacion(t):
     '''
     if len(t) == 4:
         t[0] = Asignacion(t[1], t[3], t.lexer.lineno, 1)
+    else:
+        t[0] = AsignacionArreglo(t[1],t[2],t[4],t.lexer.lineno,1)
     return t
 
 
@@ -408,15 +411,6 @@ def p_declaracion_vector(t):
     #print(tipo)
     return t
 
-def p_dimension_vector_declaracion(t):
-    ''' expresion : VEC NOT CORA expresion PYC ENTERO CORC
-                | VEC NOT CORA lista_expresiones CORC
-    '''
-    if len(t) == 8:  # t[0][0] = tipo principal del arreglo
-        t[0] = InicializacionVector(t[4],t[6])
-    else:
-        t[0] = InicializacionVector(t[4],0)
-    return t
 
 
 # -------------------------FUNCIONES NATIVAS--------------------------------------
@@ -682,6 +676,17 @@ def p_acceso_arreglo(t):
     #print(t[1])
     #print(t[2])
     t[0] = AccesoArreglo(t[1],t[2],t.lexer.lineno,1)
+    return t
+
+
+def p_dimension_vector_declaracion(t):
+    ''' expresion : VEC NOT CORA expresion PYC ENTERO CORC
+                | VEC NOT CORA lista_expresiones CORC
+    '''
+    if len(t) == 8:  # t[0][0] = tipo principal del arreglo
+        t[0] = InicializacionVector(t[4],t[6])
+    else:
+        t[0] = InicializacionVector(t[4],0)
     return t
 
 
