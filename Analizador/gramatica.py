@@ -11,6 +11,11 @@ from Interprete.Expresiones.InicializacionVector import InicializacionVector
 from Interprete.Expresiones.AccesoArreglo import AccesoArreglo
 from Interprete.Expresiones.AccesoVector import AccesoVector
 from Interprete.Instrucciones.Estructuras.AsignacionArreglo import AsignacionArreglo
+from Interprete.Instrucciones.Estructuras.PushVector import PushVector
+from Interprete.Instrucciones.Estructuras.InsertarVector import InsertarVector
+from Interprete.Instrucciones.Estructuras.RemoveVector import RemoveVector
+from Interprete.Instrucciones.Estructuras.ContainsVector import ContainsVector
+from Interprete.Instrucciones.Estructuras.LenVector import LenVector
 from Interprete.TablaSimbolos.Tipo import Tipo
 from Interprete.Instrucciones.Funcion import Funcion
 from Interprete.Instrucciones.Println import Pritnln
@@ -55,7 +60,12 @@ reserved = {
     'with': 'WITH',
     'capacity':'CAPACITY',
     'to':'TO',
-    'string':'STRINGE'
+    'string':'STRINGE',
+    'push':'PUSH',
+    'insert':'INSERT',
+    'remove':'REMOVE',
+    'contains':'CONTAINS',
+    'len':'LEN'
 }
 # Simbolos
 tokens = list(reserved.values()) + [
@@ -91,7 +101,8 @@ tokens = list(reserved.values()) + [
     'ID',
     'GUIONBAJO',
     'ORMATCH',
-    'DOSPUNTOSCONTINUO'
+    'DOSPUNTOSCONTINUO',
+    'AMPERSAND'
 ]
 
 # Asignacion de tokens
@@ -123,6 +134,7 @@ t_DOSPUNTOSCONTINUO = r'\.\.'
 t_PUNTO= r'\.'
 t_GUIONBAJO = r'_'
 t_ORMATCH = r'\|'
+t_AMPERSAND = r'&'
 
 
 # Expresiones regulares
@@ -235,6 +247,9 @@ def p_instruccion(t):
                     | bucle_while
                     | bucle_for
                     | BREAK PYC
+                    | push_vector PYC
+                    | insertar_en_vector PYC
+                    | remove_vector PYC
     '''
     if t[1] == "break":
         t[0] = SentenciaBreak()
@@ -267,6 +282,9 @@ def p_instruccion_match(t):
                         | bucle_while
                         | bucle_for
                         | BREAK
+                        | push_vector
+                        | insertar_en_vector
+                        | remove_vector
     '''
     t[0] = t[1]
     return t
@@ -411,6 +429,23 @@ def p_declaracion_vector(t):
     #print(tipo)
     return t
 
+def p_push_en_vector(t):
+    ''' push_vector : ID PUNTO PUSH PARA expresion PARC
+    '''
+    t[0] = PushVector(t[1],t[5],t.lexer.lineno,1)
+    return t
+
+def p_insertar_en_vector(t):
+    ''' insertar_en_vector : ID PUNTO INSERT PARA expresion COMA expresion PARC
+    '''
+    t[0] = InsertarVector(t[1],t[5],t[7],t.lexer.lineno,1)
+    return t
+
+def p_remove_vector(t):
+    ''' remove_vector : ID PUNTO REMOVE PARA expresion PARC
+    '''
+    t[0] = RemoveVector(t[1],t[5],t.lexer.lineno,1)
+    return t
 
 
 # -------------------------FUNCIONES NATIVAS--------------------------------------
@@ -689,6 +724,16 @@ def p_dimension_vector_declaracion(t):
         t[0] = InicializacionVector(t[4],0)
     return t
 
+def p_contains_vector(t):
+    ''' expresion : ID PUNTO CONTAINS PARA AMPERSAND expresion PARC
+    '''
+    t[0] = ContainsVector(t[1],t[6],t.lexer.lineno,1)
+    return t
+
+def p_len_vector(t):
+    ''' expresion : ID PUNTO LEN PARA PARC
+    '''
+    t[0] = LenVector(t[1],t.lexer.lineno,1)
 
 def p_error(t):
     print("Error sintáctico en '%s'" % t.value, "Linea: %d" % t.lexer.lineno)

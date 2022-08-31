@@ -1,4 +1,5 @@
 from Interprete.Interfaces.Instruccion import Instruccion
+from Interprete.TablaSimbolos.Error import Error
 
 
 class AsignacionArreglo(Instruccion):
@@ -30,3 +31,13 @@ class AsignacionArreglo(Instruccion):
                     posicionAcceso = self.acceso[0]
                 if tipoNuevoValor == lista[posicionAcceso.getValor(controlador, ts)].getTipo(controlador, ts):
                     lista[posicionAcceso.getValor(controlador, ts)].valor = self.expresion.valor
+            else:
+                controlador.agregarAConsola("***ERROR***Se está intentado modificar una variable no mutable")
+                controlador.agregarError(
+                    Error("SEMANTICO", "Se está intentado modificar una variable no mutable", self.linea,
+                          self.columna))
+        else:
+            controlador.agregarAConsola("***ERROR***La variable %s no ha sido declarada anteriormente" % self.id)
+            controlador.agregarError(
+                Error("SEMANTICO", "La variable %s no ha sido declarada anteriormente" % self.id, self.linea,
+                      self.columna))
