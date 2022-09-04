@@ -124,8 +124,8 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-.Analizador/parser.out
-.Analizador/parsetab.py
+Analizador/parser.out
+Analizador/parsetab.py
 **/__pycache__/**
 .idea
 ./entradas

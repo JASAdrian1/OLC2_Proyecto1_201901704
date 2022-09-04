@@ -16,6 +16,10 @@ from Interprete.Instrucciones.Estructuras.InsertarVector import InsertarVector
 from Interprete.Instrucciones.Estructuras.RemoveVector import RemoveVector
 from Interprete.Instrucciones.Estructuras.ContainsVector import ContainsVector
 from Interprete.Instrucciones.Estructuras.LenVector import LenVector
+from Interprete.Instrucciones.Funcion import Funcion
+from Interprete.Expresiones.LlamadaFuncion import LlamadaFuncion
+from Interprete.TablaSimbolos.Parametro import Parametro
+from Interprete.TablaSimbolos.ParametroLlamada import ParametroLlamada
 from Interprete.TablaSimbolos.Tipo import Tipo
 from Interprete.Instrucciones.Funcion import Funcion
 from Interprete.Instrucciones.Println import Pritnln
@@ -250,6 +254,7 @@ def p_instruccion(t):
                     | push_vector PYC
                     | insertar_en_vector PYC
                     | remove_vector PYC
+                    | llamada_funcion PYC
     '''
     if t[1] == "break":
         t[0] = SentenciaBreak()
@@ -285,6 +290,7 @@ def p_instruccion_match(t):
                         | push_vector
                         | insertar_en_vector
                         | remove_vector
+                        | llamada_funcion
     '''
     t[0] = t[1]
     return t
@@ -302,10 +308,10 @@ def p_declaracion(t):
     else:
         tipo = t[4]
     if len(t) == 6 and isinstance(t[5],InicializacionVector):   #PRIMERO VALIDAMOS SI LO QUE SE DECLARA ES UN VECTOR
-        t[0] = DeclaracionVector(t[3],t[5],"VEC",None,True,None, t.lexer.lineno,1)            #DECLARAR VECTOR MUTABLE
+        t[0] = DeclaracionVector(t[3],t[5],Tipo("VEC"),None,True,None, t.lexer.lineno,1)            #DECLARAR VECTOR MUTABLE
 
     elif len(t) == 5 and isinstance(t[4],InicializacionVector):
-        t[0] = DeclaracionVector(t[2],t[4],"VEC",None,False,None, t.lexer.lineno,1)            #DECLARAR VECTOR NO MUTABLE
+        t[0] = DeclaracionVector(t[2],t[4],Tipo("VEC"),None,False,None, t.lexer.lineno,1)            #DECLARAR VECTOR NO MUTABLE
     else:
         if len(t) == 8:
             # print("Se reconocio una declaracion con el valor de: ",t[7])
@@ -354,7 +360,7 @@ def p_tipo(t):
             | CHAR
             | STRING
             | STR
-
+            | USIZE
     '''
     # print("Se reconocio tipo: ",t[1])
     t[0] = Tipo(t[1].upper())
@@ -367,9 +373,9 @@ def p_declaracion_arreglo(t):
                     | LET lista_id DOSP CORA dimension_arreglo_declaracion CORC IGUAL expresion
     '''
     if len(t) == 10:        #t[6/5][0] = dimension del arreglo -- t[6/5] = Estructura del arreglo(tipo de elementos y longitud de los arreglos)
-        t[0] = DeclaracionArreglo(t[3], t[9], "ARRAY", t[6][0], t[6],True, t.lexer.lineno, 1)
+        t[0] = DeclaracionArreglo(t[3], t[9], Tipo("ARRAY"), t[6][0], t[6],True, t.lexer.lineno, 1)
     elif len(t) == 9:
-        t[0] = DeclaracionArreglo(t[2],t[8],"ARRAY",t[5][0],t[5],False ,t.lexer.lineno,1)
+        t[0] = DeclaracionArreglo(t[2],t[8],Tipo("ARRAY"),t[5][0],t[5],False ,t.lexer.lineno,1)
     return t
 
 
@@ -421,11 +427,13 @@ def p_declaracion_vector(t):
         tipo = t[6]
         mut = False
     if len(t) == 19:
-        t[0] = DeclaracionVector(t[2], None, "VEC", tipo, mut, t[17], t.lexer.lineno, 1)
+        t[0] = DeclaracionVector(t[3], None, Tipo("VEC"), tipo, mut, t[17], t.lexer.lineno, 1)
     elif len(t) == 18:
-        t[0] = DeclaracionVector(t[2], None, "VEC", tipo, mut,t[16], t.lexer.lineno, 1)
-    elif len(t) == 16 or len(t) == 15:
-        t[0] = DeclaracionVector(t[2], None, "VEC", tipo, mut, 0, t.lexer.lineno, 1)
+        t[0] = DeclaracionVector(t[2], None, Tipo("VEC"), tipo, mut,t[16], t.lexer.lineno, 1)
+    elif len(t) == 15:
+        t[0] = DeclaracionVector(t[2], None, Tipo("VEC"), tipo, mut, 0, t.lexer.lineno, 1)
+    elif len(t) == 16:
+        t[0] = DeclaracionVector(t[3], None, Tipo("VEC"), tipo, mut, 0, t.lexer.lineno, 1)
     #print(tipo)
     return t
 
@@ -575,11 +583,17 @@ def p_recorrido_for(t):
 def p_funcion(t):  # ----PENDIENTE------
     ''' funcion : FN ID PARA lista_parametros PARC LLAVEA instrucciones LLAVEC
                 | FN ID PARA lista_parametros PARC MENOS MAYORQUE tipo LLAVEA instrucciones LLAVEC
+                | FN ID PARA PARC LLAVEA instrucciones LLAVEC
+                | FN ID PARA PARC MENOS MAYORQUE tipo LLAVEA instrucciones LLAVEC
     '''
     if len(t) == 9:
         t[0] = Funcion(t[2],None,t[4],t[7],t.lexer.lineno,1)
-    else:
+    elif len(t) == 12:
         t[0] = Funcion(t[2],t[8],t[4],t[10],t.lexer.lineno,1)
+    elif len(t) == 8:
+        t[0] = Funcion(t[2],None,None,t[6],t.lexer.lineno,1)
+    else:
+        t[0] = Funcion(t[2],t[7],None,t[9],t.lexer.lineno,1)
     return t
 
 def p_lista_parametros(t):  # ----PENDIENTE------
@@ -596,9 +610,46 @@ def p_lista_parametros(t):  # ----PENDIENTE------
 
 
 def p_parametro(t):  # ----PENDIENTE------
-    '''parametro : ID
+    '''parametro : ID DOSP tipo_parametro
+                | ID DOSP AMPERSAND MUT tipo_parametro
+                | ID DOSP MUT tipo_parametro
     '''
+    if len(t) == 4:
+        t[0] = Parametro(t[1],t[3],False,False,t.lexer.lineno,1)
+    elif len(t) == 6:
+        t[0] = Parametro(t[1],t[5],True,True,t.lexer.lineno,1)
+    else:
+        t[0] = Parametro(t[1],t[4],True,False,t.lexer.lineno,1)
+    return t
 
+
+def p_tipo_parametro(t):
+    ''' tipo_parametro : I64
+                        | F64
+                        | BOOL
+                        | CHAR
+                        | STRING
+                        | STR
+                        | USIZE
+                        | VECN MENORQUE tipo MAYORQUE
+                        | CORA tipo CORC
+    '''
+    if len(t) == 2:
+        t[0] = Tipo(t[1].upper())
+    elif len(t) == 5:
+        t[0] = Tipo("VEC")
+    else:
+        t[0] = Tipo("ARRAY")
+    return t
+
+
+#---------------FUNCION COMO INSTRUCCION----------------------------------
+
+def p_llamada_funcion(t):
+    ''' llamada_funcion : ID PARA lista_parametros_llamada PARC
+    '''
+    t[0] = LlamadaFuncion(t[1],t[3],t.lexer.lineno,1)
+    return t
 
 # ===================PRDUCCIONES PARA EXPRESIONES==========================
 # ==========================================================================
@@ -697,6 +748,7 @@ def p_expresion_id(t):
     ''' expresion : ID
     '''
     t[0] = Identificador(t[1], t.lexer.lineno, 1)
+    return t
 
 
 def p_expresion_arreglo(t):
@@ -734,6 +786,36 @@ def p_len_vector(t):
     ''' expresion : ID PUNTO LEN PARA PARC
     '''
     t[0] = LenVector(t[1],t.lexer.lineno,1)
+    return t
+
+
+def p_llamada_funcion_expresion(t):
+    ''' expresion : ID PARA lista_parametros_llamada PARC
+    '''
+    t[0] = LlamadaFuncion(t[1],t[3],t.lexer.lineno,1)
+    return t
+
+def p_parametros_funcion_llamada(t):
+    ''' lista_parametros_llamada : lista_parametros_llamada COMA parametro_llamada
+                                | parametro_llamada
+    '''
+    if len(t) == 2:
+        t[0] = []
+        t[0].append(t[1])
+    else:
+        t[0] = t[1]
+        t[0].append(t[3])
+    return t
+
+def p_parametro_llamada(t):
+    ''' parametro_llamada : AMPERSAND MUT expresion
+                          | expresion
+    '''
+    if len(t) == 2:
+        t[0] = ParametroLlamada(t[1],False,False)
+    else:
+        t[0] = ParametroLlamada(t[3],True,True)
+    return t
 
 def p_error(t):
     print("Error sintáctico en '%s'" % t.value, "Linea: %d" % t.lexer.lineno)

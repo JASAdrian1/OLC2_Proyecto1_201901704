@@ -17,18 +17,14 @@ class LenVector(Expresion):
     def getValor(self, contralador, ts):
         variable = ts.getSimbolo(self.id)
         if variable is not None:
-            if variable.esMutable is True:
-                if variable.tipoDato == "VEC":
-                    return len(variable.valor.expresion)
-                else:
-                    contralador.agregarAConsola("***ERROR***No se esta usando el comando push en un vector. Linea: %d Columna: %d" % (self.linea, self.columna))
-                    contralador.agregarError(
-                        Error("SEMANTICO", "No se esta usando el comando push en un vector", self.linea,
-                              self.columna))
+            if variable.tipoDato.tipo_enum == tipo.VEC:
+                print("Retornando len")
+                print(variable.valor)
+                return len(variable.valor.expresion)
             else:
-                contralador.agregarAConsola("***ERROR***El vector es no mutable. Linea: %d Columna: %d" % (self.linea, self.columna))
+                contralador.agregarAConsola("***ERROR***No se esta usando el comando push en un vector. Linea: %d Columna: %d" % (self.linea, self.columna))
                 contralador.agregarError(
-                    Error("SEMANTICO", "El vector es no mutable", self.linea,
+                    Error("SEMANTICO", "No se esta usando el comando push en un vector", self.linea,
                           self.columna))
         else:
             contralador.agregarAConsola("***ERROR***La variable no exite. Linea: %d Columna: %d" % (self.linea, self.columna))

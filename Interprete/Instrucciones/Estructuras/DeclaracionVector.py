@@ -26,13 +26,13 @@ class DeclaracionVector(Instruccion):
             if ts.verificarActualExiste(id):
                 print("***ERROR***El id \"%s\" ya ha sido declarado anteriormente" % id)
                 controlador.agregarError(Error("SEMANTICO","El id \"%s\" ya ha sido declarado anteriormente" % id,self.linea,self.columna))
-                controlador.agregarAConsola("***ERROR***El id \"%s\" ya ha sido declarado anteriormente" % id)
+                controlador.agregarAConsola("***ERROR***El id \"%s\" ya ha sido declarado anteriormente. Linea: %d" % (id,self.linea))
             else:
                 if self.withCapacity is None:
                     if self.expresion is not None:
                         print(self.expresion)
                         if self.expresion.repeticiones == 0:
-                            print(self.expresion.repeticiones,"***************-***")
+                            #print(self.expresion.repeticiones,"***************-***")
                             if self.tipoElementos is None:      #Si no se indica de que tipo son los elementos desde la declaracion se debe encontrar el tipo
                                 elementoBasico = self.getElementoBasico(self.expresion)
                                 tipoElementos = elementoBasico.getTipo(controlador,ts)
@@ -40,8 +40,8 @@ class DeclaracionVector(Instruccion):
                                 tipoElementos = self.tipoElementos
                             nuevoSimbolo = Simbolo(id,self.expresion,"vector",self.tipo,"",self.esMutable,self.linea,self.columna,
                                                    tipoElementosArray=tipoElementos,estructuraArr=self.expresion)
-                            print(elementoBasico,"*-*-*-*-*-*-*-")
-                            print(tipoElementos, "*-*-*-*-*-*-*-")
+                            #print(elementoBasico,"*-*-*-*-*-*-*-")
+                            #print(tipoElementos, "*-*-*-*-*-*-*-")
                             lista_simbolos.append(nuevoSimbolo)
                             ts.agregarSimbolo(id, nuevoSimbolo)
                 else:
@@ -57,15 +57,20 @@ class DeclaracionVector(Instruccion):
 
     def rellenarVecWithCapacity(self,controlador,ts):
         valor = self.determinarValorDefecto(self.tipoElementos)
-        self.expresion = []
-        if isinstance(self.withCapacity,Expresion):
+        elementos_vector = []
+        for id in self.id:
             for i in range(0,self.withCapacity.getValor(controlador,ts)):
                 #print(self.tipoElementos.tipo_enum)
                 #print(self.tipoElementos)
-                self.expresion.append(InicializacionVector(Primitivo(valor,self.tipoElementos.tipo,self.linea,self.columna),0))
-        else:
-            self.expresion.append(None)
-            print("HOLAAAAAAAAAAAAAAAA")
+                elementos_vector.append(Primitivo(valor,self.tipoElementos.tipo,self.linea,self.columna))
+            elementos_vector = InicializacionVector(elementos_vector,0)
+            nuevoSimbolo = Simbolo(id, elementos_vector, "vector", self.tipo, "", self.esMutable, self.linea,
+                                   self.columna,
+                                   tipoElementosArray=self.tipoElementos, estructuraArr=self.expresion)
+            # print(elementoBasico,"*-*-*-*-*-*-*-")
+            # print(tipoElementos, "*-*-*-*-*-*-*-")
+            lista_simbolos.append(nuevoSimbolo)
+            ts.agregarSimbolo(id, nuevoSimbolo)
 
     def determinarValorDefecto(self,tipoElemento):
         if tipoElemento.tipo_enum == tipo.I64:

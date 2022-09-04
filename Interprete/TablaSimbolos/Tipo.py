@@ -8,7 +8,7 @@ class tipo(enum.Enum):
     CHAR = 3
     STRING = 4
     STR = 5
-    USIZ = 6
+    USIZE = 6
     ARRAY = 7
     VEC = 8
     ERROR = 9

@@ -51,9 +51,14 @@ class Ventana:
         controlador = Controlador()
         ts = TablaSimbolos(None)
         for nodo in nodos:
-            print("---------------------------------------------------")
-            print(nodo)
-            nodo.ejecutar(controlador, ts)
+            if nodo.tipoInstruccion == "funcion":
+                nodo.agregarFuncion(controlador,ts)
+
+        for nodo in nodos:
+            if nodo.id == "main":
+                nodo.ejecutar(controlador,ts)
+                print("---------------------------------------------------")
+            #nodo.ejecutar(controlador, ts)
             # print(nodo)
             # print(nodo.getTipo(controlador,ts))
             # print(nodo.getValor(controlador,ts))

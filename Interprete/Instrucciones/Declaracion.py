@@ -21,10 +21,10 @@ class Declaracion(Instruccion):
             if ts.verificarActualExiste(id):
                 print("***ERROR***El id \"%s\" ya ha sido declarado anteriormente" % id)
                 controlador.agregarError(
-                    Error("SEMANTICO", "***ERROR***El id \"%s\" ya ha sido declarado anteriormente" % id, self.linea,
+                    Error("SEMANTICO", "***ERROR***El id \"%s\" ya ha sido declarado anteriormente" % id, self.fila,
                           self.columna))
                 controlador.agregarAConsola(
-                    "***ERROR***El id \"%s\" ya ha sido declarado anteriormente" % id)
+                    "***ERROR***El id \"%s\" ya ha sido declarado anteriormente. Linea: %d" % (id,self.fila))
             else:
                 if self.valor is not None:
                     if self.tipo is not None:
@@ -34,11 +34,15 @@ class Declaracion(Instruccion):
                             ts.agregarSimbolo(id,nueva_variable)
                         else:
                             controlador.agregarError(
-                                Error("SEMANTICO", "El tipo de la variable no coincide con la expresion", self.linea,
+                                Error("SEMANTICO", "El tipo de la variable no coincide con la expresion", self.fila,
                                       self.columna))
                             controlador.agregarAConsola(
-                                "***ERROR***El tipo de la variable no coincide con la expresion")
+                                "***ERROR***El tipo de la variable no coincide con la expresion.")
                     else:
+                        print(self.valor,"//-//-//-")
+                        print(self.fila,"---")
+                        #for eleemento in self.valor:
+                        #    print(eleemento.getValor(controlador,ts))
                         tipo_new_varible = tipo(self.valor.getTipo(controlador,ts)).name    #Se obtiene el string del nombre del valor en el enum
                         tipo_new_varible = Tipo(tipo_new_varible)       #Con el nombre obtenido se crea un objeto de tipo Tipo
                         nueva_variable = Simbolo(id, self.valor.getValor(controlador, ts), "variable", tipo_new_varible, "",

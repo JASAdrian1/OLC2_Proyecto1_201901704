@@ -1,5 +1,6 @@
 from Interprete.Instrucciones.SentenciaBreak import SentenciaBreak
 from Interprete.Interfaces.Instruccion import Instruccion
+from Interprete.TablaSimbolos.Error import Error
 from Interprete.TablaSimbolos.TablaSimbolos import TablaSimbolos
 
 
@@ -10,7 +11,7 @@ class Funcion(Instruccion):
         self.listaParametros = listaParametros
         self.listaInstrucciones = listaInstrucciones
         self.linea = linea
-        self.columna: columna
+        self.columna = columna
         self.tipoInstruccion = "funcion"
 
     def ejecutar(self, controlador, ts):
@@ -20,3 +21,12 @@ class Funcion(Instruccion):
             if isinstance(sentencia,SentenciaBreak):
                 return sentencia
         return None
+
+
+    def agregarFuncion(self,controlador, ts):
+        if ts.verificarExisteGlobal(self.id):
+           controlador.agregarAConsola("***ERROR***La funcion ya ha sido declarada anteriormente")
+           controlador.agregarError(Error("Semantico","La funcion ya ha sido declarada anteriormente",self.linea,self.columna))
+        else:
+            ts.agregarSimbolo(self.id,self)
+            print("Se ha agregado la funcion a la tabla de simbolos")

@@ -36,6 +36,8 @@ class Relacionales(Operacion):
                 if self.operador_enum == operador.MAYORIGUAL:
                     return valor_expresion1 >= valor_expresion2
                 if self.operador_enum == operador.MENORQUE:
+                    print("*",valor_expresion1)
+                    print("*",valor_expresion2)
                     return valor_expresion1 < valor_expresion2
                 if self.operador_enum == operador.MENORIGUAL:
                     return valor_expresion1 <= valor_expresion2

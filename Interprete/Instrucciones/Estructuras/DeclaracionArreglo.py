@@ -17,10 +17,10 @@ class DeclaracionArreglo(Instruccion):
     #FALTA LA VALIDACION DE DATOS DEL ARREGLO
     def ejecutar(self, controlador, ts):
         print("Se esta declarando un arreglo")
-        print(self.tipoElementos.tipo_enum)
-        print(self.estructuraArreglo)
-        print(self.valor)
-        print(self.tipo)
+        #print(self.tipoElementos.tipo_enum)
+        #print(self.estructuraArreglo)
+        #print(self.valor)
+        #print(self.tipo)
         #self.validarTiposElementos(controlador,ts)
         for id in self.id:
             if ts.verificarActualExiste(id):

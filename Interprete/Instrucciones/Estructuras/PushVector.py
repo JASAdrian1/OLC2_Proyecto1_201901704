@@ -1,5 +1,6 @@
 from Interprete.Interfaces.Instruccion import Instruccion
 from Interprete.TablaSimbolos.Error import Error
+from Interprete.TablaSimbolos.Tipo import tipo
 
 
 class PushVector(Instruccion):
@@ -15,7 +16,7 @@ class PushVector(Instruccion):
         if variable is not None:
             print("HOLA??????????????????????")
             if variable.esMutable is True:
-                if variable.tipoDato == "VEC":
+                if variable.tipoDato.tipo_enum == tipo.VEC:
                     variable.valor.expresion.append(self.valor)
                 else:
                     controlador.agregarAConsola("***ERROR***No se esta usando el comando push en un vector. Linea: %d Columna: %d" % (self.linea, self.columna))

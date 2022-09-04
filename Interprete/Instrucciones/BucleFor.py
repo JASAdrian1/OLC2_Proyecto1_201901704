@@ -16,6 +16,7 @@ class BucleFor(Instruccion):
 
     def ejecutar(self, controlador, ts):
         variableControl = self.recorrido
+        #print(self.recorrido.inicio," //////////////",self.recorrido.fin, " ///////////////////////",self.recorrido.objetoARecorrer)
         if self.recorrido.inicio is not None and self.recorrido.fin is not None:
             tablaPrevia = TablaSimbolos(ts)
             tipo_new_varible = tipo(variableControl.inicio.getTipo(controlador, ts)).name
@@ -46,15 +47,16 @@ class BucleFor(Instruccion):
             if type(self.recorrido.objetoARecorrer) is not list:
                 lista = tablaPrevia.getSimbolo(self.recorrido.objetoARecorrer.id)
                 if lista is not None:
-                    if lista.tipoDato == "VEC":
-                        print(lista.valor.expresion)
-                        print(lista.tipoDato)
+                    if lista.tipoDato.tipo_enum == tipo.VEC:
+                        print("qwqw")
                         elementoInicial = lista.valor.expresion[0]
                         listaARecorrer = lista.valor.expresion
-                    elif lista.tipoDato == "ARRAY":
-                        print(lista.valor)
+
+                    elif lista.tipoDato.tipo_enum == tipo.ARRAY:
                         elementoInicial = lista.valor[0]
                         listaARecorrer = lista.valor
+                    else:
+                        print("Se encontro la lista??????????????")
                 else:
                     print("Se encontro la lista??????????????")
             else:
@@ -63,16 +65,19 @@ class BucleFor(Instruccion):
                 listaARecorrer = lista
                 # print(lista.valor.expresion)
                 # print(lista.tipoDato)
+            tipo_new_varible = tipo(elementoInicial.getTipo(controlador, ts)).name
+            tipo_new_varible = Tipo(tipo_new_varible)
             nuevoSimbolo = Simbolo(variableControl.id, elementoInicial.getValor(controlador, ts),
-                                   "variable", elementoInicial.getTipo(controlador, ts), "", True,
+                                   "variable", tipo_new_varible, "", True,
                                    self.linea, self.columna)
             tablaPrevia.agregarSimbolo(variableControl.id, nuevoSimbolo)
 
             if listaARecorrer is not None:
-                variableRecorrido = tablaPrevia.getSimbolo(variableControl.id)
+
                 for elemento in listaARecorrer:
                     tablaLocal = TablaSimbolos(tablaPrevia)
-                    variableRecorrido.valor = elemento.getValor(controlador,ts)
+                    variableRecorrido = tablaLocal.getSimbolo(variableControl.id)
+                    variableRecorrido.valor = elemento.getValor(controlador,tablaLocal)
                     for instruccion in self.instrucciones:
                         instruccion.ejecutar(controlador,tablaLocal)
 
