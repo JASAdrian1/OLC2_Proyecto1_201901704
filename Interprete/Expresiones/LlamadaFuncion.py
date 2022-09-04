@@ -18,16 +18,24 @@ class LlamadaFuncion(Instruccion, Expresion):
 
     def getTipo(self, controlador, ts) -> tipo:
         llamada = ts.getSimbolo(self.id)
-        return llamada.tipoDato.tipo_enum
+        print("Llamada: ",llamada)
+        return llamada.tipo.tipo_enum
 
     def getValor(self, contralador, ts):
         if ts.verificarExisteGlobal(self.id):
             funcion = ts.getSimbolo(self.id)
             tablaLocal = TablaSimbolos(ts)
-            if self.validarParametros(self.parametros,funcion.listaParametros,contralador,tablaLocal):
-                self.parametrosValidados = True
+            if self.parametros is not None:
+                if self.validarParametros(self.parametros,funcion.listaParametros,contralador,tablaLocal):
+                    self.parametrosValidados = True
+                    instruccion = funcion.ejecutar(contralador,tablaLocal)
+                    if instruccion != None:
+                        print("valor funcion")
+                        return instruccion
+            else:
                 instruccion = funcion.ejecutar(contralador,tablaLocal)
                 if instruccion != None:
+                    print("valor funcion")
                     return instruccion
         else:
             contralador.agregarAConsola(
@@ -91,7 +99,7 @@ class LlamadaFuncion(Instruccion, Expresion):
                 auxiliarTipoFuncion = auxiliarFuncion.tipo.tipo_enum
 
                 auxiliarLlamada = parametrosLlamada[i]
-                print("Expresion parametro: ",auxiliarLlamada.expresion)
+                print("Expresion parametro: ",auxiliarFuncion)
                 auxiliarTipoLlamada = auxiliarLlamada.expresion.getTipo(controlador,ts)
                 auxiliarValorLlamada = auxiliarLlamada.expresion.getValor(controlador,ts)
                 print("VALIDACION DE PARAMETROS: ",auxiliarTipoLlamada, " == ", auxiliarTipoFuncion)
@@ -100,7 +108,14 @@ class LlamadaFuncion(Instruccion, Expresion):
                     print("ID = ",auxiliarIdFuncion)
                     print("Valor = ",auxiliarValorLlamada)
                     #if auxiliarFuncion.esPorReferencia == True:    ***AGREGAR VALIDACION ACA PARA QUE SEAN POR VALOR O POR REFERENCIA LOS PARAMETROS
-                    nuevoSimbolo = Simbolo(auxiliarIdFuncion,auxiliarValorLlamada,"variable",
+                    if auxiliarTipoLlamada == tipo.ARRAY or auxiliarTipoLlamada == tipo.VEC:
+                        nuevoSimbolo = Simbolo(auxiliarIdFuncion, auxiliarValorLlamada, "variable",
+                                               auxiliarFuncion.tipo, "", auxiliarFuncion.esMutable,
+                                               auxiliarFuncion.linea, auxiliarFuncion.columna,
+                                               estructuraArr= auxiliarLlamada.expresion.getEstructuraArreglo(controlador,ts),
+                                               tipoElementosArray= auxiliarLlamada.expresion.getTipoElementosArreglo(controlador,ts))
+                    else:
+                        nuevoSimbolo = Simbolo(auxiliarIdFuncion,auxiliarValorLlamada,"variable",
                                            auxiliarFuncion.tipo,"",auxiliarFuncion.esMutable,auxiliarFuncion.linea,auxiliarFuncion.columna)
                     ts.agregarSimbolo(auxiliarFuncion.id,nuevoSimbolo)
                 else:

@@ -24,15 +24,24 @@ class Pritnln(Instruccion):
             if len(self.valores) == len(llaves_cadena) + len(llaves_cadena_array):
                 #print("///",len(llaves_cadena))
                 for valor in self.valores:
-                    if isinstance(valor.getValor(controlador,ts),InicializacionVector):
-                        cadenaAImprimir = "["
+                    valorAImprimir = valor.getValor(controlador,ts)
+                    if isinstance(valorAImprimir,InicializacionVector):
+                        cadenaAImprimir = "[ "
                         for elemento in valor.getValor(controlador,ts).expresion:
                             cadenaAImprimir += str(elemento.getValor(controlador,ts))+","
                         cadenaAImprimir = cadenaAImprimir[:-1]          #Se elimina la ultima coma puesta en el ciclo
-                        cadenaAImprimir += "]"
+                        cadenaAImprimir += " ]"
+                        nueva_cadena = re.sub(r'{:\?}', cadenaAImprimir, self.cadena, 1)
+                    elif type(valorAImprimir) == list:
+                        cadenaAImprimir = "[ "
+                        for elemento in valorAImprimir:
+                            cadenaAImprimir += str(elemento.getValor(controlador, ts)) + ","
+                        cadenaAImprimir = cadenaAImprimir[:-1]  # Se elimina la ultima coma puesta en el ciclo
+                        cadenaAImprimir += " ]"
+                        print("IMPRESION: ",valorAImprimir)
                         nueva_cadena = re.sub(r'{:\?}', cadenaAImprimir, self.cadena, 1)
                     else:
-                        nueva_cadena = re.sub(r'{}',str(valor.getValor(controlador,ts)),self.cadena,1)
+                        nueva_cadena = re.sub(r'{}',str(valorAImprimir),self.cadena,1)
                     self.cadena = nueva_cadena
                 controlador.agregarAConsola(nueva_cadena)
                 controlador.agregarAConsola("\n")

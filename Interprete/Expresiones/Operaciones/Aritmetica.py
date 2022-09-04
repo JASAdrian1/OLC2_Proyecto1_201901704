@@ -60,6 +60,7 @@ class Aritmetica(Operacion):
                         return None
                 if self.operador_enum == operador.RESTA:
                     if tipo_exp1 == tipo.I64 or tipo_exp1 == tipo.F64:
+                        print("Resta aritmetica: ",valor_exp1, " - ", valor_exp2)
                         return valor_exp1 - valor_exp2
                     else:
                         print("***ERROR*** Tipo de dato invalido para realizar resta")

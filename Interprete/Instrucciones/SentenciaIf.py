@@ -1,4 +1,5 @@
 from Interprete.Instrucciones.SentenciaBreak import SentenciaBreak
+from Interprete.Instrucciones.SentenciaReturn import SentenciaReturn
 from Interprete.Interfaces.Instruccion import Instruccion
 from Interprete.TablaSimbolos.Error import Error
 from Interprete.ast.nodo import Nodo
@@ -24,7 +25,10 @@ class SentenciaIf(Instruccion):
                 for instruccion in self.instruccionesIf:
                     tablaLocal = TablaSimbolos(ts)
                     sentencia = instruccion.ejecutar(controlador, tablaLocal)
+                    print("Instruccion (if) = ",sentencia)
                     if isinstance(sentencia, SentenciaBreak):
+                        return sentencia
+                    if isinstance(sentencia, SentenciaReturn):
                         return sentencia
 
             else:
@@ -32,7 +36,12 @@ class SentenciaIf(Instruccion):
                 if self.instruccionesElse is not None:
                     for instruccion in self.instruccionesElse:
                         tablaLocal = TablaSimbolos(ts)
-                        instruccion.ejecutar(controlador, tablaLocal)
+                        sentencia = instruccion.ejecutar(controlador, tablaLocal)
+                        print("Instruccion (if) = ", sentencia)
+                        if isinstance(sentencia, SentenciaBreak):
+                            return sentencia
+                        if isinstance(sentencia, SentenciaReturn):
+                            return sentencia
         else:
             controlador.agregarAConsola("***ERROR***La condicion de la sentencia if no es de tipo booleano")
             controlador.agregarError(

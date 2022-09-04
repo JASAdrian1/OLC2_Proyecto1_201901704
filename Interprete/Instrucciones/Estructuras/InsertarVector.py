@@ -1,3 +1,5 @@
+import copy
+
 from Interprete.Interfaces.Instruccion import Instruccion
 from Interprete.TablaSimbolos.Error import Error
 from Interprete.TablaSimbolos.Tipo import tipo
@@ -13,11 +15,13 @@ class InsertarVector(Instruccion):
 
     def ejecutar(self, controlador, ts):
         variable = ts.getSimbolo(self.id)
-        tipoNuevoValor = self.valor.getTipo(controlador, ts)
+        valorAInsertar = copy.deepcopy(variable.valor.expresion[0])
+        valorAInsertar.valor = self.valor.getValor(controlador,ts)
+        posicionAInsertar = self.posicion.getValor(controlador,ts)
         if variable is not None:
             if variable.esMutable is True:
                 if variable.tipoDato.tipo_enum == tipo.VEC:
-                    variable.valor.expresion[self.posicion.getValor(controlador,ts)] = self.valor
+                    variable.valor.expresion.insert(posicionAInsertar,valorAInsertar)
                 else:
                     controlador.agregarAConsola("***ERROR***No se esta usando el comando push en un vector. Linea: %d Columna: %d" % (self.linea, self.columna))
                     controlador.agregarError(

@@ -11,14 +11,14 @@ class Relacionales(Operacion):
     def getTipo(self, controlador, ts) -> tipo:
         tipo_expresion1 = self.exp1.getTipo(controlador, ts)
         tipo_expresion2 = self.exp2.getTipo(controlador, ts)
-        #print(tipo_expresion1, " == ",tipo_expresion2)
+        print(tipo_expresion1, " == ",tipo_expresion2)
         if tipo_expresion1 == tipo.ERROR or tipo_expresion2 == tipo.ERROR:
             print("***ERROR***Error con algun tipo de los operadores de la operacion relacional")
             return tipo.ERROR
         if (tipo_expresion1 == tipo_expresion2) and (tipo_expresion1 == tipo.I64 or tipo_expresion1 == tipo.F64 or tipo_expresion1 == tipo.STRING or tipo_expresion1 == tipo.BOOL or tipo_expresion1 == tipo.CHAR):
             return tipo.BOOL
         else:
-            controlador.agregarAConsola("***ERROR***Los operadores de laa operacion relacional no coinciden %s != %s\n" % (tipo_expresion1, tipo_expresion2))
+            controlador.agregarAConsola("***ERROR***Los tipo de la operacion relacional no coinciden %s != %s\n" % (tipo_expresion1, tipo_expresion2))
             return tipo.ERROR
 
 
@@ -29,6 +29,7 @@ class Relacionales(Operacion):
         tipo_expresion2 = self.exp2.getTipo(controlador, ts)
         valor_expresion1 = self.exp1.getValor(controlador, ts)
         valor_expresion2 = self.exp2.getValor(controlador, ts)
+        print("Operacion relacional entre ",valor_expresion1, " y ", valor_expresion2)
         if (tipo_expresion1 and tipo_expresion2) != tipo.ERROR:
             if tipo_expresion1 == tipo_expresion2:
                 if self.operador_enum == operador.MAYORQUE:

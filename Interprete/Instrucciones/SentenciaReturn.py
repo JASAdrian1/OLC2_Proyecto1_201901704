@@ -8,7 +8,6 @@ class SentenciaReturn(Instruccion):
         self.columna = columna
 
     def ejecutar(self, controlador, ts):
-        if self.valorRetorno is None:
-            return self
-        else:
-            return self.valorRetorno.getValor(controlador,ts)
+        print("Hay un return")
+        print(self.valorRetorno)
+        return self

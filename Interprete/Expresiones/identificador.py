@@ -34,5 +34,25 @@ class Identificador(Expresion):
                                            self.columna))
             return tipo.ERROR
 
+    def getEstructuraArreglo(self,controlador,ts):
+        variable = ts.getSimbolo(self.id)
+        if variable.tipoDato.tipo_enum == tipo.ARRAY:
+            if variable is not None:
+                return variable.estructuraArr
+            else:
+                print("No se ha devuleto nada en getEstructuraArreglo (identificador)")
+        else:
+            print("No se ha devuleto nada en getEstructuraArreglo (identificador)")
+
+    def getTipoElementosArreglo(self,controlador,ts):
+        variable = ts.getSimbolo(self.id)
+        if variable.tipoDato.tipo_enum == tipo.ARRAY:
+            if variable is not None:
+                return variable.tipoElementosArray
+            else:
+                print("No se ha devuleto nada en getTipoElementosArreglo (identificador)")
+        else:
+            print("No se ha devuleto nada en getTipoElementosArreglo (identificador)")
+
     def recorrer(self) -> Nodo:
         pass

@@ -16,6 +16,7 @@ class BucleWhile(Instruccion):
 
     def ejecutar(self, controlador, ts):
         esBreak = False
+        anteriosEsCiclo = controlador.esCiclo
         condicion = self.expresion.getValor(controlador, ts)
         tipoCondicion = self.expresion.getTipo(controlador,ts)
         if tipoCondicion == tipo.BOOL:
@@ -24,8 +25,8 @@ class BucleWhile(Instruccion):
                 for instruccion in self.instrucciones:
                     sentencia = instruccion.ejecutar(controlador, tablaLocal)
                     if isinstance(sentencia,SentenciaBreak):
-                        esBreak = True
-                        break
+                        controlador.esCiclo = anteriosEsCiclo
+                        return sentencia
                 condicion = self.expresion.getValor(controlador, ts)    #Se verifica si la condicion del while se sigue cumpliendo
         else:
             controlador.agregarAConsola("***ERROR***La condicion del bucle while no es de tipo booleano")

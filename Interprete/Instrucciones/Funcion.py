@@ -1,4 +1,5 @@
 from Interprete.Instrucciones.SentenciaBreak import SentenciaBreak
+from Interprete.Instrucciones.SentenciaReturn import SentenciaReturn
 from Interprete.Interfaces.Instruccion import Instruccion
 from Interprete.TablaSimbolos.Error import Error
 from Interprete.TablaSimbolos.TablaSimbolos import TablaSimbolos
@@ -16,11 +17,14 @@ class Funcion(Instruccion):
 
     def ejecutar(self, controlador, ts):
         tablaLocal = TablaSimbolos(ts)
+        print(self.listaInstrucciones)
         for instruccion in self.listaInstrucciones:
             sentencia = instruccion.ejecutar(controlador,tablaLocal)
-            if isinstance(sentencia,SentenciaBreak):
-                return sentencia
-        return None
+            print("Sentencia (funcion) = ",sentencia)
+            if isinstance(sentencia,SentenciaReturn):
+                print("Se ha retornado algun valor (funcion)")
+                #print(sentencia.valorRetorno.getValor(controlador,ts))
+                return sentencia.valorRetorno.getValor(controlador,ts)
 
 
     def agregarFuncion(self,controlador, ts):

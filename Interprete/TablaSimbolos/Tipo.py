@@ -26,10 +26,15 @@ global validar_tipo
 validar_tipo = {
     '+': {
         tipo.I64:{
-            tipo.I64: tipo.I64
+            tipo.I64: tipo.I64,
+            tipo.USIZE: tipo.I64
         },
         tipo.F64:{
             tipo.F64: tipo.F64
+        },
+        tipo.USIZE:{
+            tipo.USIZE: tipo.I64,
+            tipo.I64: tipo.I64
         },
         tipo.STR:{
             tipo.STR: tipo.STR,
@@ -46,6 +51,11 @@ validar_tipo = {
             tipo.F64: tipo.F64
         },
         tipo.I64:{
+            tipo.I64: tipo.I64,
+            tipo.USIZE: tipo.I64
+        },
+        tipo.USIZE:{
+            tipo.USIZE: tipo.USIZE,
             tipo.I64: tipo.I64
         }
     },

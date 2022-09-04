@@ -30,7 +30,7 @@ class AsignacionArreglo(Instruccion):
                 else:
                     posicionAcceso = self.acceso[0]
                 if tipoNuevoValor == lista[posicionAcceso.getValor(controlador, ts)].getTipo(controlador, ts):
-                    lista[posicionAcceso.getValor(controlador, ts)].valor = self.expresion.valor
+                    lista[posicionAcceso.getValor(controlador, ts)].valor = self.expresion.getValor(controlador,ts)
             else:
                 controlador.agregarAConsola("***ERROR***Se está intentado modificar una variable no mutable")
                 controlador.agregarError(

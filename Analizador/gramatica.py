@@ -16,6 +16,7 @@ from Interprete.Instrucciones.Estructuras.InsertarVector import InsertarVector
 from Interprete.Instrucciones.Estructuras.RemoveVector import RemoveVector
 from Interprete.Instrucciones.Estructuras.ContainsVector import ContainsVector
 from Interprete.Instrucciones.Estructuras.LenVector import LenVector
+from Interprete.Instrucciones.Estructuras.CapacityVector import CapacityVector
 from Interprete.Instrucciones.Funcion import Funcion
 from Interprete.Expresiones.LlamadaFuncion import LlamadaFuncion
 from Interprete.TablaSimbolos.Parametro import Parametro
@@ -31,6 +32,7 @@ from Interprete.Instrucciones.BucleWhile import BucleWhile
 from Interprete.Instrucciones.BucleFor import BucleFor
 from Interprete.Instrucciones.RecorridoFor import RecorridoFor
 from Interprete.Instrucciones.SentenciaBreak import SentenciaBreak
+from Interprete.Instrucciones.SentenciaReturn import SentenciaReturn
 
 # Palabras reservadas
 reserved = {
@@ -61,6 +63,7 @@ reserved = {
     'for': 'FOR',
     'in':'IN',
     'break': "BREAK",
+    'return':'RETURN',
     'with': 'WITH',
     'capacity':'CAPACITY',
     'to':'TO',
@@ -251,6 +254,8 @@ def p_instruccion(t):
                     | bucle_while
                     | bucle_for
                     | BREAK PYC
+                    | RETURN expresion
+                    | RETURN expresion PYC
                     | push_vector PYC
                     | insertar_en_vector PYC
                     | remove_vector PYC
@@ -259,6 +264,8 @@ def p_instruccion(t):
     if t[1] == "break":
         t[0] = SentenciaBreak()
         print(type(t[0]))
+    elif t[1] == "return":
+        t[0] = SentenciaReturn(t[2],t.lexer.lineno,1)
     else:
         t[0] = t[1]
     return t
@@ -591,6 +598,7 @@ def p_funcion(t):  # ----PENDIENTE------
     elif len(t) == 12:
         t[0] = Funcion(t[2],t[8],t[4],t[10],t.lexer.lineno,1)
     elif len(t) == 8:
+        print("Instrucciones: ",t[6])
         t[0] = Funcion(t[2],None,None,t[6],t.lexer.lineno,1)
     else:
         t[0] = Funcion(t[2],t[7],None,t[9],t.lexer.lineno,1)
@@ -647,8 +655,12 @@ def p_tipo_parametro(t):
 
 def p_llamada_funcion(t):
     ''' llamada_funcion : ID PARA lista_parametros_llamada PARC
+                        | ID PARA PARC
     '''
-    t[0] = LlamadaFuncion(t[1],t[3],t.lexer.lineno,1)
+    if len(t) == 4:
+        t[0] = LlamadaFuncion(t[1],None,t.lexer.lineno,1)
+    else:
+        t[0] = LlamadaFuncion(t[1],t[3],t.lexer.lineno,1)
     return t
 
 # ===================PRDUCCIONES PARA EXPRESIONES==========================
@@ -788,11 +800,27 @@ def p_len_vector(t):
     t[0] = LenVector(t[1],t.lexer.lineno,1)
     return t
 
+def p_capacity_vector(t):
+    ''' expresion : ID PUNTO CAPACITY PARA PARC
+    '''
+    t[0] = CapacityVector(t[1],t.lexer.lineno,1)
+    return t
+
+def p_remove_vector_expresion(t):
+    ''' expresion : ID PUNTO REMOVE PARA expresion PARC
+    '''
+    t[0] = RemoveVector(t[1],t[5],t.lexer.lineno,1)
+    return t
+
 
 def p_llamada_funcion_expresion(t):
     ''' expresion : ID PARA lista_parametros_llamada PARC
+                | ID PARA PARC
     '''
-    t[0] = LlamadaFuncion(t[1],t[3],t.lexer.lineno,1)
+    if len(t) == 4:
+        t[0] = LlamadaFuncion(t[1],None,t.lexer.lineno,1)
+    else:
+        t[0] = LlamadaFuncion(t[1],t[3],t.lexer.lineno,1)
     return t
 
 def p_parametros_funcion_llamada(t):
