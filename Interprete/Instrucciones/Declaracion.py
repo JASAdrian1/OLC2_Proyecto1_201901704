@@ -41,8 +41,6 @@ class Declaracion(Instruccion):
                     else:
                         print(self.valor,"//-//-//-")
                         print(self.fila,"---")
-                        #for eleemento in self.valor:
-                        #    print(eleemento.getValor(controlador,ts))
                         tipo_new_varible = tipo(self.valor.getTipo(controlador,ts)).name    #Se obtiene el string del nombre del valor en el enum
                         tipo_new_varible = Tipo(tipo_new_varible)       #Con el nombre obtenido se crea un objeto de tipo Tipo
                         nueva_variable = Simbolo(id, self.valor.getValor(controlador, ts), "variable", tipo_new_varible, "",

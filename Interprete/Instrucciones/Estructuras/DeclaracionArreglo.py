@@ -41,10 +41,10 @@ class DeclaracionArreglo(Instruccion):
                         pass
                     else:
                         tipoElementos = self.getElementoBasico(self.valor)  #Se guarda un valor del arreglo
-                        print(tipoElementos.tipo_enum,"   (impreso desde declaracion array)")
+                        print(tipoElementos.tipo.tipo_enum,"   (impreso desde declaracion array)")
                         nuevo_simbolo = Simbolo(self.id, self.valor, "arreglo", self.tipo, "", self.esMutable, self.linea,
                                                 self.columna,
-                                                tipoElementosArray=tipoElementos.tipo_enum, estructuraArr=self.estructuraArreglo)
+                                                tipoElementosArray=tipoElementos.tipo.tipo_enum, estructuraArr=self.estructuraArreglo)
                         lista_simbolos.append(nuevo_simbolo)
                         ts.agregarSimbolo(id, nuevo_simbolo)
                 else:

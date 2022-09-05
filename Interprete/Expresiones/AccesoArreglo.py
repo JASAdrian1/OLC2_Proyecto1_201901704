@@ -66,7 +66,7 @@ class AccesoArreglo(Expresion):
     def getTipo(self, controlador, ts) -> tipo:
         arreglo = ts.getSimbolo(self.id)
         print("Tipo: ",arreglo.tipoElementosArray)
-        print(arreglo.valor[0])
+        #print(arreglo.valor[0])
         return arreglo.tipoElementosArray
 
     def recorrer(self) -> Nodo:

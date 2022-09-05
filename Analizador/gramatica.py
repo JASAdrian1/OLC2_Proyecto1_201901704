@@ -186,10 +186,14 @@ def t_ID(t):
         t.value = 'ERROR'
     return t
 
-
 def t_COMMENT(t):
-    r'\#.*'
+    r'/\\*.*?\\*/'
+    print("Comentario")
     pass
+
+
+
+
 
 
 t_ignore = " \t"
@@ -319,6 +323,8 @@ def p_declaracion(t):
 
     elif len(t) == 5 and isinstance(t[4],InicializacionVector):
         t[0] = DeclaracionVector(t[2],t[4],Tipo("VEC"),None,False,None, t.lexer.lineno,1)            #DECLARAR VECTOR NO MUTABLE
+    elif len(t) == 5 and type(t[4]) == list:
+        t[0] = DeclaracionArreglo(t[1],t[4],Tipo("ARRAY"),None,None,Tipo,t.lexer.lineno,1)
     else:
         if len(t) == 8:
             # print("Se reconocio una declaracion con el valor de: ",t[7])
@@ -847,6 +853,7 @@ def p_parametro_llamada(t):
 
 def p_error(t):
     print("Error sintáctico en '%s'" % t.value, "Linea: %d" % t.lexer.lineno)
+    return t
 
 
 import Analizador.ply.yacc as yacc

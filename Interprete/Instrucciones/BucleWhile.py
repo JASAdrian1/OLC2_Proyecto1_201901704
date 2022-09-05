@@ -26,6 +26,7 @@ class BucleWhile(Instruccion):
                     sentencia = instruccion.ejecutar(controlador, tablaLocal)
                     if isinstance(sentencia,SentenciaBreak):
                         controlador.esCiclo = anteriosEsCiclo
+                        print("Break en while")
                         return sentencia
                 condicion = self.expresion.getValor(controlador, ts)    #Se verifica si la condicion del while se sigue cumpliendo
         else:
